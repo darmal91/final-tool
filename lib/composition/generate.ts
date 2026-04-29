@@ -6,6 +6,7 @@ import { resolveStrategy, type CompositionStrategy } from "./strategy";
 import { generateCopy } from "@/lib/content/ai";
 import { scoreVariantPlan } from "./scoring";
 import { applyLayoutRules } from "./layoutRules";
+import { REAL_WORLD_PATTERNS } from "./realWorldPatterns";
 import { appendDecisionLog, type DecisionLogEntry } from "@/lib/logging/decisionLog";
 
 interface GeneratedCopy {
@@ -114,7 +115,8 @@ export async function generateComposition(
   const strategy = resolveStrategy(input);
   const { best, bestName, candidates } = selectBestVariant(input, strategy);
   const variants = applyLayoutRules(best, strategy);
-  const { copy, source, error } = await generateCopy(input, strategy);
+  const pattern = REAL_WORLD_PATTERNS[input.businessType];
+  const { copy, source, error } = await generateCopy(input, strategy, pattern);
 
   const counts: Record<SectionType, number> = { hero: 0, services: 0, reviews: 0, cta: 0 };
   const sections: Section[] = strategy.sectionOrder.map((type) => {

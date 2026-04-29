@@ -16,6 +16,7 @@ import {
   describeStrategy,
   type CompositionStrategy,
 } from "@/lib/composition/strategy";
+import type { RealWorldPattern } from "@/lib/composition/realWorldPatterns";
 
 interface GeneratedCopy {
   hero: HeroContent;
@@ -40,9 +41,16 @@ Rules:
 - You are NOT in charge of layout, sections, or design. Only text.
 - Output valid JSON. All required fields filled.`;
 
-function userPrompt(input: BusinessInput, strategy?: CompositionStrategy): string {
+function userPrompt(
+  input: BusinessInput,
+  strategy?: CompositionStrategy,
+  pattern?: RealWorldPattern
+): string {
   const strategyLine = strategy
     ? `Strategic voice (content guidance only — do NOT alter structure): ${describeStrategy(strategy)}`
+    : "";
+  const patternLine = pattern
+    ? `Copy must follow real-world framing:\nHero: ${pattern.heroPatterns.headlineStyle}\nServices: ${pattern.serviceFraming}\nReviews: ${pattern.reviewFraming}\nCTA: ${pattern.ctaStyle}`
     : "";
   return `Business: ${input.businessName}
 Type: ${input.businessType}
@@ -53,6 +61,7 @@ Services: ${input.services.join(", ") || "(none provided)"}
 ${input.phone ? `Phone: ${input.phone}` : ""}
 ${input.email ? `Email: ${input.email}` : ""}
 ${strategyLine}
+${patternLine}
 
 Return JSON in exactly this shape:
 {
@@ -103,7 +112,8 @@ function fallback(input: BusinessInput): GeneratedCopy {
 
 export async function generateCopy(
   input: BusinessInput,
-  strategy?: CompositionStrategy
+  strategy?: CompositionStrategy,
+  pattern?: RealWorldPattern
 ): Promise<{
   copy: GeneratedCopy;
   source: "ai" | "template";
@@ -126,7 +136,7 @@ export async function generateCopy(
           cache_control: { type: "ephemeral" },
         },
       ],
-      messages: [{ role: "user", content: userPrompt(input, strategy) }],
+      messages: [{ role: "user", content: userPrompt(input, strategy, pattern) }],
     });
 
     const textBlock = message.content.find((c) => c.type === "text");
