@@ -1,6 +1,0 @@
-{
-  "/api/projects/[businessId]/route": "app/api/projects/[businessId]/route.js",
-  "/preview/[businessId]/page": "app/preview/[businessId]/page.js",
-  "/editor/[businessId]/page": "app/editor/[businessId]/page.js",
-  "/page": "app/page.js"
-}
