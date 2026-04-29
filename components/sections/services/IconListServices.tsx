@@ -51,7 +51,7 @@ export default function IconListServices({ content }: { content: ServicesContent
                 <h3
                   style={{
                     margin: 0,
-                    fontSize: "1.125rem",
+                    fontSize: "calc(var(--ft-heading-scale, 1) * 1.125rem)",
                     fontWeight: 600,
                     letterSpacing: "-0.01em",
                   }}
@@ -62,7 +62,7 @@ export default function IconListServices({ content }: { content: ServicesContent
                   style={{
                     margin: 0,
                     color: "var(--ft-text-muted)",
-                    fontSize: "var(--ft-fs-body)",
+                    fontSize: "calc(var(--ft-body-scale, 1) * var(--ft-fs-body))",
                     lineHeight: 1.55,
                     marginTop: "0.25rem",
                   }}

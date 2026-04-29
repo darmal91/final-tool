@@ -6,7 +6,7 @@ export default function ScrollingReviews({ content }: { content: ReviewsContent 
     <section
       style={{
         background: "var(--ft-surface-muted)",
-        padding: "var(--ft-section-y) 0",
+        padding: "var(--ft-section-spacing, var(--ft-section-y)) 0",
       }}
     >
       <div style={{ maxWidth: "1120px", margin: "0 auto", padding: "0 1.25rem" }}>
@@ -50,7 +50,7 @@ export default function ScrollingReviews({ content }: { content: ReviewsContent 
               <p
                 style={{
                   marginTop: "0.75rem",
-                  fontSize: "var(--ft-fs-body)",
+                  fontSize: "calc(var(--ft-body-scale, 1) * var(--ft-fs-body))",
                   lineHeight: 1.55,
                   color: "var(--ft-text)",
                 }}

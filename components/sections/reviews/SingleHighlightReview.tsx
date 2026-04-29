@@ -21,7 +21,7 @@ export default function SingleHighlightReview({ content }: { content: ReviewsCon
         <blockquote
           style={{
             margin: 0,
-            fontSize: "clamp(1.5rem, 3vw, 2rem)",
+            fontSize: "calc(var(--ft-heading-scale, 1) * clamp(1.5rem, 3vw, 2rem))",
             lineHeight: 1.3,
             letterSpacing: "-0.02em",
             fontWeight: 500,

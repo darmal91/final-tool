@@ -27,8 +27,8 @@ export function SectionShell({
       style={{
         background: bg,
         color: text,
-        paddingTop: "var(--ft-section-y)",
-        paddingBottom: "var(--ft-section-y)",
+        paddingTop: "var(--ft-section-spacing, var(--ft-section-y))",
+        paddingBottom: "var(--ft-section-spacing, var(--ft-section-y))",
         paddingLeft: "1.25rem",
         paddingRight: "1.25rem",
       }}
@@ -73,7 +73,7 @@ export function Heading({
   return (
     <Tag
       style={{
-        fontSize: `var(--ft-fs-${size})`,
+        fontSize: `calc(var(--ft-heading-scale, 1) * var(--ft-fs-${size}))`,
         fontWeight: "var(--ft-font-heading-weight)" as unknown as number,
         letterSpacing: "var(--ft-letter-spacing-heading)",
         lineHeight: 1.08,
@@ -99,7 +99,7 @@ export function Lead({
   return (
     <p
       style={{
-        fontSize: "1.125rem",
+        fontSize: "calc(var(--ft-body-scale, 1) * 1.125rem)",
         lineHeight: 1.55,
         color: inverse ? "var(--ft-text-inverse)" : "var(--ft-text-muted)",
         textAlign: align,
@@ -127,7 +127,8 @@ export function Button({
 }) {
   const padY = size === "lg" ? "1rem" : "0.75rem";
   const padX = size === "lg" ? "1.75rem" : "1.25rem";
-  const fs = size === "lg" ? "1.0625rem" : "0.9375rem";
+  const fsBase = size === "lg" ? "1.0625rem" : "0.9375rem";
+  const fs = `calc(var(--ft-cta-scale, 1) * ${fsBase})`;
 
   let bg = "var(--ft-brand)";
   let color = "var(--ft-on-brand)";

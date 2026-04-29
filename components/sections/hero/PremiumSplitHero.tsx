@@ -13,7 +13,7 @@ export default function PremiumSplitHero({
       style={{
         background: "var(--ft-surface)",
         color: "var(--ft-text)",
-        padding: "var(--ft-section-y) 1.25rem",
+        padding: "calc(var(--ft-hero-scale, 1) * var(--ft-section-spacing, var(--ft-section-y))) 1.25rem",
       }}
     >
       <div

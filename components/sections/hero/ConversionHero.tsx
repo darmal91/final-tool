@@ -7,7 +7,7 @@ export default function ConversionHero({ content }: { content: HeroContent }) {
       style={{
         background: "var(--ft-brand)",
         color: "var(--ft-on-brand)",
-        padding: "var(--ft-section-y) 1.25rem",
+        padding: "calc(var(--ft-hero-scale, 1) * var(--ft-section-spacing, var(--ft-section-y))) 1.25rem",
       }}
     >
       <div
@@ -53,8 +53,8 @@ export default function ConversionHero({ content }: { content: HeroContent }) {
               alignItems: "center",
               justifyContent: "center",
               gap: "0.5rem",
-              padding: "1.25rem 2rem",
-              fontSize: "1.125rem",
+              padding: "calc(var(--ft-cta-scale, 1) * 1.25rem) calc(var(--ft-cta-scale, 1) * 2rem)",
+              fontSize: "calc(var(--ft-cta-scale, 1) * 1.125rem)",
               fontWeight: 700,
               letterSpacing: "-0.01em",
               background: "var(--ft-on-brand)",

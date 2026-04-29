@@ -7,7 +7,7 @@ export default function UrgencyCTA({ content }: { content: CTAContent }) {
       style={{
         background: "var(--ft-surface-inverse)",
         color: "var(--ft-text-inverse)",
-        padding: "var(--ft-section-y) 1.25rem",
+        padding: "var(--ft-section-spacing, var(--ft-section-y)) 1.25rem",
         position: "relative",
         overflow: "hidden",
       }}

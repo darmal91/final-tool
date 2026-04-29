@@ -1,5 +1,6 @@
 import type { Density, RadiusStyle, ResolvedTheme, ThemeTokens } from "@/lib/types";
 import type { Tone } from "@/lib/types";
+import type { HierarchyTokens } from "./hierarchyTokens";
 
 interface TonePalette {
   brand: string;
@@ -122,7 +123,13 @@ const TYPOGRAPHY_SCALE = {
   eyebrow: "0.8125rem",
 };
 
-export function resolveTheme(tokens: ThemeTokens): ResolvedTheme {
+const SECTION_SPACING_VALUES: Record<HierarchyTokens["sectionSpacing"], string> = {
+  compact: "4rem",
+  balanced: "6rem",
+  airy: "8rem",
+};
+
+export function resolveTheme(tokens: ThemeTokens, hierarchy?: HierarchyTokens): ResolvedTheme {
   const palette = TONE_PALETTES[tokens.tone];
   const spacing = DENSITY_SPACING[tokens.density];
   const radii = RADIUS_VALUES[tokens.radius];
@@ -161,6 +168,15 @@ export function resolveTheme(tokens: ThemeTokens): ResolvedTheme {
     "--ft-fs-micro": TYPOGRAPHY_SCALE.micro,
     "--ft-fs-eyebrow": TYPOGRAPHY_SCALE.eyebrow,
   };
+
+  if (hierarchy) {
+    cssVars["--ft-hero-scale"] = String(hierarchy.heroScale);
+    cssVars["--ft-heading-scale"] = String(hierarchy.headingScale);
+    cssVars["--ft-body-scale"] = String(hierarchy.bodyScale);
+    cssVars["--ft-cta-scale"] = String(hierarchy.ctaScale);
+    cssVars["--ft-density"] = hierarchy.density;
+    cssVars["--ft-section-spacing"] = SECTION_SPACING_VALUES[hierarchy.sectionSpacing];
+  }
 
   return { tokens, cssVars, fontFamily: palette.fontFamily };
 }

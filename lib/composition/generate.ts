@@ -1,5 +1,6 @@
 import type { BusinessInput, SiteComposition, Section, SectionType } from "@/lib/types";
 import { resolveTheme } from "@/lib/design/tokens";
+import { resolveHierarchyTokens } from "@/lib/design/hierarchyTokens";
 import { themeFromInput } from "./theme-from-input";
 import { pickVariants, type VariantPlan } from "./variants";
 import { resolveStrategy, type CompositionStrategy } from "./strategy";
@@ -111,8 +112,9 @@ export async function generateComposition(
   input: BusinessInput
 ): Promise<{ composition: SiteComposition; source: "ai" | "template"; error?: string }> {
   const tokens = themeFromInput(input);
-  const theme = resolveTheme(tokens);
   const strategy = resolveStrategy(input);
+  const hierarchy = resolveHierarchyTokens(input, strategy);
+  const theme = resolveTheme(tokens, hierarchy);
   const { best, bestName, candidates } = selectBestVariant(input, strategy);
   const variants = applyLayoutRules(best, strategy);
   const pattern = REAL_WORLD_PATTERNS[input.businessType];

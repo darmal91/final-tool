@@ -30,7 +30,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
           <Card key={s.title}>
             <div
               style={{
-                fontSize: "1.75rem",
+                fontSize: "calc(var(--ft-body-scale, 1) * 1.75rem)",
                 lineHeight: 1,
                 marginBottom: "0.75rem",
               }}
@@ -40,7 +40,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
             <h3
               style={{
                 margin: 0,
-                fontSize: "var(--ft-fs-h3)",
+                fontSize: "calc(var(--ft-heading-scale, 1) * var(--ft-fs-h3))",
                 fontWeight: 600,
                 letterSpacing: "-0.015em",
               }}
@@ -50,7 +50,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
             <p
               style={{
                 color: "var(--ft-text-muted)",
-                fontSize: "var(--ft-fs-body)",
+                fontSize: "calc(var(--ft-body-scale, 1) * var(--ft-fs-body))",
                 lineHeight: 1.55,
                 marginTop: "0.5rem",
               }}

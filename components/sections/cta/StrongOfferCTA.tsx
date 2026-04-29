@@ -7,7 +7,7 @@ export default function StrongOfferCTA({ content }: { content: CTAContent }) {
       style={{
         background: "var(--ft-brand)",
         color: "var(--ft-on-brand)",
-        padding: "var(--ft-section-y) 1.25rem",
+        padding: "var(--ft-section-spacing, var(--ft-section-y)) 1.25rem",
       }}
     >
       <div
@@ -47,8 +47,8 @@ export default function StrongOfferCTA({ content }: { content: CTAContent }) {
             alignItems: "center",
             justifyContent: "center",
             gap: "0.5rem",
-            padding: "1.125rem 2.25rem",
-            fontSize: "1.125rem",
+            padding: "calc(var(--ft-cta-scale, 1) * 1.125rem) calc(var(--ft-cta-scale, 1) * 2.25rem)",
+            fontSize: "calc(var(--ft-cta-scale, 1) * 1.125rem)",
             fontWeight: 700,
             background: "var(--ft-on-brand)",
             color: "var(--ft-brand)",

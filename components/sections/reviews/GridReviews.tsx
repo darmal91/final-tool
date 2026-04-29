@@ -32,7 +32,7 @@ export default function GridReviews({ content }: { content: ReviewsContent }) {
             <p
               style={{
                 marginTop: "0.75rem",
-                fontSize: "var(--ft-fs-body)",
+                fontSize: "calc(var(--ft-body-scale, 1) * var(--ft-fs-body))",
                 lineHeight: 1.55,
                 color: "var(--ft-text)",
               }}
