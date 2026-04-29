@@ -48,31 +48,33 @@ export function pickVariants(
   }
 
   if (strategy) {
+    const w = strategy.weights;
+
     if (strategy.tone === "premium") {
       hero = "premium-split";
       if (svc === "card-grid") svc = "icon-list";
-    } else if (strategy.tone === "trust") {
-      if (hero !== "premium-split") hero = "centered-trust";
     } else if (strategy.tone === "urgent") {
       hero = "conversion";
       cta = "urgency";
+    } else if (strategy.tone === "trust") {
+      if (hero !== "premium-split") hero = "centered-trust";
     }
 
-    if (strategy.emphasis.reviews === "high") {
+    if (w.reviews >= 0.75) {
       rev = services.length >= 4 ? "scrolling" : "grid";
-    } else if (strategy.emphasis.reviews === "low") {
+    } else if (w.reviews <= 0.4) {
       rev = "single-highlight";
     }
 
-    if (strategy.emphasis.services === "high" && svc !== "step-based") {
+    if (w.services >= 0.75 && svc !== "step-based") {
       svc = "card-grid";
-    } else if (strategy.emphasis.services === "low" && svc !== "step-based") {
+    } else if (w.services <= 0.4 && svc !== "step-based") {
       svc = "icon-list";
     }
 
-    if (strategy.emphasis.cta === "aggressive") {
+    if (w.cta >= 0.85) {
       cta = strategy.tone === "urgent" ? "urgency" : "strong-offer";
-    } else if (strategy.emphasis.cta === "soft") {
+    } else if (w.cta <= 0.45) {
       cta = "soft-contact";
     }
   }
