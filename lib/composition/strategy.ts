@@ -1,6 +1,7 @@
 import type { BusinessInput, BusinessType, SectionType } from "@/lib/types";
 
 export type StrategyTone = "trust" | "premium" | "urgent" | "friendly";
+export type LayoutIntent = "high-trust" | "high-conversion" | "balanced";
 
 export interface StrategyWeights {
   services: number;
@@ -12,6 +13,7 @@ export interface CompositionStrategy {
   sectionOrder: SectionType[];
   weights: StrategyWeights;
   tone: StrategyTone;
+  layoutIntent: LayoutIntent;
 }
 
 const TRUST_TYPES: ReadonlySet<BusinessType> = new Set([
@@ -147,11 +149,24 @@ function buildSectionOrder(
   return order;
 }
 
+function resolveLayoutIntent(input: BusinessInput): LayoutIntent {
+  if (input.tone === "aggressive") return "high-conversion";
+  if (
+    input.businessType === "plumber" ||
+    input.businessType === "roofer" ||
+    input.businessType === "hvac"
+  ) {
+    return "high-trust";
+  }
+  return "balanced";
+}
+
 export function resolveStrategy(input: BusinessInput): CompositionStrategy {
   const tone = resolveTone(input);
   const weights = buildWeights(input, tone);
   const sectionOrder = buildSectionOrder(input, tone, weights);
-  return { sectionOrder, weights, tone };
+  const layoutIntent = resolveLayoutIntent(input);
+  return { sectionOrder, weights, tone, layoutIntent };
 }
 
 function weightLabel(n: number): string {

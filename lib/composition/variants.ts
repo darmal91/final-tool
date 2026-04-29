@@ -77,6 +77,26 @@ export function pickVariants(
     } else if (w.cta <= 0.45) {
       cta = "soft-contact";
     }
+
+    const { layoutIntent } = strategy;
+
+    if (layoutIntent === "high-trust") {
+      if (hero === "conversion") hero = "centered-trust";
+      if (rev === "single-highlight") rev = "grid";
+      if (cta === "urgency" && strategy.tone !== "urgent") cta = "strong-offer";
+    } else if (layoutIntent === "high-conversion") {
+      hero = "conversion";
+      if (cta === "soft-contact") cta = "strong-offer";
+      if (svc === "card-grid") svc = "icon-list";
+      if (rev === "scrolling") rev = "grid";
+    } else {
+      // balanced: bias toward stable, trustworthy defaults
+      if (hero === "conversion" && strategy.tone !== "urgent") hero = "centered-trust";
+      if (svc !== "step-based") svc = "card-grid";
+      if (rev === "single-highlight" && w.reviews >= 0.5) rev = "grid";
+      if (cta === "urgency" && strategy.tone !== "urgent") cta = "strong-offer";
+      if (cta === "soft-contact" && strategy.tone !== "premium") cta = "strong-offer";
+    }
   }
 
   return { hero, services: svc, reviews: rev, cta };
