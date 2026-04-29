@@ -65,7 +65,7 @@
       {
         "id": "hero",
         "type": "hero",
-        "variant": "premium-split",
+        "variant": "conversion",
         "content": {
           "eyebrow": "Austin, TX · Plumbing",
           "headline": "Austin, TX Plumbing — fast, fair, done right.",
@@ -141,7 +141,7 @@
       {
         "id": "cta",
         "type": "cta",
-        "variant": "strong-offer",
+        "variant": "soft-contact",
         "content": {
           "eyebrow": "Limited slots this week",
           "heading": "Need it handled today? Call now.",

@@ -1,11 +1,5 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/assets/[businessId]/[filename]/route": "app/api/assets/[businessId]/[filename]/route.js",
-  "/api/export/[businessId]/route": "app/api/export/[businessId]/route.js",
-  "/api/assets/[businessId]/route": "app/api/assets/[businessId]/route.js",
   "/api/projects/[businessId]/route": "app/api/projects/[businessId]/route.js",
-  "/api/projects/route": "app/api/projects/route.js",
-  "/new/page": "app/new/page.js",
   "/preview/[businessId]/page": "app/preview/[businessId]/page.js",
   "/editor/[businessId]/page": "app/editor/[businessId]/page.js",
   "/page": "app/page.js"
