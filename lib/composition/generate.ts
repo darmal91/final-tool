@@ -1,6 +1,7 @@
 import type { BusinessInput, SiteComposition, Section, SectionType } from "@/lib/types";
 import { resolveTheme } from "@/lib/design/tokens";
 import { resolveHierarchyTokens } from "@/lib/design/hierarchyTokens";
+import { resolveRealismConfig } from "@/lib/design/realism";
 import { themeFromInput } from "./theme-from-input";
 import { pickVariants, type VariantPlan } from "./variants";
 import { resolveStrategy, type CompositionStrategy } from "./strategy";
@@ -133,14 +134,14 @@ export async function generateComposition(
 ): Promise<{ composition: SiteComposition; source: "ai" | "template"; error?: string }> {
   const tokens = themeFromInput(input);
   const strategy = resolveStrategy(input);
+  const archetype = resolveArchetype(input, strategy);
   const hierarchy = resolveHierarchyTokens(input, strategy);
-  const theme = resolveTheme(tokens, hierarchy);
+  const realism = resolveRealismConfig(input, strategy, archetype);
+  const theme = resolveTheme(tokens, hierarchy, realism);
   const { best, bestName, candidates } = selectBestVariant(input, strategy);
   const variants = applyLayoutRules(best, strategy);
   const pattern = REAL_WORLD_PATTERNS[input.businessType];
   const { copy, source, error } = await generateCopy(input, strategy, pattern);
-
-  const archetype = resolveArchetype(input, strategy);
   const pageFlow = resolvePageFlow(ARCHETYPE_CONFIGS[archetype].sectionFlow, strategy);
 
   const counts: Record<SectionType, number> = { hero: 0, services: 0, reviews: 0, cta: 0 };

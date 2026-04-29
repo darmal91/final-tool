@@ -1,6 +1,7 @@
 import type { Density, RadiusStyle, ResolvedTheme, ThemeTokens } from "@/lib/types";
 import type { Tone } from "@/lib/types";
 import type { HierarchyTokens } from "./hierarchyTokens";
+import type { RealismConfig } from "./realism";
 
 interface TonePalette {
   brand: string;
@@ -129,7 +130,7 @@ const SECTION_SPACING_VALUES: Record<HierarchyTokens["sectionSpacing"], string> 
   airy: "8rem",
 };
 
-export function resolveTheme(tokens: ThemeTokens, hierarchy?: HierarchyTokens): ResolvedTheme {
+export function resolveTheme(tokens: ThemeTokens, hierarchy?: HierarchyTokens, realism?: RealismConfig): ResolvedTheme {
   const palette = TONE_PALETTES[tokens.tone];
   const spacing = DENSITY_SPACING[tokens.density];
   const radii = RADIUS_VALUES[tokens.radius];
@@ -176,6 +177,13 @@ export function resolveTheme(tokens: ThemeTokens, hierarchy?: HierarchyTokens): 
     cssVars["--ft-cta-scale"] = String(hierarchy.ctaScale);
     cssVars["--ft-density"] = hierarchy.density;
     cssVars["--ft-section-spacing"] = SECTION_SPACING_VALUES[hierarchy.sectionSpacing];
+  }
+
+  if (realism) {
+    cssVars["--ft-spacing-variance"] = String(realism.spacingVariance);
+    cssVars["--ft-type-relax"] = String(realism.typographyRelaxation);
+    cssVars["--ft-cta-asymmetry"] = String(realism.ctaAsymmetry);
+    cssVars["--ft-section-breathing"] = String(realism.sectionBreathing);
   }
 
   return { tokens, cssVars, fontFamily: palette.fontFamily };

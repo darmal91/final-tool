@@ -27,10 +27,11 @@ export function SectionShell({
       style={{
         background: bg,
         color: text,
-        paddingTop: "var(--ft-section-spacing, var(--ft-section-y))",
-        paddingBottom: "var(--ft-section-spacing, var(--ft-section-y))",
+        paddingTop: "calc(var(--ft-section-spacing, var(--ft-section-y)) * (1 + var(--ft-spacing-variance, 0)))",
+        paddingBottom: "calc(var(--ft-section-spacing, var(--ft-section-y)) * (1 - var(--ft-spacing-variance, 0)))",
         paddingLeft: "1.25rem",
         paddingRight: "1.25rem",
+        marginBottom: "calc(var(--ft-section-breathing, 0) * var(--ft-section-spacing, var(--ft-section-y)))",
       }}
     >
       <div style={{ maxWidth: "1120px", margin: "0 auto" }}>{children}</div>
@@ -73,7 +74,7 @@ export function Heading({
   return (
     <Tag
       style={{
-        fontSize: `calc(var(--ft-heading-scale, 1) * var(--ft-fs-${size}))`,
+        fontSize: `calc(var(--ft-heading-scale, 1) * (1 + var(--ft-type-relax, 0)) * var(--ft-fs-${size}))`,
         fontWeight: "var(--ft-font-heading-weight)" as unknown as number,
         letterSpacing: "var(--ft-letter-spacing-heading)",
         lineHeight: 1.08,
@@ -163,6 +164,7 @@ export function Button({
         textDecoration: "none",
         transition: "transform 120ms ease, background 120ms ease",
         whiteSpace: "nowrap",
+        transform: variant === "primary" ? "translateX(calc(var(--ft-cta-asymmetry, 0) * 1%))" : undefined,
       }}
     >
       {children}
