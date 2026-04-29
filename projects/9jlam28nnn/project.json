@@ -141,7 +141,7 @@
       {
         "id": "cta",
         "type": "cta",
-        "variant": "soft-contact",
+        "variant": "strong-offer",
         "content": {
           "eyebrow": "Limited slots this week",
           "heading": "Need it handled today? Call now.",

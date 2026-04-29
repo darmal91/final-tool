@@ -8,6 +8,7 @@ import { generateCopy } from "@/lib/content/ai";
 import { scoreVariantPlan } from "./scoring";
 import { applyLayoutRules } from "./layoutRules";
 import { REAL_WORLD_PATTERNS } from "./realWorldPatterns";
+import { resolveArchetype, ARCHETYPE_CONFIGS } from "./archetypes";
 import { appendDecisionLog, type DecisionLogEntry } from "@/lib/logging/decisionLog";
 
 interface GeneratedCopy {
@@ -23,6 +24,25 @@ interface SelectionResult {
   best: VariantPlan;
   bestName: string;
   candidates: CandidateRecord[];
+}
+
+function resolvePageFlow(
+  baseFlow: SectionType[],
+  strategy: CompositionStrategy
+): SectionType[] {
+  // layoutIntent override: high-conversion requires CTA before reviews.
+  // If the archetype places CTA only after reviews, move it to just before reviews.
+  if (strategy.layoutIntent === "high-conversion") {
+    const reviewsIdx = baseFlow.indexOf("reviews");
+    const firstCtaIdx = baseFlow.indexOf("cta");
+    if (reviewsIdx >= 0 && firstCtaIdx > reviewsIdx) {
+      const adjusted: SectionType[] = baseFlow.filter((s) => s !== "cta");
+      const newReviewsIdx = adjusted.indexOf("reviews");
+      adjusted.splice(newReviewsIdx, 0, "cta");
+      return adjusted;
+    }
+  }
+  return baseFlow;
 }
 
 function buildSection(
@@ -120,8 +140,11 @@ export async function generateComposition(
   const pattern = REAL_WORLD_PATTERNS[input.businessType];
   const { copy, source, error } = await generateCopy(input, strategy, pattern);
 
+  const archetype = resolveArchetype(input, strategy);
+  const pageFlow = resolvePageFlow(ARCHETYPE_CONFIGS[archetype].sectionFlow, strategy);
+
   const counts: Record<SectionType, number> = { hero: 0, services: 0, reviews: 0, cta: 0 };
-  const sections: Section[] = strategy.sectionOrder.map((type) => {
+  const sections: Section[] = pageFlow.map((type) => {
     counts[type] += 1;
     const id = counts[type] === 1 ? type : `${type}-${counts[type]}`;
     return buildSection(type, id, variants, copy);
