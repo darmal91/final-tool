@@ -1,0 +1,156 @@
+{
+  "project": {
+    "id": "9jlam28nnn",
+    "createdAt": "2026-04-29T04:33:59.747Z",
+    "input": {
+      "businessName": "Acme Plumbing",
+      "businessType": "plumber",
+      "location": "Austin, TX",
+      "services": [
+        "Emergency Repair",
+        "Drain Cleaning",
+        "Water Heaters",
+        "Fixture Install"
+      ],
+      "tone": "aggressive",
+      "differentiator": ""
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "9jlam28nnn",
+    "theme": {
+      "tokens": {
+        "tone": "aggressive",
+        "density": "tight",
+        "radius": "sharp"
+      },
+      "cssVars": {
+        "--ft-brand": "#DC2626",
+        "--ft-brand-hover": "#B91C1C",
+        "--ft-brand-soft": "#FEE2E2",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F8FAFC",
+        "--ft-surface-inverse": "#111111",
+        "--ft-text": "#111111",
+        "--ft-text-muted": "#525252",
+        "--ft-text-inverse": "#FAFAFA",
+        "--ft-border": "#E5E7EB",
+        "--ft-accent": "#FACC15",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "800",
+        "--ft-letter-spacing-heading": "-0.03em",
+        "--ft-section-y": "4rem",
+        "--ft-section-y-sm": "2.5rem",
+        "--ft-block-gap": "1.25rem",
+        "--ft-item-gap": "0.75rem",
+        "--ft-card-pad": "1.25rem",
+        "--ft-radius-sm": "0.125rem",
+        "--ft-radius-md": "0.25rem",
+        "--ft-radius-lg": "0.375rem",
+        "--ft-radius-pill": "0.5rem",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "premium-split",
+        "content": {
+          "eyebrow": "Austin, TX · Plumbing",
+          "headline": "Austin, TX Plumbing — fast, fair, done right.",
+          "subheadline": "Local plumbing you can count on. Honest pricing. Real people. Workmanship that lasts.",
+          "ctaText": "Get a free quote",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Same-day service available",
+            "Free quotes"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "card-grid",
+        "content": {
+          "heading": "What we do",
+          "subheading": "Full-service plumbing across Austin, TX and surrounding areas.",
+          "services": [
+            {
+              "title": "Emergency Repair",
+              "description": "Reliable emergency repair for Austin, TX customers, handled by experienced plumbing professionals.",
+              "icon": "🚨"
+            },
+            {
+              "title": "Drain Cleaning",
+              "description": "Reliable drain cleaning for Austin, TX customers, handled by experienced plumbing professionals.",
+              "icon": "🧽"
+            },
+            {
+              "title": "Water Heaters",
+              "description": "Reliable water heaters for Austin, TX customers, handled by experienced plumbing professionals.",
+              "icon": "🔧"
+            },
+            {
+              "title": "Fixture Install",
+              "description": "Reliable fixture install for Austin, TX customers, handled by experienced plumbing professionals.",
+              "icon": "🔨"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What our customers say",
+          "subheading": "Real reviews from real Austin, TX customers.",
+          "reviews": [
+            {
+              "name": "Sarah M.",
+              "role": "Austin, TX homeowner",
+              "body": "Honest, professional, and on time. Acme Plumbing fixed our problem the first visit. Highly recommend.",
+              "rating": 5
+            },
+            {
+              "name": "James O.",
+              "role": "Repeat customer",
+              "body": "Fair pricing and a team that actually shows up when they say they will. We won't call anyone else.",
+              "rating": 5
+            },
+            {
+              "name": "Linda C.",
+              "role": "Property manager",
+              "body": "Clean work, clear communication, no surprises on the invoice. Exactly what you want.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "strong-offer",
+        "content": {
+          "eyebrow": "Limited slots this week",
+          "heading": "Need it handled today? Call now.",
+          "subheading": "Tell us what's wrong. We'll be there fast.",
+          "buttonText": "Call now",
+          "buttonHref": "#contact",
+          "microcopy": "No spam. No pressure. Just an honest quote."
+        }
+      }
+    ]
+  }
+}

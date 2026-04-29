@@ -18,7 +18,57 @@
     "afterFiles": [],
     "fallback": []
   },
-  "dynamicRoutes": [],
+  "dynamicRoutes": [
+    {
+      "page": "/api/assets/[businessId]",
+      "regex": "^/api/assets/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPbusinessId": "nxtPbusinessId"
+      },
+      "namedRegex": "^/api/assets/(?<nxtPbusinessId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/assets/[businessId]/[filename]",
+      "regex": "^/api/assets/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPbusinessId": "nxtPbusinessId",
+        "nxtPfilename": "nxtPfilename"
+      },
+      "namedRegex": "^/api/assets/(?<nxtPbusinessId>[^/]+?)/(?<nxtPfilename>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/export/[businessId]",
+      "regex": "^/api/export/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPbusinessId": "nxtPbusinessId"
+      },
+      "namedRegex": "^/api/export/(?<nxtPbusinessId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/api/projects/[businessId]",
+      "regex": "^/api/projects/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPbusinessId": "nxtPbusinessId"
+      },
+      "namedRegex": "^/api/projects/(?<nxtPbusinessId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/editor/[businessId]",
+      "regex": "^/editor/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPbusinessId": "nxtPbusinessId"
+      },
+      "namedRegex": "^/editor/(?<nxtPbusinessId>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/preview/[businessId]",
+      "regex": "^/preview/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPbusinessId": "nxtPbusinessId"
+      },
+      "namedRegex": "^/preview/(?<nxtPbusinessId>[^/]+?)(?:/)?$"
+    }
+  ],
   "staticRoutes": [
     {
       "page": "/",
@@ -33,16 +83,10 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
-      "page": "/editor",
-      "regex": "^/editor(?:/)?$",
+      "page": "/new",
+      "regex": "^/new(?:/)?$",
       "routeKeys": {},
-      "namedRegex": "^/editor(?:/)?$"
-    },
-    {
-      "page": "/preview",
-      "regex": "^/preview(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/preview(?:/)?$"
+      "namedRegex": "^/new(?:/)?$"
     }
   ],
   "dataRoutes": [],

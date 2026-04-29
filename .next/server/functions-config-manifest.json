@@ -1,4 +1,10 @@
 {
   "version": 1,
-  "functions": {}
+  "functions": {
+    "/api/assets/[businessId]/[filename]": {},
+    "/api/assets/[businessId]": {},
+    "/api/export/[businessId]": {},
+    "/api/projects": {},
+    "/api/projects/[businessId]": {}
+  }
 }

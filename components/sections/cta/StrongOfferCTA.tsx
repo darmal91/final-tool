@@ -1,0 +1,68 @@
+import type { CTAContent } from "@/lib/types";
+import { Heading, Lead } from "@/components/sections/shared/primitives";
+
+export default function StrongOfferCTA({ content }: { content: CTAContent }) {
+  return (
+    <section
+      style={{
+        background: "var(--ft-brand)",
+        color: "var(--ft-on-brand)",
+        padding: "var(--ft-section-y) 1.25rem",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "880px",
+          margin: "0 auto",
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "var(--ft-item-gap)",
+        }}
+      >
+        {content.eyebrow && (
+          <div
+            style={{
+              fontSize: "var(--ft-fs-eyebrow)",
+              textTransform: "uppercase",
+              letterSpacing: "0.16em",
+              fontWeight: 700,
+              opacity: 0.85,
+            }}
+          >
+            {content.eyebrow}
+          </div>
+        )}
+        <Heading level={2} size="h1" align="center" inverse>
+          {content.heading}
+        </Heading>
+        <Lead align="center" inverse>
+          {content.subheading}
+        </Lead>
+        <a
+          href={content.buttonHref}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.5rem",
+            padding: "1.125rem 2.25rem",
+            fontSize: "1.125rem",
+            fontWeight: 700,
+            background: "var(--ft-on-brand)",
+            color: "var(--ft-brand)",
+            borderRadius: "var(--ft-radius-md)",
+            textDecoration: "none",
+            boxShadow: "0 12px 28px -10px rgba(0,0,0,0.35)",
+          }}
+        >
+          {content.buttonText}
+        </a>
+        {content.microcopy && (
+          <div style={{ fontSize: "var(--ft-fs-small)", opacity: 0.85 }}>{content.microcopy}</div>
+        )}
+      </div>
+    </section>
+  );
+}
