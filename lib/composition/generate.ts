@@ -10,6 +10,7 @@ import { scoreVariantPlan } from "./scoring";
 import { applyLayoutRules } from "./layoutRules";
 import { REAL_WORLD_PATTERNS } from "./realWorldPatterns";
 import { resolveArchetype, ARCHETYPE_CONFIGS } from "./archetypes";
+import { evaluateComposition } from "./evaluation";
 import { appendDecisionLog, type DecisionLogEntry } from "@/lib/logging/decisionLog";
 
 interface GeneratedCopy {
@@ -152,6 +153,13 @@ export async function generateComposition(
   });
 
   try {
+    const evaluation = evaluateComposition({
+      archetype,
+      strategy,
+      realism,
+      variantPlan: variants,
+      sectionOrder: pageFlow,
+    });
     void appendDecisionLog({
       timestamp: Date.now(),
       businessId,
@@ -159,6 +167,7 @@ export async function generateComposition(
       strategy,
       candidates,
       selected: { name: bestName, variantPlan: variants },
+      evaluation,
     });
   } catch {
     // logging errors must never surface

@@ -3,6 +3,7 @@ import { join } from "node:path";
 import type { BusinessInput } from "@/lib/types";
 import type { VariantPlan } from "@/lib/composition/variants";
 import type { CompositionStrategy } from "@/lib/composition/strategy";
+import type { CompositionEvaluation } from "@/lib/composition/evaluation";
 
 export interface DecisionLogEntry {
   timestamp: number;
@@ -23,6 +24,7 @@ export interface DecisionLogEntry {
     name: string;
     variantPlan: VariantPlan;
   };
+  evaluation?: CompositionEvaluation;
 }
 
 const LOG_DIR = join(process.cwd(), "logs");
