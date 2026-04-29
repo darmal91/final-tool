@@ -20,12 +20,29 @@ interface GeneratedCopy {
   cta: import("@/lib/types").CTAContent;
 }
 
-type CandidateRecord = DecisionLogEntry["candidates"][number];
+interface CandidateRecord {
+  name: string;
+  variantPlan: VariantPlan;
+  scores: {
+    trustScore: number;
+    conversionScore: number;
+    aestheticScore: number;
+    totalScore: number;
+  };
+}
 
 interface SelectionResult {
   best: VariantPlan;
   bestName: string;
   candidates: CandidateRecord[];
+}
+
+function inferSelectionMethod(
+  candidates: CandidateRecord[]
+): "rule-based" | "scored" | "fallback" {
+  if (candidates.length === 1 && candidates[0].scores.totalScore === 0) return "fallback";
+  if (candidates.length > 1) return "scored";
+  return "rule-based";
 }
 
 function resolvePageFlow(
@@ -164,10 +181,16 @@ export async function generateComposition(
       timestamp: Date.now(),
       businessId,
       input,
+      archetype,
       strategy,
-      candidates,
-      selected: { name: bestName, variantPlan: variants },
+      realism,
+      variants,
+      pageFlow,
       evaluation,
+      selectionMeta: {
+        selectionMethod: inferSelectionMethod(candidates),
+        candidateCount: candidates.length,
+      },
     });
   } catch {
     // logging errors must never surface
