@@ -65,7 +65,7 @@
       {
         "id": "hero",
         "type": "hero",
-        "variant": "conversion",
+        "variant": "premium-split",
         "content": {
           "eyebrow": "Austin, TX · Plumbing",
           "headline": "Austin, TX Plumbing — fast, fair, done right.",
@@ -112,7 +112,7 @@
       {
         "id": "reviews",
         "type": "reviews",
-        "variant": "grid",
+        "variant": "single-highlight",
         "content": {
           "heading": "What our customers say",
           "subheading": "Real reviews from real Austin, TX customers.",
@@ -141,7 +141,7 @@
       {
         "id": "cta",
         "type": "cta",
-        "variant": "strong-offer",
+        "variant": "soft-contact",
         "content": {
           "eyebrow": "Limited slots this week",
           "heading": "Need it handled today? Call now.",

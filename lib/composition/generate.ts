@@ -6,6 +6,7 @@ import { themeFromInput } from "./theme-from-input";
 import { pickVariants, type VariantPlan } from "./variants";
 import { resolveStrategy, type CompositionStrategy } from "./strategy";
 import { generateCopy } from "@/lib/content/ai";
+import { refineCopy } from "@/lib/content/refine";
 import { scoreVariantPlan } from "./scoring";
 import { applyLayoutRules } from "./layoutRules";
 import { REAL_WORLD_PATTERNS } from "./realWorldPatterns";
@@ -159,7 +160,8 @@ export async function generateComposition(
   const { best, bestName, candidates } = selectBestVariant(input, strategy);
   const variants = applyLayoutRules(best, strategy);
   const pattern = REAL_WORLD_PATTERNS[input.businessType];
-  const { copy, source, error } = await generateCopy(input, strategy, pattern);
+  const { copy: rawCopy, source, error } = await generateCopy(input, strategy, pattern);
+  const { copy } = source === "ai" ? await refineCopy(rawCopy, input, strategy) : { copy: rawCopy };
   const pageFlow = resolvePageFlow(ARCHETYPE_CONFIGS[archetype].sectionFlow, strategy);
 
   const counts: Record<SectionType, number> = { hero: 0, services: 0, reviews: 0, cta: 0 };
