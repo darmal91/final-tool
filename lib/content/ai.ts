@@ -35,7 +35,14 @@ Rules:
 - Plain language. No jargon. No marketing fluff.
 - Specific to the business: include the location and trade where it adds trust.
 - Headlines should be 6–12 words, not generic ("Welcome to..." is forbidden).
-- Service descriptions: one sentence, ~14–22 words, useful.
+SERVICE DESCRIPTIONS — CRITICAL RULES:
+- Every description MUST be unique. No shared sentence structure across services.
+- Never use the pattern "Reliable [X] for [location] customers, handled by experienced [trade] professionals." — this is forbidden.
+- Never repeat the same opening verb or phrase across any two descriptions.
+- Each description should reflect what makes THAT specific service distinct: its urgency, its process, its outcome, or its common failure mode.
+- Vary sentence length and entry point: some short and punchy, some longer, different verb choices per item.
+- Write like a real person who understands the trade, not a template generator.
+- 14–22 words per description. One sentence.
 - Reviews must sound like real people, varied tone, not all enthusiastic. Names should be realistic.
 - Never invent claims that imply credentials, guarantees, or numbers the business did not provide.
 - You are NOT in charge of layout, sections, or design. Only text.
@@ -98,7 +105,19 @@ Return JSON in exactly this shape:
 }
 
 The services array length must match the input services list (${input.services.length || 4} items).
-Use the input services list for titles when provided.`;
+Use the input services list for titles when provided.
+
+BAD service descriptions (forbidden — all same structure):
+- "Reliable emergency repair for Austin, TX customers, handled by experienced plumbing professionals."
+- "Reliable drain cleaning for Austin, TX customers, handled by experienced plumbing professionals."
+
+GOOD service descriptions (varied, specific, human):
+- "Emergency Repair: Burst pipe, no water, sewage back-up — we pick up and move fast. Same-day across Austin."
+- "Drain Cleaning: Slow drains usually mean one thing caught early or one thing ignored too long. We clear it and tell you which."
+- "Water Heaters: Install, replace, or repair — we stock common units and can often finish the same visit."
+- "Fixture Install: Faucets, toilets, showers. Done clean, no leaks, no follow-up calls needed."
+
+Write descriptions in this spirit — each one specific to what that service actually is.`;
 }
 
 function fallback(input: BusinessInput): GeneratedCopy {
