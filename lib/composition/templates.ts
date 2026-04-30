@@ -43,6 +43,27 @@ function pickIcon(serviceTitle: string, businessType: string): string {
   return ICON_BY_TYPE[businessType] || "✓";
 }
 
+type StyleFn = (title: string, trade: string, location: string) => string;
+
+const SERVICE_STYLE_TEMPLATES: StyleFn[] = [
+  // outcome-focused
+  (title, _trade, location) =>
+    `${title}, done right — clean work, clear pricing, and results built to last in ${location}.`,
+  // problem-focused
+  (title, _trade, location) =>
+    `When ${title.toLowerCase()} issues come up, speed and accuracy matter. We reach ${location} fast, diagnose correctly, and fix it the first time.`,
+  // assurance-focused
+  (title, _trade, _location) =>
+    `Every ${title.toLowerCase()} job is backed by our workmanship guarantee — licensed, insured, and fully accountable from start to finish.`,
+  // speed/urgency-focused
+  (title, _trade, location) =>
+    `Same-day ${title.toLowerCase()} available in ${location}. Upfront pricing, no runaround, and a crew that shows up when we say we will.`,
+];
+
+function getServiceDescription(index: number, title: string, trade: string, location: string): string {
+  return SERVICE_STYLE_TEMPLATES[index % SERVICE_STYLE_TEMPLATES.length](title, trade, location);
+}
+
 export function buildHeroContent(input: BusinessInput): HeroContent {
   const trade = TYPE_LABEL[input.businessType] || "service";
   const tone = input.tone;
@@ -79,9 +100,9 @@ export function buildServicesContent(input: BusinessInput): ServicesContent {
     : ["Service A", "Service B", "Service C", "Service D"]
   )
     .slice(0, 6)
-    .map((title) => ({
+    .map((title, index) => ({
       title,
-      description: `Reliable ${title.toLowerCase()} for ${input.location} customers, handled by experienced ${trade} professionals.`,
+      description: getServiceDescription(index, title, trade, input.location),
       icon: pickIcon(title, input.businessType),
     }));
 

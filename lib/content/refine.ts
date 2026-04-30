@@ -5,6 +5,7 @@ import type {
   ServicesContent,
   ReviewsContent,
   CTAContent,
+  ServiceItem,
 } from "@/lib/types";
 import {
   describeStrategy,
@@ -18,7 +19,15 @@ interface GeneratedCopy {
   cta: CTAContent;
 }
 
+interface RefineService {
+  title: string;
+  description: string;
+}
+
 interface RefineShape {
+  businessType: string;
+  location: string;
+  services: RefineService[];
   hero: {
     headline: string;
     subheadline: string;
@@ -32,31 +41,40 @@ interface RefineShape {
 
 const MODEL = "claude-sonnet-4-6";
 
-const REFINE_SYSTEM_PROMPT = `You are a senior conversion copywriter at a top-tier agency.
+const REFINE_SYSTEM_PROMPT = `You are a senior conversion copywriter for local service businesses.
 
-You receive an existing JSON object of copy fields and rewrite ONLY the values to feel agency-grade. You return ONLY the same JSON shape. No prose. No markdown. No code fences.
+You receive an existing JSON object of copy fields and rewrite ONLY the values to feel like a real, high-performing local service website. You return ONLY the same JSON shape. No prose. No markdown. No code fences.
 
 Hard rules:
 - Do NOT add, rename, or remove any fields.
+- Do NOT add or remove services. The services array length must stay identical.
+- Preserve each service's intent (outcome / problem / assurance / speed). Keep titles aligned with the same offering.
 - Do NOT touch any field outside the JSON you are given.
 - Output must be valid JSON with the EXACT same keys.
 
-Style rules:
+SERVICES
+- Each service description must feel individually written. No shared rhythm or repeated sentence openings across services.
+- Vary sentence structure between items. Some short, some longer. Different verbs and entry points.
+- Make descriptions slightly more specific and human; mention concrete details where natural.
+- Do NOT overhype or exaggerate. No "best in class", "world-class", "premier".
 
 HERO
-- headline: clear outcome, emotionally compelling, no fluff. Avoid generic phrases like "high quality service". Specific and confident. 6–12 words.
+- headline: outcome-driven and specific. Grounded in the business type and location. Avoid generic phrases like "best in class" or "high quality service". 6–12 words.
 - subheadline: support the claim, reduce risk, add credibility or specificity. One sentence.
 
 CTA
-- headline: action-oriented, reinforces urgency or value.
-- subtext: remove friction, reduce hesitation, clarify what happens next. One sentence.
+- headline: action-oriented, reinforces value or urgency. Avoid aggressive sales tone unless the business is a high-conversion trade (plumber, hvac, roofer, electrician).
+- subtext: reduce hesitation, make the next step feel simple and safe, clarify what happens next. One sentence.
 - buttonText: specific and action-driven. Avoid generic "Submit" or "Contact Us". 2–4 words.
 
-Tone targets:
-- Confident but not hypey.
-- Clear over clever.
-- Specific over vague.
-- Sounds like a real business, not AI.`;
+Style target:
+- Natural human tone.
+- Subtle variation in sentence structure.
+- Slight imperfection allowed for realism.
+- No AI-like symmetry across lines.
+- Sounds like a real business, not AI.
+
+Echo businessType and location back unchanged.`;
 
 function refineUserPrompt(
   input: BusinessInput,
@@ -67,8 +85,6 @@ function refineUserPrompt(
     ? `Strategic voice (do NOT alter structure): ${describeStrategy(strategy)}`
     : "";
   return `Business: ${input.businessName}
-Type: ${input.businessType}
-Location: ${input.location}
 Differentiator: ${input.differentiator || "(none provided)"}
 ${strategyLine}
 
@@ -77,8 +93,14 @@ Rewrite the values in the following JSON. Return the same shape with refined tex
 ${JSON.stringify(current, null, 2)}`;
 }
 
-function extractRefineShape(copy: GeneratedCopy): RefineShape {
+function extractRefineShape(input: BusinessInput, copy: GeneratedCopy): RefineShape {
   return {
+    businessType: input.businessType,
+    location: input.location,
+    services: copy.services.services.map((s) => ({
+      title: s.title,
+      description: s.description,
+    })),
     hero: {
       headline: copy.hero.headline,
       subheadline: copy.hero.subheadline,
@@ -92,12 +114,26 @@ function extractRefineShape(copy: GeneratedCopy): RefineShape {
 }
 
 function applyRefineShape(copy: GeneratedCopy, refined: RefineShape): GeneratedCopy {
+  const refinedServices: ServiceItem[] = copy.services.services.map((original, idx) => {
+    const r = refined.services[idx];
+    if (!r) return original;
+    return {
+      ...original,
+      title: r.title.trim() || original.title,
+      description: r.description.trim() || original.description,
+    };
+  });
+
   return {
     ...copy,
     hero: {
       ...copy.hero,
       headline: refined.hero.headline || copy.hero.headline,
       subheadline: refined.hero.subheadline || copy.hero.subheadline,
+    },
+    services: {
+      ...copy.services,
+      services: refinedServices,
     },
     cta: {
       ...copy.cta,
@@ -108,14 +144,25 @@ function applyRefineShape(copy: GeneratedCopy, refined: RefineShape): GeneratedC
   };
 }
 
-function isRefineShape(value: unknown): value is RefineShape {
+function isRefineService(value: unknown): value is RefineService {
+  if (!value || typeof value !== "object") return false;
+  const v = value as Record<string, unknown>;
+  return typeof v.title === "string" && typeof v.description === "string";
+}
+
+function isRefineShape(value: unknown, expectedServiceCount: number): value is RefineShape {
   if (!value || typeof value !== "object") return false;
   const v = value as Record<string, unknown>;
   const hero = v.hero as Record<string, unknown> | undefined;
   const cta = v.cta as Record<string, unknown> | undefined;
+  const services = v.services;
+  if (!Array.isArray(services) || services.length !== expectedServiceCount) return false;
+  if (!services.every(isRefineService)) return false;
   if (!hero || typeof hero !== "object") return false;
   if (!cta || typeof cta !== "object") return false;
   return (
+    typeof v.businessType === "string" &&
+    typeof v.location === "string" &&
     typeof hero.headline === "string" &&
     typeof hero.subheadline === "string" &&
     typeof cta.headline === "string" &&
@@ -143,13 +190,13 @@ export async function refineCopy(
     return { copy, refined: false };
   }
 
-  const current = extractRefineShape(copy);
+  const current = extractRefineShape(input, copy);
 
   try {
     const client = new Anthropic({ apiKey });
     const message = await client.messages.create({
       model: MODEL,
-      max_tokens: 600,
+      max_tokens: 1500,
       system: [
         {
           type: "text",
@@ -166,7 +213,7 @@ export async function refineCopy(
     }
 
     const parsed = parseJsonStrict(textBlock.text);
-    if (!isRefineShape(parsed)) {
+    if (!isRefineShape(parsed, current.services.length)) {
       throw new Error("Refinement response did not match expected shape");
     }
 
