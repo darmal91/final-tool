@@ -1,0 +1,168 @@
+{
+  "project": {
+    "id": "ycxu9yb58o",
+    "createdAt": "2026-04-30T04:51:45.875Z",
+    "input": {
+      "businessName": "Plus Plumbing",
+      "businessType": "plumber",
+      "location": "Dallas",
+      "services": [
+        "Emergency Repair",
+        "Drain Cleaning",
+        "Water Heaters",
+        "Fixture Install"
+      ],
+      "tone": "premium",
+      "differentiator": "Family owned and same day service.",
+      "phone": "9939939939"
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "ycxu9yb58o",
+    "theme": {
+      "tokens": {
+        "tone": "premium",
+        "density": "airy",
+        "radius": "soft"
+      },
+      "cssVars": {
+        "--ft-brand": "#0F172A",
+        "--ft-brand-hover": "#020617",
+        "--ft-brand-soft": "#E2E8F0",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F8FAFC",
+        "--ft-surface-inverse": "#0F172A",
+        "--ft-text": "#0F172A",
+        "--ft-text-muted": "#475569",
+        "--ft-text-inverse": "#F8FAFC",
+        "--ft-border": "#E2E8F0",
+        "--ft-accent": "#C8A24B",
+        "--ft-font": "\"Playfair Display\", \"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "600",
+        "--ft-letter-spacing-heading": "-0.02em",
+        "--ft-section-y": "8rem",
+        "--ft-section-y-sm": "5rem",
+        "--ft-block-gap": "2.75rem",
+        "--ft-item-gap": "1.5rem",
+        "--ft-card-pad": "2.25rem",
+        "--ft-radius-sm": "0.5rem",
+        "--ft-radius-md": "1rem",
+        "--ft-radius-lg": "1.5rem",
+        "--ft-radius-pill": "9999px",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.15",
+        "--ft-heading-scale": "1.1",
+        "--ft-body-scale": "1",
+        "--ft-cta-scale": "1.05",
+        "--ft-density": "low",
+        "--ft-section-spacing": "8rem",
+        "--ft-spacing-variance": "0.05",
+        "--ft-type-relax": "0.05",
+        "--ft-cta-asymmetry": "0.2",
+        "--ft-section-breathing": "0.2"
+      },
+      "fontFamily": "\"Playfair Display\", \"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "conversion",
+        "content": {
+          "eyebrow": "Dallas · Plumbing",
+          "headline": "Plumbing done with the care your home deserves.",
+          "subheadline": "Family owned and same day service.",
+          "ctaText": "Request a quote",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Licensed & insured",
+            "Locally owned",
+            "5-star rated"
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "scrolling",
+        "content": {
+          "heading": "What our customers say",
+          "subheading": "Real reviews from real Dallas customers.",
+          "reviews": [
+            {
+              "name": "Sarah M.",
+              "role": "Dallas homeowner",
+              "body": "Plus Plumbing fixed our problem the first visit. Showed up on time, explained the issue, and didn't upsell anything we didn't need.",
+              "rating": 5
+            },
+            {
+              "name": "James O.",
+              "role": "Repeat customer",
+              "body": "Fair pricing and a crew that actually shows up when they say they will. We've used them twice now and won't call anyone else.",
+              "rating": 5
+            },
+            {
+              "name": "Linda C.",
+              "role": "Property manager",
+              "body": "Clean work, clear communication, no surprises on the invoice. That's all I ask for — and they delivered every time.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "icon-list",
+        "content": {
+          "heading": "What we do",
+          "subheading": "Full-service plumbing across Dallas and surrounding areas.",
+          "services": [
+            {
+              "title": "Emergency Repair",
+              "description": "Emergency Repair — finished to a standard that holds. Dallas customers won't need to call back.",
+              "icon": "🚨"
+            },
+            {
+              "title": "Drain Cleaning",
+              "description": "Putting off drain cleaning usually makes it worse. We find the root cause, not just the symptom, and walk you through the fix before we start.",
+              "icon": "🧽"
+            },
+            {
+              "title": "Water Heaters",
+              "description": "Same-day water heaters across Dallas — no scheduling window, no waiting on a slot. Call and we move.",
+              "icon": "🔧"
+            },
+            {
+              "title": "Fixture Install",
+              "description": "Every fixture install job follows a fixed standard: assess correctly, fix completely, leave the site clean. No steps skipped.",
+              "icon": "🔨"
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "soft-contact",
+        "content": {
+          "eyebrow": "Get started",
+          "heading": "Bring your project to a team that takes it seriously.",
+          "subheading": "Reach out for a private consultation. We'll respond within one business day.",
+          "buttonText": "Request a quote",
+          "buttonHref": "tel:9939939939",
+          "microcopy": "Or call 9939939939"
+        }
+      }
+    ]
+  }
+}

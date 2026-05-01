@@ -1,4 +1,3 @@
-import Anthropic from "@anthropic-ai/sdk";
 import type {
   BusinessInput,
   HeroContent,
@@ -25,7 +24,8 @@ interface GeneratedCopy {
   cta: CTAContent;
 }
 
-const MODEL = "claude-sonnet-4-6";
+const MODEL = "gemini-2.5-flash";
+const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 const SYSTEM_PROMPT = `You write conversion-focused copy for small local business websites.
 
@@ -129,6 +129,15 @@ function fallback(input: BusinessInput): GeneratedCopy {
   };
 }
 
+interface GeminiResponse {
+  candidates?: Array<{
+    content?: { parts?: Array<{ text?: string }> };
+    finishReason?: string;
+  }>;
+  promptFeedback?: { blockReason?: string };
+  error?: { message?: string };
+}
+
 export async function generateCopy(
   input: BusinessInput,
   strategy?: CompositionStrategy,
@@ -138,55 +147,123 @@ export async function generateCopy(
   source: "ai" | "template";
   error?: string;
 }> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) {
+    console.log("[ai] no GOOGLE_API_KEY — using template fallback");
     return { copy: fallback(input), source: "template" };
   }
 
+  let rawText: string | undefined;
+
   try {
-    const client = new Anthropic({ apiKey });
-    const message = await client.messages.create({
-      model: MODEL,
-      max_tokens: 2000,
-      system: [
-        {
-          type: "text",
-          text: SYSTEM_PROMPT,
-          cache_control: { type: "ephemeral" },
+    const response = await fetch(`${ENDPOINT}?key=${apiKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: [
+          { role: "user", parts: [{ text: userPrompt(input, strategy, pattern) }] },
+        ],
+        generationConfig: {
+          maxOutputTokens: 4096,
+          temperature: 0.9,
+          responseMimeType: "application/json",
         },
-      ],
-      messages: [{ role: "user", content: userPrompt(input, strategy, pattern) }],
+      }),
     });
 
-    const textBlock = message.content.find((c) => c.type === "text");
-    if (!textBlock || textBlock.type !== "text") {
-      throw new Error("No text in AI response");
+    console.log("[ai] gemini status:", response.status);
+
+    const data = (await response.json()) as GeminiResponse;
+
+    if (!response.ok) {
+      const apiMsg = data.error?.message || `HTTP ${response.status}`;
+      throw new Error(`Gemini API error: ${apiMsg}`);
     }
 
-    const parsed = parseJsonStrict(textBlock.text) as Partial<GeneratedCopy>;
+    if (data.promptFeedback?.blockReason) {
+      throw new Error(`Gemini blocked: ${data.promptFeedback.blockReason}`);
+    }
+
+    const candidate = data.candidates?.[0];
+    rawText = candidate?.content?.parts?.[0]?.text;
+    const finishReason = candidate?.finishReason;
+    console.log("[ai] finishReason:", finishReason);
+
+    if (!rawText || typeof rawText !== "string") {
+      throw new Error("No text in Gemini response");
+    }
+
+    console.log("[ai] raw text head:", rawText.slice(0, 200));
+    console.log("[ai] raw text tail:", rawText.slice(-120));
+
+    const parsed = extractAndParseJson(rawText) as Partial<GeneratedCopy>;
+    console.log(
+      "[ai] parsed keys:",
+      Object.keys(parsed),
+      "services count:",
+      parsed.services?.services?.length ?? 0,
+      "reviews count:",
+      parsed.reviews?.reviews?.length ?? 0
+    );
+
     const merged = mergeWithFallback(parsed, fallback(input));
+    console.log("[ai] merged services count:", merged.services.services.length);
+    console.log("[ai] source: ai");
     return { copy: merged, source: "ai" };
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
+    console.error("[ai] failure:", msg);
+    if (rawText) {
+      console.error("[ai] rawText snapshot:", rawText.slice(0, 400));
+    }
     return { copy: fallback(input), source: "template", error: msg };
   }
 }
 
-function parseJsonStrict(text: string): unknown {
-  const trimmed = text.trim();
-  // Tolerate leading/trailing fences if the model adds them despite instructions.
-  const stripped = trimmed
-    .replace(/^```(?:json)?\s*/i, "")
-    .replace(/```$/i, "")
-    .trim();
-  return JSON.parse(stripped);
+function extractAndParseJson(text: string): unknown {
+  // 1. Strip BOM and trim.
+  let s = text.replace(/^﻿/, "").trim();
+
+  // 2. Normalize smart quotes that some models sneak in.
+  s = s
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'");
+
+  // 3. If wrapped in a fenced code block (anywhere in the text), pull the inside.
+  //    Handles ```json ... ```, ``` ... ```, with or without surrounding prose.
+  const fenceMatch = s.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (fenceMatch && fenceMatch[1]) {
+    s = fenceMatch[1].trim();
+  }
+
+  // 4. Try a direct parse.
+  try {
+    return JSON.parse(s);
+  } catch (firstErr) {
+    // 5. Last resort: extract the largest balanced object span by braces.
+    const firstBrace = s.indexOf("{");
+    const lastBrace = s.lastIndexOf("}");
+    if (firstBrace !== -1 && lastBrace > firstBrace) {
+      const sliced = s.slice(firstBrace, lastBrace + 1);
+      console.log("[ai] retrying parse with brace-extracted slice");
+      try {
+        return JSON.parse(sliced);
+      } catch (secondErr) {
+        const m = secondErr instanceof Error ? secondErr.message : String(secondErr);
+        throw new Error(`JSON parse failed after brace-slice: ${m}`);
+      }
+    }
+    const m = firstErr instanceof Error ? firstErr.message : String(firstErr);
+    throw new Error(`JSON parse failed: ${m}`);
+  }
 }
 
 function mergeWithFallback(
   partial: Partial<GeneratedCopy>,
   fb: GeneratedCopy
 ): GeneratedCopy {
-  return {
+  const merged: GeneratedCopy = {
     hero: { ...fb.hero, ...(partial.hero || {}) },
     services: {
       ...fb.services,
@@ -206,4 +283,11 @@ function mergeWithFallback(
     },
     cta: { ...fb.cta, ...(partial.cta || {}) },
   };
+
+  if (!partial.hero) console.log("[ai] merge: hero missing, used fallback");
+  if (!partial.services?.services?.length) console.log("[ai] merge: services missing/empty, used fallback");
+  if (!partial.reviews?.reviews?.length) console.log("[ai] merge: reviews missing/empty, used fallback");
+  if (!partial.cta) console.log("[ai] merge: cta missing, used fallback");
+
+  return merged;
 }

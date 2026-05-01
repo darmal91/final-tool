@@ -1,4 +1,3 @@
-import Anthropic from "@anthropic-ai/sdk";
 import type {
   BusinessInput,
   HeroContent,
@@ -39,7 +38,8 @@ interface RefineShape {
   };
 }
 
-const MODEL = "claude-sonnet-4-6";
+const MODEL = "gemini-2.5-flash";
+const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
 const REFINE_SYSTEM_PROMPT = `You are a senior conversion copywriter for local service businesses.
 
@@ -171,13 +171,42 @@ function isRefineShape(value: unknown, expectedServiceCount: number): value is R
   );
 }
 
-function parseJsonStrict(text: string): unknown {
-  const trimmed = text.trim();
-  const stripped = trimmed
-    .replace(/^```(?:json)?\s*/i, "")
-    .replace(/```$/i, "")
-    .trim();
-  return JSON.parse(stripped);
+function extractAndParseJson(text: string): unknown {
+  let s = text.replace(/^﻿/, "").trim();
+  s = s.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
+
+  const fenceMatch = s.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (fenceMatch && fenceMatch[1]) {
+    s = fenceMatch[1].trim();
+  }
+
+  try {
+    return JSON.parse(s);
+  } catch (firstErr) {
+    const firstBrace = s.indexOf("{");
+    const lastBrace = s.lastIndexOf("}");
+    if (firstBrace !== -1 && lastBrace > firstBrace) {
+      const sliced = s.slice(firstBrace, lastBrace + 1);
+      console.log("[refine] retrying parse with brace-extracted slice");
+      try {
+        return JSON.parse(sliced);
+      } catch (secondErr) {
+        const m = secondErr instanceof Error ? secondErr.message : String(secondErr);
+        throw new Error(`JSON parse failed after brace-slice: ${m}`);
+      }
+    }
+    const m = firstErr instanceof Error ? firstErr.message : String(firstErr);
+    throw new Error(`JSON parse failed: ${m}`);
+  }
+}
+
+interface GeminiResponse {
+  candidates?: Array<{
+    content?: { parts?: Array<{ text?: string }> };
+    finishReason?: string;
+  }>;
+  promptFeedback?: { blockReason?: string };
+  error?: { message?: string };
 }
 
 export async function refineCopy(
@@ -185,41 +214,72 @@ export async function refineCopy(
   input: BusinessInput,
   strategy?: CompositionStrategy
 ): Promise<{ copy: GeneratedCopy; refined: boolean; error?: string }> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = process.env.GOOGLE_API_KEY;
   if (!apiKey) {
+    console.log("[refine] no GOOGLE_API_KEY — skipping refinement");
     return { copy, refined: false };
   }
 
   const current = extractRefineShape(input, copy);
+  let rawText: string | undefined;
 
   try {
-    const client = new Anthropic({ apiKey });
-    const message = await client.messages.create({
-      model: MODEL,
-      max_tokens: 1500,
-      system: [
-        {
-          type: "text",
-          text: REFINE_SYSTEM_PROMPT,
-          cache_control: { type: "ephemeral" },
+    const response = await fetch(`${ENDPOINT}?key=${apiKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: REFINE_SYSTEM_PROMPT }] },
+        contents: [
+          { role: "user", parts: [{ text: refineUserPrompt(input, current, strategy) }] },
+        ],
+        generationConfig: {
+          maxOutputTokens: 1500,
+          temperature: 0.9,
+          responseMimeType: "application/json",
         },
-      ],
-      messages: [{ role: "user", content: refineUserPrompt(input, current, strategy) }],
+      }),
     });
 
-    const textBlock = message.content.find((c) => c.type === "text");
-    if (!textBlock || textBlock.type !== "text") {
-      throw new Error("No text in refinement response");
+    console.log("[refine] gemini status:", response.status);
+
+    const data = (await response.json()) as GeminiResponse;
+
+    if (!response.ok) {
+      const apiMsg = data.error?.message || `HTTP ${response.status}`;
+      throw new Error(`Gemini API error: ${apiMsg}`);
     }
 
-    const parsed = parseJsonStrict(textBlock.text);
+    if (data.promptFeedback?.blockReason) {
+      throw new Error(`Gemini blocked: ${data.promptFeedback.blockReason}`);
+    }
+
+    const candidate = data.candidates?.[0];
+    rawText = candidate?.content?.parts?.[0]?.text;
+    const finishReason = candidate?.finishReason;
+    console.log("[refine] finishReason:", finishReason);
+
+    if (!rawText || typeof rawText !== "string") {
+      throw new Error("No text in Gemini response");
+    }
+
+    console.log("[refine] raw text head:", rawText.slice(0, 200));
+    console.log("[refine] raw text tail:", rawText.slice(-120));
+
+    const parsed = extractAndParseJson(rawText);
     if (!isRefineShape(parsed, current.services.length)) {
-      throw new Error("Refinement response did not match expected shape");
+      throw new Error(
+        `Refinement response did not match expected shape (expected ${current.services.length} services)`
+      );
     }
 
+    console.log("[refine] applied refined copy: services", parsed.services.length);
     return { copy: applyRefineShape(copy, parsed), refined: true };
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
+    console.error("[refine] failure:", msg);
+    if (rawText) {
+      console.error("[refine] rawText snapshot:", rawText.slice(0, 400));
+    }
     return { copy, refined: false, error: msg };
   }
 }

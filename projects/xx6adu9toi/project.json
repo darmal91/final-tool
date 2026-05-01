@@ -1,11 +1,11 @@
 {
   "project": {
-    "id": "9jlam28nnn",
-    "createdAt": "2026-04-29T04:33:59.747Z",
+    "id": "xx6adu9toi",
+    "createdAt": "2026-04-30T04:22:34.827Z",
     "input": {
-      "businessName": "Acme Plumbing",
+      "businessName": "Final Plumbing",
       "businessType": "plumber",
-      "location": "Austin, TX",
+      "location": "Dallas, TX",
       "services": [
         "Emergency Repair",
         "Drain Cleaning",
@@ -13,12 +13,13 @@
         "Fixture Install"
       ],
       "tone": "aggressive",
-      "differentiator": ""
+      "differentiator": "Family owned for 20 years. Same day service.",
+      "phone": "9392292929"
     },
     "assets": []
   },
   "composition": {
-    "businessId": "9jlam28nnn",
+    "businessId": "xx6adu9toi",
     "theme": {
       "tokens": {
         "tone": "aggressive",
@@ -57,7 +58,17 @@
         "--ft-fs-body": "1.0625rem",
         "--ft-fs-small": "0.875rem",
         "--ft-fs-micro": "0.75rem",
-        "--ft-fs-eyebrow": "0.8125rem"
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.25",
+        "--ft-heading-scale": "1.2",
+        "--ft-body-scale": "0.95",
+        "--ft-cta-scale": "1.2",
+        "--ft-density": "high",
+        "--ft-section-spacing": "4rem",
+        "--ft-spacing-variance": "0.15",
+        "--ft-type-relax": "0.1",
+        "--ft-cta-asymmetry": "0.8",
+        "--ft-section-breathing": "0.1"
       },
       "fontFamily": "\"Inter\", system-ui, sans-serif"
     },
@@ -67,9 +78,9 @@
         "type": "hero",
         "variant": "conversion",
         "content": {
-          "eyebrow": "Austin, TX · Plumbing",
-          "headline": "Austin, TX Plumbing — fast, fair, done right.",
-          "subheadline": "Local plumbing you can count on. Honest pricing. Real people. Workmanship that lasts.",
+          "eyebrow": "Dallas, TX · Plumbing",
+          "headline": "Dallas, TX Plumbing — fast, fair, done right.",
+          "subheadline": "Family owned for 20 years. Same day service.",
           "ctaText": "Get a free quote",
           "ctaHref": "#contact",
           "trustBadges": [
@@ -81,59 +92,30 @@
       {
         "id": "services",
         "type": "services",
-        "variant": "card-grid",
+        "variant": "icon-list",
         "content": {
           "heading": "What we do",
-          "subheading": "Full-service plumbing across Austin, TX and surrounding areas.",
+          "subheading": "Full-service plumbing across Dallas, TX and surrounding areas.",
           "services": [
             {
               "title": "Emergency Repair",
-              "description": "Reliable emergency repair for Austin, TX customers, handled by experienced plumbing professionals.",
+              "description": "Emergency Repair — finished to a standard that holds. Dallas, TX customers won't need to call back.",
               "icon": "🚨"
             },
             {
               "title": "Drain Cleaning",
-              "description": "Reliable drain cleaning for Austin, TX customers, handled by experienced plumbing professionals.",
+              "description": "Putting off drain cleaning usually makes it worse. We find the root cause, not just the symptom, and walk you through the fix before we start.",
               "icon": "🧽"
             },
             {
               "title": "Water Heaters",
-              "description": "Reliable water heaters for Austin, TX customers, handled by experienced plumbing professionals.",
+              "description": "Same-day water heaters across Dallas, TX — no scheduling window, no waiting on a slot. Call and we move.",
               "icon": "🔧"
             },
             {
               "title": "Fixture Install",
-              "description": "Reliable fixture install for Austin, TX customers, handled by experienced plumbing professionals.",
+              "description": "Every fixture install job follows a fixed standard: assess correctly, fix completely, leave the site clean. No steps skipped.",
               "icon": "🔨"
-            }
-          ]
-        }
-      },
-      {
-        "id": "reviews",
-        "type": "reviews",
-        "variant": "single-highlight",
-        "content": {
-          "heading": "What our customers say",
-          "subheading": "Real reviews from real Austin, TX customers.",
-          "reviews": [
-            {
-              "name": "Sarah M.",
-              "role": "Austin, TX homeowner",
-              "body": "Honest, professional, and on time. Acme Plumbing fixed our problem the first visit. Highly recommend.",
-              "rating": 5
-            },
-            {
-              "name": "James O.",
-              "role": "Repeat customer",
-              "body": "Fair pricing and a team that actually shows up when they say they will. We won't call anyone else.",
-              "rating": 5
-            },
-            {
-              "name": "Linda C.",
-              "role": "Property manager",
-              "body": "Clean work, clear communication, no surprises on the invoice. Exactly what you want.",
-              "rating": 5
             }
           ]
         }
@@ -141,14 +123,56 @@
       {
         "id": "cta",
         "type": "cta",
-        "variant": "soft-contact",
+        "variant": "urgency",
         "content": {
           "eyebrow": "Limited slots this week",
           "heading": "Need it handled today? Call now.",
           "subheading": "Tell us what's wrong. We'll be there fast.",
           "buttonText": "Call now",
-          "buttonHref": "#contact",
-          "microcopy": "No spam. No pressure. Just an honest quote."
+          "buttonHref": "tel:9392292929",
+          "microcopy": "Or call 9392292929"
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What our customers say",
+          "subheading": "Real reviews from real Dallas, TX customers.",
+          "reviews": [
+            {
+              "name": "Sarah M.",
+              "role": "Dallas, TX homeowner",
+              "body": "Final Plumbing fixed our problem the first visit. Showed up on time, explained the issue, and didn't upsell anything we didn't need.",
+              "rating": 5
+            },
+            {
+              "name": "James O.",
+              "role": "Repeat customer",
+              "body": "Fair pricing and a crew that actually shows up when they say they will. We've used them twice now and won't call anyone else.",
+              "rating": 5
+            },
+            {
+              "name": "Linda C.",
+              "role": "Property manager",
+              "body": "Clean work, clear communication, no surprises on the invoice. That's all I ask for — and they delivered every time.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta-2",
+        "type": "cta",
+        "variant": "urgency",
+        "content": {
+          "eyebrow": "Limited slots this week",
+          "heading": "Need it handled today? Call now.",
+          "subheading": "Tell us what's wrong. We'll be there fast.",
+          "buttonText": "Call now",
+          "buttonHref": "tel:9392292929",
+          "microcopy": "Or call 9392292929"
         }
       }
     ]

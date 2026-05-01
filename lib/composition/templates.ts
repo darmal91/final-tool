@@ -43,25 +43,51 @@ function pickIcon(serviceTitle: string, businessType: string): string {
   return ICON_BY_TYPE[businessType] || "✓";
 }
 
-type StyleFn = (title: string, trade: string, location: string) => string;
+type DescFn = (title: string, trade: string, location: string) => string;
 
-const SERVICE_STYLE_TEMPLATES: StyleFn[] = [
-  // outcome-focused
-  (title, _trade, location) =>
-    `${title}, done right — clean work, clear pricing, and results built to last in ${location}.`,
-  // problem-focused
-  (title, _trade, location) =>
-    `When ${title.toLowerCase()} issues come up, speed and accuracy matter. We reach ${location} fast, diagnose correctly, and fix it the first time.`,
-  // assurance-focused
+// 12 templates cycling: outcome, problem, urgency, process × 3 rounds.
+// Adjacent slots never share an intent. First 6 slots cover max service list with unique openers.
+const SERVICE_DESCRIPTION_TEMPLATES: DescFn[] = [
+  // [0] outcome
+  (_title, _trade, location) =>
+    `${_title} — finished to a standard that holds. ${location} customers won't need to call back.`,
+  // [1] problem
   (title, _trade, _location) =>
-    `Every ${title.toLowerCase()} job is backed by our workmanship guarantee — licensed, insured, and fully accountable from start to finish.`,
-  // speed/urgency-focused
+    `Putting off ${title.toLowerCase()} usually makes it worse. We find the root cause, not just the symptom, and walk you through the fix before we start.`,
+  // [2] urgency
   (title, _trade, location) =>
-    `Same-day ${title.toLowerCase()} available in ${location}. Upfront pricing, no runaround, and a crew that shows up when we say we will.`,
+    `Same-day ${title.toLowerCase()} across ${location} — no scheduling window, no waiting on a slot. Call and we move.`,
+  // [3] process
+  (title, _trade, _location) =>
+    `Every ${title.toLowerCase()} job follows a fixed standard: assess correctly, fix completely, leave the site clean. No steps skipped.`,
+  // [4] outcome
+  (title, _trade, _location) =>
+    `You'll notice the difference with ${title.toLowerCase()} done right — no patchwork, no revisits, one solution that sticks.`,
+  // [5] problem
+  (title, _trade, location) =>
+    `Most ${title.toLowerCase()} calls in ${location} come in later than they should. We give straight answers and fix it the same visit when we can.`,
+  // [6] urgency
+  (title, _trade, _location) =>
+    `When ${title.toLowerCase()} can't wait, we don't make you. Fast dispatch, a clear arrival window, fixed on the first visit.`,
+  // [7] process
+  (title, _trade, _location) =>
+    `We don't rush ${title.toLowerCase()}. The right technique takes the same time as the wrong one — the difference shows up years later.`,
+  // [8] outcome
+  (title, _trade, _location) =>
+    `The goal with ${title.toLowerCase()} is simple: leave it better than we found it, with nothing left to come back and fix.`,
+  // [9] problem
+  (title, _trade, _location) =>
+    `Ignoring ${title.toLowerCase()} issues costs more later. We diagnose fast, give you a clear answer, and fix the actual problem — not a workaround.`,
+  // [10] urgency
+  (title, _trade, location) =>
+    `${title} available now in ${location}. Upfront pricing before we touch anything — no surprises on the invoice, no bait-and-switch.`,
+  // [11] process
+  (title, _trade, _location) =>
+    `${title} handled methodically — we document the issue, confirm the fix before closing up, and walk you through what we found.`,
 ];
 
 function getServiceDescription(index: number, title: string, trade: string, location: string): string {
-  return SERVICE_STYLE_TEMPLATES[index % SERVICE_STYLE_TEMPLATES.length](title, trade, location);
+  return SERVICE_DESCRIPTION_TEMPLATES[index % SERVICE_DESCRIPTION_TEMPLATES.length](title, trade, location);
 }
 
 export function buildHeroContent(input: BusinessInput): HeroContent {
@@ -72,7 +98,7 @@ export function buildHeroContent(input: BusinessInput): HeroContent {
       ? `${capitalize(trade)} done with the care your home deserves.`
       : tone === "aggressive"
       ? `${input.location} ${capitalize(trade)} — fast, fair, done right.`
-      : `Trusted ${trade} for ${input.location} homes and businesses.`;
+      : `${capitalize(trade)} for ${input.location} homes and businesses.`;
 
   const subheadline =
     input.differentiator?.trim() ||
@@ -118,19 +144,19 @@ export function buildReviewsContent(input: BusinessInput): ReviewsContent {
     {
       name: "Sarah M.",
       role: `${input.location} homeowner`,
-      body: `Honest, professional, and on time. ${input.businessName} fixed our problem the first visit. Highly recommend.`,
+      body: `${input.businessName} fixed our problem the first visit. Showed up on time, explained the issue, and didn't upsell anything we didn't need.`,
       rating: 5,
     },
     {
       name: "James O.",
       role: "Repeat customer",
-      body: `Fair pricing and a team that actually shows up when they say they will. We won't call anyone else.`,
+      body: `Fair pricing and a crew that actually shows up when they say they will. We've used them twice now and won't call anyone else.`,
       rating: 5,
     },
     {
       name: "Linda C.",
       role: "Property manager",
-      body: `Clean work, clear communication, no surprises on the invoice. Exactly what you want.`,
+      body: `Clean work, clear communication, no surprises on the invoice. That's all I ask for — and they delivered every time.`,
       rating: 5,
     },
   ];
@@ -150,7 +176,7 @@ export function buildCTAContent(input: BusinessInput): CTAContent {
         ? "Bring your project to a team that takes it seriously."
         : tone === "aggressive"
         ? "Need it handled today? Call now."
-        : `Ready when you are.`,
+        : "Ready when you are.",
     subheading:
       tone === "premium"
         ? "Reach out for a private consultation. We'll respond within one business day."

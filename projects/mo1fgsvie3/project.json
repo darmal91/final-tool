@@ -1,0 +1,168 @@
+{
+  "project": {
+    "id": "mo1fgsvie3",
+    "createdAt": "2026-04-30T04:11:27.035Z",
+    "input": {
+      "businessName": "Opus Plumbing",
+      "businessType": "plumber",
+      "location": "Austin, TX",
+      "services": [
+        "Emergency Repair",
+        "Drain Cleaning",
+        "Water Heaters",
+        "Fixture Install"
+      ],
+      "tone": "friendly",
+      "differentiator": "Family-owned for 20 years. Same day service.",
+      "phone": "8480349933"
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "mo1fgsvie3",
+    "theme": {
+      "tokens": {
+        "tone": "friendly",
+        "density": "normal",
+        "radius": "soft"
+      },
+      "cssVars": {
+        "--ft-brand": "#2563EB",
+        "--ft-brand-hover": "#1D4ED8",
+        "--ft-brand-soft": "#DBEAFE",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F1F5F9",
+        "--ft-surface-inverse": "#1E3A8A",
+        "--ft-text": "#0F172A",
+        "--ft-text-muted": "#64748B",
+        "--ft-text-inverse": "#F8FAFC",
+        "--ft-border": "#E2E8F0",
+        "--ft-accent": "#F59E0B",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "700",
+        "--ft-letter-spacing-heading": "-0.025em",
+        "--ft-section-y": "6rem",
+        "--ft-section-y-sm": "4rem",
+        "--ft-block-gap": "2rem",
+        "--ft-item-gap": "1rem",
+        "--ft-card-pad": "1.75rem",
+        "--ft-radius-sm": "0.5rem",
+        "--ft-radius-md": "1rem",
+        "--ft-radius-lg": "1.5rem",
+        "--ft-radius-pill": "9999px",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.15",
+        "--ft-heading-scale": "1.1",
+        "--ft-body-scale": "1",
+        "--ft-cta-scale": "1.05",
+        "--ft-density": "low",
+        "--ft-section-spacing": "8rem",
+        "--ft-spacing-variance": "0.05",
+        "--ft-type-relax": "0.05",
+        "--ft-cta-asymmetry": "0.2",
+        "--ft-section-breathing": "0.2"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "centered-trust",
+        "content": {
+          "eyebrow": "Austin, TX · Plumbing",
+          "headline": "Plumbing for Austin, TX homes and businesses.",
+          "subheadline": "Family-owned for 20 years. Same day service.",
+          "ctaText": "Request a quote",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Licensed & insured",
+            "Family owned",
+            "Top rated locally"
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What our customers say",
+          "subheading": "Real reviews from real Austin, TX customers.",
+          "reviews": [
+            {
+              "name": "Sarah M.",
+              "role": "Austin, TX homeowner",
+              "body": "Opus Plumbing fixed our problem the first visit. Showed up on time, explained the issue, and didn't upsell anything we didn't need.",
+              "rating": 5
+            },
+            {
+              "name": "James O.",
+              "role": "Repeat customer",
+              "body": "Fair pricing and a crew that actually shows up when they say they will. We've used them twice now and won't call anyone else.",
+              "rating": 5
+            },
+            {
+              "name": "Linda C.",
+              "role": "Property manager",
+              "body": "Clean work, clear communication, no surprises on the invoice. That's all I ask for — and they delivered every time.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "card-grid",
+        "content": {
+          "heading": "What we do",
+          "subheading": "Full-service plumbing across Austin, TX and surrounding areas.",
+          "services": [
+            {
+              "title": "Emergency Repair",
+              "description": "Emergency Repair — finished to a standard that holds. Austin, TX customers won't need to call back.",
+              "icon": "🚨"
+            },
+            {
+              "title": "Drain Cleaning",
+              "description": "Putting off drain cleaning usually makes it worse. We find the root cause, not just the symptom, and walk you through the fix before we start.",
+              "icon": "🧽"
+            },
+            {
+              "title": "Water Heaters",
+              "description": "Same-day water heaters across Austin, TX — no scheduling window, no waiting on a slot. Call and we move.",
+              "icon": "🔧"
+            },
+            {
+              "title": "Fixture Install",
+              "description": "Every fixture install job follows a fixed standard: assess correctly, fix completely, leave the site clean. No steps skipped.",
+              "icon": "🔨"
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "strong-offer",
+        "content": {
+          "eyebrow": "Get started",
+          "heading": "Ready when you are.",
+          "subheading": "Get a free, no-obligation quote in minutes.",
+          "buttonText": "Request a quote",
+          "buttonHref": "tel:8480349933",
+          "microcopy": "Or call 8480349933"
+        }
+      }
+    ]
+  }
+}
