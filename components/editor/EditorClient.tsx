@@ -230,7 +230,7 @@ export default function EditorClient({
             minHeight: "70vh",
           }}
         >
-          <RenderComposition composition={composition} assets={project.assets} />
+          <RenderComposition composition={composition} assets={project.assets} input={project.input} />
         </main>
       </div>
     </div>

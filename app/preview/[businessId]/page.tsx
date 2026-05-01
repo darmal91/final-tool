@@ -18,6 +18,7 @@ export default async function PreviewPage({
       composition={file.composition}
       assets={file.project.assets}
       asTag="main"
+      input={file.project.input}
     />
   );
 }
