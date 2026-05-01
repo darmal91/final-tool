@@ -3,7 +3,7 @@ import { SectionShell, Heading, Lead, Button } from "@/components/sections/share
 
 export default function SoftContactCTA({ content }: { content: CTAContent }) {
   return (
-    <SectionShell background="muted">
+    <SectionShell id="contact" background="muted">
       <div
         style={{
           display: "grid",

@@ -4,6 +4,7 @@ import { Heading, Lead, Card, Stars } from "@/components/sections/shared/primiti
 export default function ScrollingReviews({ content }: { content: ReviewsContent }) {
   return (
     <section
+      id="reviews"
       style={{
         background: "var(--ft-surface-muted)",
         padding: "var(--ft-section-spacing, var(--ft-section-y)) 0",

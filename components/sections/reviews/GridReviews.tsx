@@ -3,7 +3,7 @@ import { SectionShell, Heading, Lead, Card, Stars } from "@/components/sections/
 
 export default function GridReviews({ content }: { content: ReviewsContent }) {
   return (
-    <SectionShell background="surface">
+    <SectionShell id="reviews" background="surface">
       <div
         style={{
           textAlign: "center",

@@ -4,6 +4,7 @@ import { Heading, Lead, Button } from "@/components/sections/shared/primitives";
 export default function UrgencyCTA({ content }: { content: CTAContent }) {
   return (
     <section
+      id="contact"
       style={{
         background: "var(--ft-surface-inverse)",
         color: "var(--ft-text-inverse)",

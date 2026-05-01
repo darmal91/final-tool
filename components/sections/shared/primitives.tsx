@@ -4,10 +4,12 @@ export function SectionShell({
   children,
   background = "surface",
   className = "",
+  id,
 }: {
   children: React.ReactNode;
   background?: "surface" | "muted" | "inverse" | "brand";
   className?: string;
+  id?: string;
 }) {
   const bg =
     background === "surface"
@@ -23,6 +25,7 @@ export function SectionShell({
       : "var(--ft-text)";
   return (
     <section
+      id={id}
       className={className}
       style={{
         background: bg,

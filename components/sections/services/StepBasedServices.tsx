@@ -3,7 +3,7 @@ import { SectionShell, Heading, Lead } from "@/components/sections/shared/primit
 
 export default function StepBasedServices({ content }: { content: ServicesContent }) {
   return (
-    <SectionShell background="surface">
+    <SectionShell id="services" background="surface">
       <div
         style={{
           textAlign: "center",

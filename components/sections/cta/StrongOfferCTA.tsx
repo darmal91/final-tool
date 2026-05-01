@@ -4,6 +4,7 @@ import { Heading, Lead } from "@/components/sections/shared/primitives";
 export default function StrongOfferCTA({ content }: { content: CTAContent }) {
   return (
     <section
+      id="contact"
       style={{
         background: "var(--ft-brand)",
         color: "var(--ft-on-brand)",

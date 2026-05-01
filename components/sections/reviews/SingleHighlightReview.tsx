@@ -5,7 +5,7 @@ export default function SingleHighlightReview({ content }: { content: ReviewsCon
   const first = content.reviews[0];
   if (!first) return null;
   return (
-    <SectionShell background="muted">
+    <SectionShell id="reviews" background="muted">
       <div
         style={{
           maxWidth: "780px",

@@ -162,7 +162,7 @@ export async function generateComposition(
   const pattern = REAL_WORLD_PATTERNS[input.businessType];
   const { copy: rawCopy, source, error } = await generateCopy(input, strategy, pattern);
   const { copy } = source === "ai" ? await refineCopy(rawCopy, input, strategy) : { copy: rawCopy };
-  const pageFlow = resolvePageFlow(ARCHETYPE_CONFIGS[archetype].sectionFlow, strategy);
+  const pageFlow = ARCHETYPE_CONFIGS[archetype].sectionFlow;
 
   const counts: Record<SectionType, number> = { hero: 0, services: 0, reviews: 0, cta: 0 };
   const sections: Section[] = pageFlow.map((type) => {

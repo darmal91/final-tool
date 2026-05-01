@@ -3,7 +3,7 @@ import { SectionShell, Heading, Lead, Card } from "@/components/sections/shared/
 
 export default function CardGridServices({ content }: { content: ServicesContent }) {
   return (
-    <SectionShell background="muted">
+    <SectionShell id="services" background="muted">
       <div
         style={{
           textAlign: "center",

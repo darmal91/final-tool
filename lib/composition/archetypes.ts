@@ -24,19 +24,19 @@ export interface ArchetypeConfig {
 export const ARCHETYPE_CONFIGS: Record<PageArchetype, ArchetypeConfig> = {
   "high-trust-local": {
     // Reviews appear early to anchor trust before asking for action
-    sectionFlow: ["hero", "reviews", "services", "cta"],
+    sectionFlow: ["hero", "services", "reviews", "cta"],
     emphasisOverrides: { hero: 0.9, services: 0.7, reviews: 1.0, cta: 0.8 },
     layoutBehavior: { topFoldDensity: "low", scrollPacing: "slow" },
   },
   "high-conversion-service": {
     // CTA surfaces early and repeats after social proof
-    sectionFlow: ["hero", "services", "cta", "reviews", "cta"],
+    sectionFlow: ["hero", "services", "reviews", "cta"],
     emphasisOverrides: { hero: 1.0, services: 0.8, reviews: 0.6, cta: 1.0 },
     layoutBehavior: { topFoldDensity: "high", scrollPacing: "fast" },
   },
   "premium-authority": {
     // Reviews positioned as authority signal, not social proof
-    sectionFlow: ["hero", "reviews", "services", "cta"],
+    sectionFlow: ["hero", "services", "reviews", "cta"],
     emphasisOverrides: { hero: 1.0, services: 0.9, reviews: 0.9, cta: 0.7 },
     layoutBehavior: { topFoldDensity: "medium", scrollPacing: "slow" },
   },
