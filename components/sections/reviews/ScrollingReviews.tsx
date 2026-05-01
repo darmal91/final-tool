@@ -30,19 +30,16 @@ export default function ScrollingReviews({ content }: { content: ReviewsContent 
         style={{
           display: "flex",
           gap: "var(--ft-item-gap)",
-          padding: "0 1.25rem",
-          overflowX: "auto",
-          scrollSnapType: "x mandatory",
-          paddingBottom: "0.5rem",
+          padding: "0 1.25rem 0.5rem",
+          flexWrap: "wrap",
+          justifyContent: "center",
         }}
-        className="ft-scroll-row"
       >
         {content.reviews.map((r, i) => (
           <div
             key={i}
             style={{
-              flex: "0 0 320px",
-              scrollSnapAlign: "start",
+              flex: "0 0 min(320px, 90vw)",
             }}
           >
             <Card>
