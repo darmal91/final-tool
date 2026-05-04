@@ -3,6 +3,7 @@ import type { Section, SiteComposition, BusinessAsset } from "@/lib/types";
 import { getSectionComponent } from "@/components/sections/registry";
 import { ThemeProvider } from "@/components/design/ThemeProvider";
 import SiteNav from "@/components/nav/SiteNav";
+import SiteFooter from "@/components/sections/footer/SiteFooter";
 
 function pickHeroImage(assets: BusinessAsset[] | undefined): string | undefined {
   return assets?.find((a) => a.context === "hero")?.url;
@@ -31,6 +32,7 @@ export default function RenderComposition({
       {composition.sections.map((s) => (
         <RenderSection key={s.id} section={s} assets={assets} />
       ))}
+      {input && <SiteFooter input={input} assets={assets} />}
     </ThemeProvider>
   );
 }
