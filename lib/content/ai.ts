@@ -38,6 +38,8 @@ Rules:
 SERVICE DESCRIPTIONS — CRITICAL RULES:
 - Every description MUST be unique. No shared sentence structure across services.
 - Never use the pattern "Reliable [X] for [location] customers, handled by experienced [trade] professionals." — this is forbidden.
+- Never use the pattern "[Service name] — finished to a standard that holds" — this is forbidden.
+- Never repeat the service title verbatim as the first 1–3 words of a description.
 - Never repeat the same opening verb or phrase across any two descriptions.
 - Each description should reflect what makes THAT specific service distinct: its urgency, its process, its outcome, or its common failure mode.
 - Vary sentence length and entry point: some short and punchy, some longer, different verb choices per item.
@@ -110,6 +112,11 @@ Use the input services list for titles when provided.
 BAD service descriptions (forbidden — all same structure):
 - "Reliable emergency repair for Austin, TX customers, handled by experienced plumbing professionals."
 - "Reliable drain cleaning for Austin, TX customers, handled by experienced plumbing professionals."
+
+BAD (urgency angle — Emergency Repair):
+- "Emergency Repair — finished to a standard that holds. Dallas, TX customers won't need to call back."
+GOOD (urgency angle — Emergency Repair):
+- "Burst pipe at 2am doesn't wait for business hours. We pick up, show up, and stop the damage — same night."
 
 GOOD service descriptions (varied, specific, human):
 - "Emergency Repair: Burst pipe, no water, sewage back-up — we pick up and move fast. Same-day across Austin."

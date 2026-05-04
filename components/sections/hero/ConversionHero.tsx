@@ -7,12 +7,12 @@ export default function ConversionHero({ content }: { content: HeroContent }) {
         background:
           "radial-gradient(ellipse at 60% 40%, rgba(255,255,255,0.07) 0%, transparent 70%), var(--ft-brand)",
         color: "var(--ft-on-brand)",
-        minHeight: "540px",
+        minHeight: "600px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "calc(var(--ft-hero-scale, 1) * var(--ft-section-spacing, var(--ft-section-y))) 1.25rem",
+        padding: "5rem 1.25rem",
       }}
     >
       <div

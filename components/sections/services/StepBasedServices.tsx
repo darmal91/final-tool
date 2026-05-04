@@ -43,16 +43,16 @@ export default function StepBasedServices({ content }: { content: ServicesConten
           >
             <div
               style={{
-                width: "2rem",
-                height: "2rem",
-                borderRadius: "var(--ft-radius-pill)",
-                background: "var(--ft-brand)",
-                color: "var(--ft-on-brand)",
+                width: "24px",
+                height: "24px",
+                borderRadius: "9999px",
+                background: "#f1f5f9",
+                color: "#94a3b8",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontWeight: 700,
-                fontSize: "0.875rem",
+                fontWeight: 600,
+                fontSize: "0.75rem",
                 marginBottom: "0.75rem",
               }}
             >

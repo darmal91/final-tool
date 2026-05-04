@@ -25,11 +25,16 @@ export default function StrongOfferCTA({ content }: { content: CTAContent }) {
         {content.eyebrow && (
           <div
             style={{
+              display: "inline-flex",
+              alignItems: "center",
+              padding: "0.3rem 0.75rem",
+              background: "rgba(255,255,255,0.15)",
+              color: "white",
+              borderRadius: "var(--ft-radius-pill)",
               fontSize: "var(--ft-fs-eyebrow)",
               textTransform: "uppercase",
               letterSpacing: "0.16em",
               fontWeight: 700,
-              opacity: 0.85,
             }}
           >
             {content.eyebrow}

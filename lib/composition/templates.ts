@@ -49,8 +49,16 @@ type DescFn = (title: string, trade: string, location: string) => string;
 // Adjacent slots never share an intent. First 6 slots cover max service list with unique openers.
 const SERVICE_DESCRIPTION_TEMPLATES: DescFn[] = [
   // [0] outcome
-  (_title, _trade, location) =>
-    `${_title} — finished to a standard that holds. ${location} customers won't need to call back.`,
+  (title, _trade, _location) => {
+    if (/emergency/i.test(title)) return "Available now. We pick up, show up, and stop the damage — day or night.";
+    if (/drain/i.test(title)) return "We find where it starts, not just where the water stops. One visit, clear drain.";
+    if (/water heat/i.test(title)) return "Most replacements done same day. We carry common units and don't schedule a second trip.";
+    if (/fixture/i.test(title)) return "Faucets, toilets, showers — installed clean, sealed right, no callbacks.";
+    if (/roof/i.test(title)) return "Storm damage or full replacement — we inspect same day and give you a straight answer.";
+    if (/gutter/i.test(title)) return "Installed level, sealed at every joint. No pooling, no pulling away from the fascia.";
+    if (/hvac|heat|cool/i.test(title)) return "Same-day diagnosis. We tell you what it needs, not what earns us the most.";
+    return "Handled start to finish by our team. No subcontractors, no surprises.";
+  },
   // [1] problem
   (title, _trade, _location) =>
     `Putting off ${title.toLowerCase()} usually makes it worse. We find the root cause, not just the symptom, and walk you through the fix before we start.`,

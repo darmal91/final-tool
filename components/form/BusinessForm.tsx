@@ -22,6 +22,60 @@ const TONES: { value: Tone; label: string; hint: string }[] = [
   { value: "aggressive", label: "Aggressive", hint: "Direct, urgent, conversion-first" },
 ];
 
+interface Preset {
+  label: string;
+  businessName: string;
+  businessType: BusinessType;
+  location: string;
+  tone: Tone;
+  services: string;
+  differentiator: string;
+  phone: string;
+}
+
+const PRESETS: Preset[] = [
+  {
+    label: "Plumber",
+    businessName: "Kerr Plumbing",
+    businessType: "plumber",
+    location: "Dallas, TX",
+    tone: "friendly",
+    services: "Emergency Repair\nDrain Cleaning\nWater Heaters\nFixture Install",
+    differentiator: "Family-owned for 20 years. Same-day emergency service.",
+    phone: "9492223344",
+  },
+  {
+    label: "Roofer",
+    businessName: "Summit Roofing",
+    businessType: "roofer",
+    location: "Austin, TX",
+    tone: "aggressive",
+    services: "Roof Replacement\nStorm Damage Repair\nGutter Installation\nRoof Inspection\nLeak Repair",
+    differentiator: "Licensed, bonded, and insured. Free same-day inspections.",
+    phone: "5124449988",
+  },
+  {
+    label: "Medspa",
+    businessName: "Lumière Aesthetics",
+    businessType: "medspa",
+    location: "Beverly Hills, CA",
+    tone: "premium",
+    services: "Botox & Fillers\nLaser Skin Resurfacing\nBody Contouring\nHydrafacial",
+    differentiator: "Board-certified physicians only. Results-focused, not sales-focused.",
+    phone: "3109876543",
+  },
+  {
+    label: "Electrician",
+    businessName: "Volt Pro Electric",
+    businessType: "electrician",
+    location: "Phoenix, AZ",
+    tone: "aggressive",
+    services: "Panel Upgrades\nEV Charger Install\nOutdoor Lighting\nEmergency Repairs",
+    differentiator: "Master electricians on every job. No subcontractors.",
+    phone: "6025551234",
+  },
+];
+
 const inputBase: React.CSSProperties = {
   width: "100%",
   padding: "0.75rem 0.875rem",
@@ -87,6 +141,16 @@ export default function BusinessForm() {
     }
   }
 
+  function applyPreset(p: Preset) {
+    setBusinessName(p.businessName);
+    setBusinessType(p.businessType);
+    setLocation(p.location);
+    setTone(p.tone);
+    setServices(p.services);
+    setDifferentiator(p.differentiator);
+    setPhone(p.phone);
+  }
+
   return (
     <form
       onSubmit={onSubmit}
@@ -99,6 +163,43 @@ export default function BusinessForm() {
         borderRadius: "0.875rem",
       }}
     >
+      <div>
+        <div
+          style={{
+            fontSize: "0.75rem",
+            fontWeight: 600,
+            color: "#94a3b8",
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+            marginBottom: "0.625rem",
+          }}
+        >
+          Quick presets
+        </div>
+        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+          {PRESETS.map((p) => (
+            <button
+              key={p.label}
+              type="button"
+              onClick={() => applyPreset(p)}
+              style={{
+                padding: "0.375rem 0.875rem",
+                fontSize: "0.8125rem",
+                fontWeight: 600,
+                color: "#334155",
+                background: "#f1f5f9",
+                border: "1px solid #e2e8f0",
+                borderRadius: "9999px",
+                cursor: "pointer",
+              }}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+        <div style={{ borderTop: "1px solid #e2e8f0", marginTop: "1.25rem" }} />
+      </div>
+
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
         <div>
           <label style={labelBase}>Business name</label>

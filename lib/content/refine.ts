@@ -171,6 +171,43 @@ function isRefineShape(value: unknown, expectedServiceCount: number): value is R
   );
 }
 
+const FORBIDDEN_DESCRIPTION_PATTERNS: RegExp[] = [
+  /finished to a standard that holds/i,
+  /won't need to call back/i,
+  /customers won't need to call/i,
+  /customers won't need to/i,
+  /handled by experienced/i,
+  /reliable \w+ for/i,
+  /done right the first time/i,
+  /experienced professionals/i,
+];
+
+const FALLBACK_DESCRIPTIONS: Record<string, string> = {
+  "Emergency Repair": "Available now. We pick up, show up, and fix it — day or night.",
+  "Drain Cleaning": "We find where it starts, not just where the water stops. One visit, clear drain, clear explanation.",
+  "Water Heaters": "Most replacements done same day. We carry common units and don't schedule a second trip.",
+  "Fixture Install": "Faucets, toilets, showers — installed clean, sealed right, no callbacks.",
+};
+
+function stripForbiddenDescriptions(copy: GeneratedCopy): GeneratedCopy {
+  const cleaned = copy.services.services.map((s) => {
+    const hit = FORBIDDEN_DESCRIPTION_PATTERNS.find((re) => re.test(s.description));
+    if (hit) {
+      const fallback = FALLBACK_DESCRIPTIONS[s.title] ?? "";
+      console.warn(
+        `[refine] forbidden pattern detected in "${s.title}" — ${fallback ? "using fallback" : "clearing"} description. Pattern: ${hit}`
+      );
+      return { ...s, description: fallback };
+    }
+    return s;
+  });
+
+  return {
+    ...copy,
+    services: { ...copy.services, services: cleaned },
+  };
+}
+
 function extractAndParseJson(text: string): unknown {
   let s = text.replace(/^﻿/, "").trim();
   s = s.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
@@ -272,8 +309,9 @@ export async function refineCopy(
       );
     }
 
+    const merged = applyRefineShape(copy, parsed);
     console.log("[refine] applied refined copy: services", parsed.services.length);
-    return { copy: applyRefineShape(copy, parsed), refined: true };
+    return { copy: stripForbiddenDescriptions(merged), refined: true };
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
     console.error("[refine] failure:", msg);

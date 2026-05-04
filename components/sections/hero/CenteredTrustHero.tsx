@@ -6,12 +6,12 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
       style={{
         background: "var(--ft-surface-muted)",
         color: "var(--ft-text)",
-        minHeight: "500px",
+        minHeight: "600px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "calc(var(--ft-hero-scale, 1) * var(--ft-section-spacing, var(--ft-section-y))) 1.25rem",
+        padding: "5rem 1.25rem",
       }}
     >
       <div
