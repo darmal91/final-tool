@@ -34,7 +34,38 @@ You return ONLY a JSON object that matches the schema you are given. No prose. N
 Rules:
 - Plain language. No jargon. No marketing fluff.
 - Specific to the business: include the location and trade where it adds trust.
-- Headlines should be 6–12 words, not generic ("Welcome to..." is forbidden).
+HERO HEADLINE RULES:
+The headline must do ONE of these three things — pick based on business type and tone:
+
+OUTCOME: State the result the customer gets. Not what you do — what they have after.
+  Formula: "[Situation resolved] in [timeframe/location]" or "[Result], [qualifier]"
+  Examples:
+  - "Your plumbing fixed today. No callbacks."
+  - "Storm damage handled before it gets worse."
+  - "Hot water again by tonight."
+  - "A yard you'll actually use this summer."
+
+PROBLEM: Name the customer's pain or fear directly. Make them feel seen.
+  Formula: "[Pain point]? [We solve it]." or "Tired of [problem]?"
+  Examples:
+  - "Leaking pipe at midnight? We pick up."
+  - "Roof damage doesn't wait for Monday."
+  - "Your AC quit. We're already on the way."
+
+CREDIBILITY: Lead with a specific proof point that earns trust instantly.
+  Formula: "[Specific number or fact] + [what that means for the customer]"
+  Examples:
+  - "20 years fixing Dallas plumbing. Still family-owned."
+  - "500 roofs replaced in Austin. Yours is next."
+  - "Board-certified injectors only. No exceptions."
+
+RULES:
+- 5-10 words maximum
+- Never start with the business name
+- Never use: "Welcome", "Discover", "Your trusted", "Quality", "Professional", "Solutions"
+- Never describe what the business does — say what the customer gets
+- Must feel like it was written by a human who knows this trade, not a marketer
+- The differentiator input MUST influence the headline if provided
 SERVICE DESCRIPTIONS — CRITICAL RULES:
 - Every description MUST be unique. No shared sentence structure across services.
 - Never use the pattern "Reliable [X] for [location] customers, handled by experienced [trade] professionals." — this is forbidden.
@@ -124,7 +155,17 @@ GOOD service descriptions (varied, specific, human):
 - "Water Heaters: Install, replace, or repair — we stock common units and can often finish the same visit."
 - "Fixture Install: Faucets, toilets, showers. Done clean, no leaks, no follow-up calls needed."
 
-Write descriptions in this spirit — each one specific to what that service actually is.`;
+Write descriptions in this spirit — each one specific to what that service actually is.
+
+HERO HEADLINE EXAMPLES BY BUSINESS TYPE (tone reference only, not templates):
+  plumber: "Burst pipe at 2am? We're already on the way." / "Dallas plumbing fixed right, same day."
+  roofer: "Storm damage doesn't wait. Neither do we." / "Your roof. Inspected today, repaired this week."
+  hvac: "Your AC quit. We're already on the way." / "Same-day HVAC across [location]. No waiting on a slot."
+  electrician: "Panel upgrade, EV charger, emergency repair — one call." / "Licensed master electricians. Every job, no subs."
+  medspa: "Results-focused aesthetics in [location]." / "Board-certified care. No pushy sales, ever."
+  dentist: "A dentist who actually explains what you need." / "Comfortable dental care in [location]."
+  landscaper: "A yard you'll want to spend time in." / "Landscaping that holds up through summer."
+  cleaner: "Come home to a clean house, every time." / "Reliable cleaning in [location] — same team, every visit."`;
 }
 
 function fallback(input: BusinessInput): GeneratedCopy {
@@ -145,6 +186,59 @@ interface GeminiResponse {
   error?: { message?: string };
 }
 
+type HeadlineType = "OUTCOME" | "PROBLEM" | "CREDIBILITY";
+
+function pickHeadlineType(tone: string): HeadlineType {
+  if (tone === "aggressive") return "PROBLEM";
+  if (tone === "premium") return "CREDIBILITY";
+  return "OUTCOME";
+}
+
+async function generateHeroHeadline(
+  input: BusinessInput,
+  apiKey: string
+): Promise<string> {
+  const headlineType = pickHeadlineType(input.tone);
+  const approachDesc =
+    headlineType === "OUTCOME"
+      ? "State the result the customer gets after hiring them"
+      : headlineType === "PROBLEM"
+      ? "Name the pain or fear the customer has right now"
+      : "Lead with a specific credibility fact about this business";
+
+  const systemPrompt =
+    "You write headlines for local business websites. Return ONLY the headline text. No quotes, no punctuation at the end, no explanation. 5-9 words maximum.";
+
+  const prompt =
+    `Business: ${input.businessName}, Type: ${input.businessType}, Location: ${input.location}, ` +
+    `Differentiator: ${input.differentiator || "none"}. Tone: ${input.tone}. ` +
+    `Write one headline using the ${headlineType} approach: ${approachDesc}. ` +
+    `Examples for plumber: OUTCOME='Your plumbing fixed today. No callbacks.' ` +
+    `PROBLEM='Burst pipe at midnight? We pick up.' ` +
+    `CREDIBILITY='20 years fixing Dallas plumbing. Still family-owned.' ` +
+    `Never use: Welcome, Discover, Professional, Solutions, Quality, Trusted. ` +
+    `Never describe what the business does.`;
+
+  try {
+    const response = await fetch(`${ENDPOINT}?key=${apiKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        systemInstruction: { parts: [{ text: systemPrompt }] },
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig: { maxOutputTokens: 64, temperature: 0.9 },
+      }),
+    });
+    const data = (await response.json()) as GeminiResponse;
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ?? "";
+    console.log("[ai] hero headline:", text);
+    return text;
+  } catch (e) {
+    console.warn("[ai] generateHeroHeadline failed:", e instanceof Error ? e.message : e);
+    return "";
+  }
+}
+
 export async function generateCopy(
   input: BusinessInput,
   strategy?: CompositionStrategy,
@@ -159,6 +253,12 @@ export async function generateCopy(
     console.log("[ai] no GOOGLE_API_KEY — using template fallback");
     return { copy: fallback(input), source: "template" };
   }
+
+  const [heroHeadline] = await Promise.allSettled([
+    generateHeroHeadline(input, apiKey),
+  ]);
+  const focusedHeadline =
+    heroHeadline.status === "fulfilled" ? heroHeadline.value : "";
 
   let rawText: string | undefined;
 
@@ -215,6 +315,10 @@ export async function generateCopy(
     );
 
     const merged = mergeWithFallback(parsed, fallback(input));
+    if (focusedHeadline && focusedHeadline.length < 80) {
+      merged.hero.headline = focusedHeadline;
+      console.log("[ai] hero headline overridden with focused result");
+    }
     console.log("[ai] merged services count:", merged.services.services.length);
     console.log("[ai] source: ai");
     return { copy: merged, source: "ai" };
