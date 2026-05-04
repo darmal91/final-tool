@@ -1,0 +1,168 @@
+{
+  "project": {
+    "id": "s2yzt500us",
+    "createdAt": "2026-05-01T10:34:45.820Z",
+    "input": {
+      "businessName": "Joshua Plumbing",
+      "businessType": "plumber",
+      "location": "Dallas, Tx",
+      "services": [
+        "Emergency Repair",
+        "Drain Cleaning",
+        "Water Heaters",
+        "Fixture Install"
+      ],
+      "tone": "friendly",
+      "differentiator": "Family-owned for 20 years. Same-day service.",
+      "phone": "9949494949"
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "s2yzt500us",
+    "theme": {
+      "tokens": {
+        "tone": "friendly",
+        "density": "normal",
+        "radius": "soft"
+      },
+      "cssVars": {
+        "--ft-brand": "#2563EB",
+        "--ft-brand-hover": "#1D4ED8",
+        "--ft-brand-soft": "#DBEAFE",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F1F5F9",
+        "--ft-surface-inverse": "#1E3A8A",
+        "--ft-text": "#0F172A",
+        "--ft-text-muted": "#64748B",
+        "--ft-text-inverse": "#F8FAFC",
+        "--ft-border": "#E2E8F0",
+        "--ft-accent": "#F59E0B",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "700",
+        "--ft-letter-spacing-heading": "-0.025em",
+        "--ft-section-y": "6rem",
+        "--ft-section-y-sm": "4rem",
+        "--ft-block-gap": "2rem",
+        "--ft-item-gap": "1rem",
+        "--ft-card-pad": "1.75rem",
+        "--ft-radius-sm": "0.5rem",
+        "--ft-radius-md": "1rem",
+        "--ft-radius-lg": "1.5rem",
+        "--ft-radius-pill": "9999px",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.15",
+        "--ft-heading-scale": "1.1",
+        "--ft-body-scale": "1",
+        "--ft-cta-scale": "1.05",
+        "--ft-density": "low",
+        "--ft-section-spacing": "8rem",
+        "--ft-spacing-variance": "0.05",
+        "--ft-type-relax": "0.05",
+        "--ft-cta-asymmetry": "0.2",
+        "--ft-section-breathing": "0.2"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "centered-trust",
+        "content": {
+          "eyebrow": "Plumbing · Dallas, TX",
+          "headline": "Solving Dallas Plumbing Problems Fast, With 20 Years of Family Care.",
+          "subheadline": "Same-day service for urgent plumbing issues across Dallas. Our family has been trusted for two decades.",
+          "ctaText": "Get Help Now",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Family-Owned for 20 Years",
+            "Dallas Licensed Plumbers",
+            "Same-Day Service"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "card-grid",
+        "content": {
+          "heading": "Reliable Plumbing Solutions for Every Dallas Home",
+          "subheading": "From urgent repairs to new installations, Joshua Plumbing has you covered.",
+          "services": [
+            {
+              "title": "Emergency Repair",
+              "description": "When a pipe bursts or a toilet overflows, our same-day team responds quickly to fix your urgent Dallas plumbing problem.",
+              "icon": "🚨"
+            },
+            {
+              "title": "Drain Cleaning",
+              "description": "Eliminate slow sinks and stubborn clogs efficiently, restoring proper flow throughout your Dallas home with lasting results.",
+              "icon": "🧼"
+            },
+            {
+              "title": "Water Heaters",
+              "description": "Ensure consistent hot water by relying on our expert installation, repair, and maintenance for all tank and tankless units.",
+              "icon": "💧"
+            },
+            {
+              "title": "Fixture Install",
+              "description": "Upgrade your kitchen or bathroom with new faucets, toilets, or showers installed perfectly, preventing leaks and headaches.",
+              "icon": "🔧"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What Dallas Neighbors Say About Joshua Plumbing",
+          "subheading": "Hear from local homeowners who trust our family for their plumbing needs.",
+          "reviews": [
+            {
+              "name": "Maria S.",
+              "role": "Homeowner, Oak Cliff",
+              "body": "Had a terrible leak on a Saturday morning. Called Joshua Plumbing, and they were here within hours. The plumber was so friendly and fixed everything fast. Lifesavers!",
+              "rating": 5
+            },
+            {
+              "name": "David Chen",
+              "role": "Resident, Preston Hollow",
+              "body": "We've used Joshua Plumbing for years, mostly for drain cleaning. Always professional, on time, and they get the job done right without any fuss. Good value too.",
+              "rating": 5
+            },
+            {
+              "name": "Jessica L.",
+              "role": "Apartment Manager, Uptown",
+              "body": "Needed a new water heater installed quickly for a tenant. Joshua Plumbing scheduled it same-day and the installation was flawless. Appreciate the dependable service from a local family business.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "strong-offer",
+        "content": {
+          "eyebrow": "Don't Wait for Plumbing Problems to Get Worse",
+          "heading": "Need Plumbing Help in Dallas? Call Us Now!",
+          "subheading": "Our family is ready to provide fast, reliable service for your home's plumbing needs, same-day.",
+          "buttonText": "Call Joshua Plumbing: 994-949-4949",
+          "buttonHref": "tel:9949494949",
+          "microcopy": "20 years of family-owned service. Your satisfaction is our priority."
+        }
+      }
+    ]
+  }
+}

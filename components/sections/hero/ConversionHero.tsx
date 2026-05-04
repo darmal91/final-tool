@@ -1,91 +1,117 @@
 import type { HeroContent } from "@/lib/types";
-import { Heading, Lead, Button } from "@/components/sections/shared/primitives";
 
 export default function ConversionHero({ content }: { content: HeroContent }) {
   return (
     <section
       style={{
-        background: "var(--ft-brand)",
+        background:
+          "radial-gradient(ellipse at 60% 40%, rgba(255,255,255,0.07) 0%, transparent 70%), var(--ft-brand)",
         color: "var(--ft-on-brand)",
+        minHeight: "540px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
         padding: "calc(var(--ft-hero-scale, 1) * var(--ft-section-spacing, var(--ft-section-y))) 1.25rem",
       }}
     >
       <div
         style={{
-          maxWidth: "1080px",
+          maxWidth: "720px",
           margin: "0 auto",
-          display: "grid",
-          gridTemplateColumns: "1.4fr auto",
-          gap: "var(--ft-block-gap)",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
           alignItems: "center",
+          textAlign: "center",
+          gap: "1.25rem",
         }}
-        className="ft-conversion-hero"
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: "var(--ft-item-gap)" }}>
-          <div
-            style={{
-              fontSize: "var(--ft-fs-eyebrow)",
-              textTransform: "uppercase",
-              letterSpacing: "0.16em",
-              fontWeight: 700,
-              opacity: 0.85,
-            }}
-          >
-            {content.eyebrow}
+        {content.trustBadges.length > 0 && (
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "center" }}>
+            {content.trustBadges.slice(0, 5).map((b) => (
+              <span
+                key={b}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  padding: "0.3rem 0.75rem",
+                  background: "rgba(255,255,255,0.15)",
+                  color: "var(--ft-on-brand)",
+                  borderRadius: "var(--ft-radius-pill)",
+                  fontSize: "var(--ft-fs-small)",
+                  fontWeight: 600,
+                  letterSpacing: "0.01em",
+                }}
+              >
+                {b}
+              </span>
+            ))}
           </div>
-          <Heading level={1} size="display" inverse>
-            {content.headline}
-          </Heading>
-          <Lead inverse>{content.subheadline}</Lead>
-        </div>
+        )}
+
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.5rem",
-            alignItems: "stretch",
+            fontSize: "var(--ft-fs-eyebrow)",
+            textTransform: "uppercase",
+            letterSpacing: "0.16em",
+            fontWeight: 700,
+            opacity: 0.8,
+            color: "var(--ft-on-brand)",
           }}
         >
-          <a
-            href={content.ctaHref}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "0.5rem",
-              padding: "calc(var(--ft-cta-scale, 1) * 1.25rem) calc(var(--ft-cta-scale, 1) * 2rem)",
-              fontSize: "calc(var(--ft-cta-scale, 1) * 1.125rem)",
-              fontWeight: 700,
-              letterSpacing: "-0.01em",
-              background: "var(--ft-on-brand)",
-              color: "var(--ft-brand)",
-              border: "none",
-              borderRadius: "var(--ft-radius-md)",
-              textDecoration: "none",
-              boxShadow: "0 10px 24px -8px rgba(0,0,0,0.35)",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {content.ctaText}
-          </a>
-          {content.trustBadges[0] && (
-            <div
-              style={{
-                fontSize: "var(--ft-fs-small)",
-                opacity: 0.85,
-                textAlign: "center",
-              }}
-            >
-              {content.trustBadges[0]}
-            </div>
-          )}
+          {content.eyebrow}
         </div>
+
+        <h1
+          style={{
+            fontSize: "clamp(2.25rem, 5vw, 3.5rem)",
+            fontWeight: 800,
+            letterSpacing: "-0.03em",
+            lineHeight: 1.1,
+            margin: 0,
+            color: "var(--ft-text-inverse)",
+          }}
+        >
+          {content.headline}
+        </h1>
+
+        <p
+          style={{
+            fontSize: "calc(var(--ft-body-scale, 1) * 1.125rem)",
+            lineHeight: 1.55,
+            color: "var(--ft-text-inverse)",
+            opacity: 0.8,
+            maxWidth: "560px",
+            margin: 0,
+          }}
+        >
+          {content.subheadline}
+        </p>
+
+        <a
+          href={content.ctaHref}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "1rem 2rem",
+            fontSize: "calc(var(--ft-cta-scale, 1) * 1.0625rem)",
+            fontWeight: 700,
+            letterSpacing: "-0.01em",
+            background: "var(--ft-on-brand)",
+            color: "var(--ft-brand)",
+            border: "none",
+            borderRadius: "var(--ft-radius-md)",
+            textDecoration: "none",
+            boxShadow: "0 10px 24px -8px rgba(0,0,0,0.35)",
+            whiteSpace: "nowrap",
+            marginTop: "0.25rem",
+          }}
+        >
+          {content.ctaText}
+        </a>
       </div>
-      <style>{`
-        @media (max-width: 760px) {
-          .ft-conversion-hero { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
     </section>
   );
 }
