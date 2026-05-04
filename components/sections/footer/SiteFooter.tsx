@@ -34,7 +34,6 @@ export default function SiteFooter({
     <footer>
       {/* Top section */}
       <div
-        id="contact"
         style={{
           ...topSectionStyle,
           color: "var(--ft-text-inverse)",

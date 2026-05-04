@@ -12,10 +12,10 @@ export default function PremiumSplitHero({
       style={{
         background: "var(--ft-surface-inverse)",
         color: "var(--ft-text-inverse)",
-        minHeight: "600px",
+        minHeight: "580px",
         display: "flex",
         alignItems: "stretch",
-        padding: "5rem 1.25rem",
+        padding: "6rem 1.25rem",
       }}
     >
       <div
@@ -78,10 +78,10 @@ export default function PremiumSplitHero({
 
           <h1
             style={{
-              fontSize: "clamp(2rem, 4vw, 3rem)",
+              fontSize: "clamp(2.5rem, 5vw, 3.75rem)",
               fontWeight: 800,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.1,
+              letterSpacing: "-0.035em",
+              lineHeight: 1.08,
               margin: 0,
               color: "var(--ft-text-inverse)",
             }}
@@ -91,12 +91,12 @@ export default function PremiumSplitHero({
 
           <p
             style={{
-              fontSize: "calc(var(--ft-body-scale, 1) * 1.125rem)",
+              fontSize: "1.125rem",
               lineHeight: 1.55,
               color: "var(--ft-text-inverse)",
               opacity: 0.7,
               margin: 0,
-              maxWidth: "480px",
+              maxWidth: "540px",
             }}
           >
             {content.subheadline}

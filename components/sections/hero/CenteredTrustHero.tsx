@@ -6,12 +6,12 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
       style={{
         background: "var(--ft-surface-muted)",
         color: "var(--ft-text)",
-        minHeight: "600px",
+        minHeight: "580px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "5rem 1.25rem",
+        padding: "6rem 1.25rem",
       }}
     >
       <div
@@ -64,10 +64,10 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
 
         <h1
           style={{
-            fontSize: "clamp(2rem, 4.5vw, 3.25rem)",
+            fontSize: "clamp(2.5rem, 5vw, 3.75rem)",
             fontWeight: 800,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.1,
+            letterSpacing: "-0.035em",
+            lineHeight: 1.08,
             margin: 0,
             color: "var(--ft-text)",
           }}
@@ -77,10 +77,10 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
 
         <p
           style={{
-            fontSize: "calc(var(--ft-body-scale, 1) * 1.125rem)",
+            fontSize: "1.125rem",
             lineHeight: 1.55,
             color: "var(--ft-text-muted)",
-            maxWidth: "560px",
+            maxWidth: "540px",
             margin: 0,
           }}
         >

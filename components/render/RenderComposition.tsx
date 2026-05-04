@@ -4,6 +4,7 @@ import { getSectionComponent } from "@/components/sections/registry";
 import { ThemeProvider } from "@/components/design/ThemeProvider";
 import SiteNav from "@/components/nav/SiteNav";
 import SiteFooter from "@/components/sections/footer/SiteFooter";
+import ContactForm from "@/components/sections/contact/ContactForm";
 
 function pickHeroImage(assets: BusinessAsset[] | undefined): string | undefined {
   return assets?.find((a) => a.context === "hero")?.url;
@@ -37,6 +38,7 @@ export default function RenderComposition({
       {composition.sections.map((s) => (
         <RenderSection key={s.id} section={s} assets={assets} />
       ))}
+      {input && <ContactForm input={input} />}
       {input && <SiteFooter input={input} assets={assets} ctaVariant={ctaVariant} />}
     </ThemeProvider>
   );
