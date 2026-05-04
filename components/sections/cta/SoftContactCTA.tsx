@@ -24,7 +24,7 @@ export default function SoftContactCTA({ content }: { content: CTAContent }) {
           <Lead>{content.subheading}</Lead>
           {content.microcopy && (
             <div style={{ fontSize: "var(--ft-fs-small)", color: "var(--ft-text-muted)" }}>
-              {content.microcopy}
+              {content.microcopy.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')}
             </div>
           )}
         </div>

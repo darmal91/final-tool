@@ -66,7 +66,7 @@ export default function StrongOfferCTA({ content }: { content: CTAContent }) {
           {content.buttonText}
         </a>
         {content.microcopy && (
-          <div style={{ fontSize: "var(--ft-fs-small)", opacity: 0.85 }}>{content.microcopy}</div>
+          <div style={{ fontSize: "var(--ft-fs-small)", opacity: 0.85 }}>{content.microcopy.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')}</div>
         )}
       </div>
     </section>

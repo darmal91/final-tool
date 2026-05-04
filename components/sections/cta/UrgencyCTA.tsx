@@ -60,7 +60,7 @@ export default function UrgencyCTA({ content }: { content: CTAContent }) {
             {content.buttonText}
           </Button>
           {content.microcopy && (
-            <span style={{ fontSize: "var(--ft-fs-small)", opacity: 0.8 }}>{content.microcopy}</span>
+            <span style={{ fontSize: "var(--ft-fs-small)", opacity: 0.8 }}>{content.microcopy.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')}</span>
           )}
         </div>
       </div>
