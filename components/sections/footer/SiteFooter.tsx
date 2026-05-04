@@ -3,14 +3,23 @@ import type { BusinessInput, BusinessAsset } from "@/lib/types";
 export default function SiteFooter({
   input,
   assets: _assets,
+  ctaVariant,
 }: {
   input: BusinessInput;
   assets?: BusinessAsset[];
+  ctaVariant?: string;
 }) {
   const phone = input.phone;
   const formattedPhone = phone
     ? phone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")
     : null;
+
+  const topSectionStyle: React.CSSProperties =
+    ctaVariant === "strong-offer"
+      ? { background: "#0f0f0f", borderTop: "4px solid var(--ft-brand)" }
+      : ctaVariant === "urgency"
+        ? { background: "#0f0f0f", borderTop: "1px solid rgba(255,255,255,0.08)" }
+        : { background: "var(--ft-surface-inverse)" };
 
   const labelStyle: React.CSSProperties = {
     fontSize: "0.6875rem",
@@ -27,7 +36,7 @@ export default function SiteFooter({
       <div
         id="contact"
         style={{
-          background: "var(--ft-surface-inverse)",
+          ...topSectionStyle,
           color: "var(--ft-text-inverse)",
           padding: "3rem 1.25rem",
         }}
@@ -146,7 +155,7 @@ export default function SiteFooter({
       {/* Bottom section */}
       <div
         style={{
-          background: "rgba(0,0,0,0.2)",
+          background: "rgba(0,0,0,0.3)",
           padding: "1rem 1.25rem",
         }}
       >
