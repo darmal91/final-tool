@@ -1,0 +1,168 @@
+{
+  "project": {
+    "id": "p2h7oydobr",
+    "createdAt": "2026-05-05T02:28:13.766Z",
+    "input": {
+      "businessName": "Kerr Plumbing",
+      "businessType": "plumber",
+      "location": "Dallas, TX",
+      "services": [
+        "Emergency Repair",
+        "Drain Cleaning",
+        "Water Heaters",
+        "Fixture Install"
+      ],
+      "tone": "friendly",
+      "differentiator": "Family-owned for 20 years. Same-day emergency service.",
+      "phone": "9492223344"
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "p2h7oydobr",
+    "theme": {
+      "tokens": {
+        "tone": "friendly",
+        "density": "normal",
+        "radius": "soft"
+      },
+      "cssVars": {
+        "--ft-brand": "#2563EB",
+        "--ft-brand-hover": "#1D4ED8",
+        "--ft-brand-soft": "#DBEAFE",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F1F5F9",
+        "--ft-surface-inverse": "#1E3A8A",
+        "--ft-text": "#0F172A",
+        "--ft-text-muted": "#64748B",
+        "--ft-text-inverse": "#F8FAFC",
+        "--ft-border": "#E2E8F0",
+        "--ft-accent": "#F59E0B",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "700",
+        "--ft-letter-spacing-heading": "-0.025em",
+        "--ft-section-y": "6rem",
+        "--ft-section-y-sm": "4rem",
+        "--ft-block-gap": "2rem",
+        "--ft-item-gap": "1rem",
+        "--ft-card-pad": "1.75rem",
+        "--ft-radius-sm": "0.5rem",
+        "--ft-radius-md": "1rem",
+        "--ft-radius-lg": "1.5rem",
+        "--ft-radius-pill": "9999px",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.15",
+        "--ft-heading-scale": "1.1",
+        "--ft-body-scale": "1",
+        "--ft-cta-scale": "1.05",
+        "--ft-density": "low",
+        "--ft-section-spacing": "8rem",
+        "--ft-spacing-variance": "0.05",
+        "--ft-type-relax": "0.05",
+        "--ft-cta-asymmetry": "0.2",
+        "--ft-section-breathing": "0.2"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "centered-trust",
+        "content": {
+          "eyebrow": "Plumber · Dallas, TX",
+          "headline": "Your plumbing fixed today guaranteed",
+          "subheadline": "Same-day service for emergency plumbing when you need it most.",
+          "ctaText": "Call for Service",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Licensed & Insured",
+            "20+ Years Local",
+            "Family Owned"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "card-grid",
+        "content": {
+          "heading": "Plumbing Services",
+          "subheading": "Clear pricing and solutions that last, from a team you can trust.",
+          "services": [
+            {
+              "title": "Emergency Repair",
+              "description": "Burst pipe at 2am doesn't wait. We pick up, show up, and stop the damage fast – often same-day.",
+              "icon": "🚨"
+            },
+            {
+              "title": "Drain Cleaning",
+              "description": "Slow drains usually mean one thing caught early or one thing ignored too long. We clear it and tell you which.",
+              "icon": "🧼"
+            },
+            {
+              "title": "Water Heaters",
+              "description": "Installation, replacement, or repair of your water heater — we often finish the same visit with common units stocked.",
+              "icon": "♨️"
+            },
+            {
+              "title": "Fixture Install",
+              "description": "Faucets, toilets, showers. Get them installed cleanly with no leaks and no follow-up calls needed.",
+              "icon": "🚿"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What Our Neighbors Say",
+          "subheading": "Real experiences from Dallas homeowners who chose Kerr Plumbing.",
+          "reviews": [
+            {
+              "name": "Sarah J.",
+              "role": "Homeowner in Dallas",
+              "body": "Had a leaky pipe on a Saturday morning and Kerr Plumbing was out within a few hours. Fixed it perfectly and explained everything clearly.",
+              "rating": 5
+            },
+            {
+              "name": "Mark D.",
+              "role": "Dallas Resident",
+              "body": "Called Kerr to replace an old water heater. They were prompt, clean, and the new unit works great. Very happy with the service.",
+              "rating": 5
+            },
+            {
+              "name": "Emily R.",
+              "role": "Small Business Owner",
+              "body": "Our office sink was completely clogged. Kerr Plumbing got it cleared quickly without disrupting our workday. Professional and efficient.",
+              "rating": 4
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "strong-offer",
+        "content": {
+          "eyebrow": "Ready for help?",
+          "heading": "Get Your Plumbing Fixed Today",
+          "subheading": "Don't let a small leak turn into a big problem. We're here to help, fast.",
+          "buttonText": "Call Kerr Plumbing Now",
+          "buttonHref": "tel:9492223344",
+          "microcopy": "We're family-owned and standing by for Dallas homeowners."
+        }
+      }
+    ]
+  }
+}

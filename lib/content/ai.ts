@@ -220,6 +220,7 @@ async function generateHeroHeadline(
     `Never describe what the business does.`;
 
   try {
+    console.log("[headline] calling Groq...");
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -227,7 +228,7 @@ async function generateHeroHeadline(
         Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "llama-3.1-70b-versatile",
+        model: "llama-3.3-70b-versatile",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: prompt },
@@ -236,12 +237,15 @@ async function generateHeroHeadline(
         temperature: 0.8,
       }),
     });
+    console.log("[headline] Groq status:", response.status);
+    const errorBody = await response.clone().text();
+    console.log("[headline] Groq error body:", errorBody);
     const data = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
-    const text = data.choices?.[0]?.message?.content?.trim() ?? "";
-    console.log("[ai] hero headline:", text);
-    return text;
-  } catch (e) {
-    console.warn("[ai] generateHeroHeadline failed:", e instanceof Error ? e.message : e);
+    const result = data.choices?.[0]?.message?.content?.trim() ?? "";
+    console.log("[headline] Groq result:", result);
+    return result;
+  } catch (err) {
+    console.log("[headline] Groq error:", err);
     return "";
   }
 }
@@ -323,8 +327,8 @@ export async function generateCopy(
 
     const merged = mergeWithFallback(parsed, fallback(input));
     if (focusedHeadline && focusedHeadline.length < 80) {
+      console.log("[headline] override result:", focusedHeadline, "merged headline was:", merged.hero.headline);
       merged.hero.headline = focusedHeadline;
-      console.log("[ai] hero headline overridden with focused result");
     }
     console.log("[ai] merged services count:", merged.services.services.length);
     console.log("[ai] source: ai");
