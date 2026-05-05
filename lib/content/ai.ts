@@ -220,17 +220,24 @@ async function generateHeroHeadline(
     `Never describe what the business does.`;
 
   try {
-    const response = await fetch(`${ENDPOINT}?key=${apiKey}`, {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+      },
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemPrompt }] },
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: { maxOutputTokens: 64, temperature: 0.9 },
+        model: "llama-3.1-70b-versatile",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: prompt },
+        ],
+        max_tokens: 64,
+        temperature: 0.8,
       }),
     });
-    const data = (await response.json()) as GeminiResponse;
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ?? "";
+    const data = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
+    const text = data.choices?.[0]?.message?.content?.trim() ?? "";
     console.log("[ai] hero headline:", text);
     return text;
   } catch (e) {
