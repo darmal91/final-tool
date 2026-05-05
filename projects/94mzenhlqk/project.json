@@ -1,0 +1,169 @@
+{
+  "project": {
+    "id": "94mzenhlqk",
+    "createdAt": "2026-05-05T02:31:18.579Z",
+    "input": {
+      "businessName": "Lumière Aesthetics",
+      "businessType": "medspa",
+      "location": "Beverly Hills, CA",
+      "services": [
+        "Botox & Fillers",
+        "Laser Skin Resurfacing",
+        "Body Contouring",
+        "Hydrafacial"
+      ],
+      "tone": "premium",
+      "differentiator": "Board-certified physicians only. Results-focused, not sales-focused.",
+      "phone": "3109876543"
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "94mzenhlqk",
+    "theme": {
+      "tokens": {
+        "tone": "premium",
+        "density": "airy",
+        "radius": "soft"
+      },
+      "cssVars": {
+        "--ft-brand": "#0F172A",
+        "--ft-brand-hover": "#020617",
+        "--ft-brand-soft": "#E2E8F0",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F8FAFC",
+        "--ft-surface-inverse": "#0F172A",
+        "--ft-text": "#0F172A",
+        "--ft-text-muted": "#475569",
+        "--ft-text-inverse": "#F8FAFC",
+        "--ft-border": "#E2E8F0",
+        "--ft-accent": "#C8A24B",
+        "--ft-font": "\"Playfair Display\", \"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "600",
+        "--ft-letter-spacing-heading": "-0.02em",
+        "--ft-section-y": "8rem",
+        "--ft-section-y-sm": "5rem",
+        "--ft-block-gap": "2.75rem",
+        "--ft-item-gap": "1.5rem",
+        "--ft-card-pad": "2.25rem",
+        "--ft-radius-sm": "0.5rem",
+        "--ft-radius-md": "1rem",
+        "--ft-radius-lg": "1.5rem",
+        "--ft-radius-pill": "9999px",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1",
+        "--ft-heading-scale": "1",
+        "--ft-body-scale": "1",
+        "--ft-cta-scale": "1",
+        "--ft-density": "medium",
+        "--ft-section-spacing": "6rem",
+        "--ft-spacing-variance": "0.08",
+        "--ft-type-relax": "0.03",
+        "--ft-cta-asymmetry": "0.15",
+        "--ft-section-breathing": "0.25"
+      },
+      "fontFamily": "\"Playfair Display\", \"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "premium-split",
+        "content": {
+          "eyebrow": "Medspa · Beverly Hills, CA",
+          "headline": "Board Certified Physicians Only at Lumière Aesthetics",
+          "subheadline": "Expert care designed for natural, lasting beauty in Beverly Hills.",
+          "ctaText": "Book Consultation",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Physician-led care",
+            "Results-driven approach",
+            "Personalized treatment plans",
+            "Beverly Hills trusted"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "card-grid",
+        "content": {
+          "heading": "Our Signature Treatments",
+          "subheading": "Refined aesthetic care for lasting beauty.",
+          "services": [
+            {
+              "title": "Botox & Fillers",
+              "description": "Achieve refined contours and smooth lines with our precise, physician-administered treatments for a naturally refreshed appearance.",
+              "icon": "💉"
+            },
+            {
+              "title": "Laser Skin Resurfacing",
+              "description": "Renew your complexion by targeting texture, tone, and sun damage, revealing smoother, more radiant skin that truly glows.",
+              "icon": "✨"
+            },
+            {
+              "title": "Body Contouring",
+              "description": "Sculpt and define desired areas non-invasively, enhancing your natural shape for a more confident silhouette without surgery.",
+              "icon": "🍑"
+            },
+            {
+              "title": "Hydrafacial",
+              "description": "Deeply cleanse, extract, and hydrate your skin instantly, delivering an unparalleled glow and immediate skin health benefits.",
+              "icon": "💧"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What Our Clients Say",
+          "subheading": "Experiences from those who trust our expertise.",
+          "reviews": [
+            {
+              "name": "Sarah L.",
+              "role": "Client",
+              "body": "After years searching, I finally found a medspa focused on what I want, not just selling services. Dr. Chen is amazing.",
+              "rating": 5
+            },
+            {
+              "name": "Michael R.",
+              "role": "Executive Assistant",
+              "body": "My Hydrafacial was fantastic. My skin hasn't looked this good in ages, and the staff were incredibly attentive.",
+              "rating": 5
+            },
+            {
+              "name": "Olivia P.",
+              "role": "Designer",
+              "body": "The results from my laser treatment were exactly what I hoped for, subtle yet effective. This is my go-to place now.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "soft-contact",
+        "content": {
+          "eyebrow": "Ready for a Consultation?",
+          "heading": "Begin Your Aesthetic Journey",
+          "subheading": "Connect with our board-certified physicians to discuss your goals.",
+          "buttonText": "Schedule Your Consultation",
+          "buttonHref": "tel:3109876543",
+          "microcopy": "Personalized plans, tailored for you."
+        }
+      }
+    ]
+  }
+}
