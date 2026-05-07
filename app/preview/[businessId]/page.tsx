@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import { loadProject } from "@/lib/projects/store";
 import RenderComposition from "@/components/render/RenderComposition";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
-import type { Metadata } from "next";
 
 export async function generateMetadata({
   params,
