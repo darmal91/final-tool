@@ -47,7 +47,7 @@ export default function EditorClient({
     });
   }
 
-  async function exportZip() {
+  async function exportHtml() {
     setExporting(true);
     try {
       const res = await fetch(`/api/export/${project.id}`, { method: "POST" });
@@ -56,7 +56,7 @@ export default function EditorClient({
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `${project.input.businessName.replace(/\s+/g, "-").toLowerCase() || project.id}.zip`;
+      a.download = `${project.input.businessName.replace(/\s+/g, "-").toLowerCase() || project.id}.html`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -136,7 +136,7 @@ export default function EditorClient({
             </Link>
             <button
               type="button"
-              onClick={exportZip}
+              onClick={exportHtml}
               disabled={exporting}
               style={{
                 padding: "0.5rem 0.875rem",
@@ -149,7 +149,7 @@ export default function EditorClient({
                 cursor: exporting ? "wait" : "pointer",
               }}
             >
-              {exporting ? "Exporting…" : "Export site"}
+              {exporting ? "Exporting…" : "Export HTML"}
             </button>
           </div>
         </div>

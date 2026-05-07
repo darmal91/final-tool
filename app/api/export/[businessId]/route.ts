@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { exportSiteZip } from "@/lib/export/bundle";
+import { exportSiteHtml } from "@/lib/export/bundle";
 
 export const runtime = "nodejs";
 
@@ -8,13 +8,13 @@ export async function POST(
   { params }: { params: Promise<{ businessId: string }> }
 ) {
   const { businessId } = await params;
-  const buf = await exportSiteZip(businessId);
-  if (!buf) return NextResponse.json({ error: "not_found" }, { status: 404 });
+  const html = await exportSiteHtml(businessId);
+  if (!html) return NextResponse.json({ error: "not_found" }, { status: 404 });
 
-  return new NextResponse(new Uint8Array(buf), {
+  return new NextResponse(html, {
     headers: {
-      "Content-Type": "application/zip",
-      "Content-Disposition": `attachment; filename="${businessId}.zip"`,
+      "Content-Type": "text/html; charset=utf-8",
+      "Content-Disposition": `attachment; filename="${businessId}.html"`,
       "Cache-Control": "no-store",
     },
   });
