@@ -56,7 +56,7 @@ ${fontLink}
 ${inlineGlobalCss}
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
-  body { font-family: ${fontFamily}; }
+  body { font-family: ${fontFamily}; background: var(--ft-surface); color: var(--ft-text); }
   a { text-decoration: none; }
 </style>
 </head>
@@ -81,7 +81,7 @@ async function inlineAssetUrls(
   assets: BusinessAsset[]
 ): Promise<BusinessAsset[]> {
   const dir = assetsDir(businessId);
-  return Promise.all(
+  const results = await Promise.all(
     assets.map(async (asset) => {
       const filePath = path.join(dir, asset.filename);
       try {
@@ -90,10 +90,12 @@ async function inlineAssetUrls(
         const dataUrl = `data:${mime};base64,${buf.toString("base64")}`;
         return { ...asset, url: dataUrl };
       } catch {
-        return asset;
+        console.warn(`[export] failed to inline asset ${asset.filename} — skipping`);
+        return null;
       }
     })
-  );
+  ) as (BusinessAsset | null)[];
+  return results.filter((a): a is BusinessAsset => a !== null);
 }
 
 function mimeTypeFromFilename(filename: string): string {

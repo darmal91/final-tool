@@ -25,6 +25,7 @@ export default function EditorClient({
   const [composition, setComposition] = useState(initialComposition);
   const [pending, startTransition] = useTransition();
   const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState<string | null>(null);
 
   async function setVariant(sectionId: string, variant: string) {
     const optimistic = {
@@ -49,6 +50,7 @@ export default function EditorClient({
 
   async function exportHtml() {
     setExporting(true);
+    setExportError(null);
     try {
       const res = await fetch(`/api/export/${project.id}`, { method: "POST" });
       if (!res.ok) throw new Error("export_failed");
@@ -61,6 +63,8 @@ export default function EditorClient({
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    } catch {
+      setExportError("Export failed — please try again.");
     } finally {
       setExporting(false);
     }
@@ -151,6 +155,9 @@ export default function EditorClient({
             >
               {exporting ? "Exporting…" : "Export HTML"}
             </button>
+            {exportError && (
+              <span style={{ color: "#ef4444", fontSize: "0.75rem" }}>{exportError}</span>
+            )}
           </div>
         </div>
       </header>
