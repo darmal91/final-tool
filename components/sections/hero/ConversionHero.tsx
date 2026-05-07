@@ -12,7 +12,7 @@ export default function ConversionHero({ content }: { content: HeroContent }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "6rem 1.25rem",
+        padding: "6rem 1.25rem 0",
       }}
     >
       <div
@@ -105,7 +105,8 @@ export default function ConversionHero({ content }: { content: HeroContent }) {
             borderRadius: "var(--ft-radius-md)",
             textDecoration: "none",
             boxShadow: "0 10px 24px -8px rgba(0,0,0,0.35)",
-            whiteSpace: "nowrap",
+            whiteSpace: "normal",
+            textAlign: "center",
             marginTop: "0.25rem",
           }}
         >

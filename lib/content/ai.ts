@@ -24,6 +24,11 @@ interface GeneratedCopy {
   cta: CTAContent;
 }
 
+interface HeroLines {
+  headline: string;
+  subheadline: string;
+}
+
 const MODEL = "gemini-2.5-flash";
 const ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
@@ -79,7 +84,7 @@ SERVICE DESCRIPTIONS — CRITICAL RULES:
 - Each description should reflect what makes THAT specific service distinct: its urgency, its process, its outcome, or its common failure mode.
 - Vary sentence length and entry point: some short and punchy, some longer, different verb choices per item.
 - Write like a real person who understands the trade, not a template generator.
-- 14–22 words per description. One sentence.
+- 12–18 words per description. One sentence. Never write more than 18 words. If you reach 18 words, stop and end the sentence cleanly.
 - Reviews must sound like real people, varied tone, not all enthusiastic. Names should be realistic.
 - Never invent claims that imply credentials, guarantees, or numbers the business did not provide.
 - You are NOT in charge of layout, sections, or design. Only text.
@@ -159,7 +164,7 @@ GOOD service descriptions (varied, specific, human):
 - "Water Heaters: Install, replace, or repair — we stock common units and can often finish the same visit."
 - "Fixture Install: Faucets, toilets, showers. Done clean, no leaks, no follow-up calls needed."
 
-Write descriptions in this spirit — each one specific to what that service actually is.
+Write descriptions in this spirit — each one specific to what that service actually is. 12–18 words maximum per description. End each description with a complete sentence — never trail off mid-thought.
 
 HERO HEADLINE EXAMPLES BY BUSINESS TYPE (tone reference only, not templates):
   plumber: "Burst pipe at 2am? We're already on the way." / "Dallas plumbing fixed right, same day."
@@ -201,7 +206,7 @@ function pickHeadlineType(tone: string): HeadlineType {
 async function generateHeroHeadline(
   input: BusinessInput,
   apiKey: string
-): Promise<string> {
+): Promise<HeroLines> {
   const headlineType = pickHeadlineType(input.tone);
   const approachDesc =
     headlineType === "OUTCOME"
@@ -211,7 +216,18 @@ async function generateHeroHeadline(
       : "Lead with a specific credibility fact about this business";
 
   const systemPrompt =
-    "You write headlines for local business websites. Return ONLY the headline text. No quotes, no punctuation at the end, no explanation. 5-9 words maximum. Never include the business name in the headline. Never use: Done Right, Solutions, Professional, Quality, Trusted, Welcome, Discover.";
+    'You write hero copy for local business websites. Return ONLY a JSON object with two fields: "headline" and "subheadline". ' +
+    "No prose, no markdown, no code fences. " +
+    'Example: {"headline": "Burst pipe at midnight? We pick up.", "subheadline": "Same-day repairs across Dallas — no voicemail, no waiting."} ' +
+    "Headline: 5-9 words maximum. Never include the business name. Never use: Done Right, Solutions, Professional, Quality, Trusted, Welcome, Discover. " +
+    "Subheadline: max 25 words, sounds human. Must advance the headline — not restate it.";
+
+  const subheadlineRule =
+    headlineType === "PROBLEM"
+      ? "The headline names a problem — the subheadline names the fix or the proof that you solve it fast."
+      : headlineType === "OUTCOME"
+      ? "The headline states an outcome — the subheadline names why to believe it (years of experience, coverage area, speed, guarantee)."
+      : "The headline leads with credibility — the subheadline connects that fact to what it means for the customer right now.";
 
   const prompt =
     `Business: ${input.businessName}, Type: ${input.businessType}, Location: ${input.location}, ` +
@@ -221,7 +237,8 @@ async function generateHeroHeadline(
     `PROBLEM='Burst pipe at midnight? We pick up.' ` +
     `CREDIBILITY='20 years fixing Dallas plumbing. Still family-owned.' ` +
     `Never use: Welcome, Discover, Professional, Solutions, Quality, Trusted. ` +
-    `Never describe what the business does. Do not include the business name anywhere in the headline.`;
+    `Never describe what the business does. Do not include the business name anywhere in the headline. ` +
+    `${subheadlineRule}`;
 
   try {
     console.log("[headline] calling Groq...");
@@ -237,7 +254,7 @@ async function generateHeroHeadline(
           { role: "system", content: systemPrompt },
           { role: "user", content: prompt },
         ],
-        max_tokens: 64,
+        max_tokens: 150,
         temperature: 0.8,
       }),
     });
@@ -245,12 +262,20 @@ async function generateHeroHeadline(
     const errorBody = await response.clone().text();
     console.log("[headline] Groq error body:", errorBody);
     const data = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
-    const result = data.choices?.[0]?.message?.content?.trim() ?? "";
-    console.log("[headline] Groq result:", result);
-    return result;
+    const raw = data.choices?.[0]?.message?.content?.trim() ?? "";
+    console.log("[headline] Groq result:", raw);
+    try {
+      const parsed = JSON.parse(raw) as { headline?: string; subheadline?: string };
+      return {
+        headline: parsed.headline?.trim() ?? "",
+        subheadline: parsed.subheadline?.trim() ?? "",
+      };
+    } catch {
+      return { headline: raw, subheadline: "" };
+    }
   } catch (err) {
     console.log("[headline] Groq error:", err);
-    return "";
+    return { headline: "", subheadline: "" };
   }
 }
 
@@ -272,8 +297,10 @@ export async function generateCopy(
   const [heroHeadline] = await Promise.allSettled([
     generateHeroHeadline(input, apiKey),
   ]);
-  const focusedHeadline =
-    heroHeadline.status === "fulfilled" ? heroHeadline.value : "";
+  const focusedLines: HeroLines =
+    heroHeadline.status === "fulfilled"
+      ? heroHeadline.value
+      : { headline: "", subheadline: "" };
 
   let rawText: string | undefined;
 
@@ -330,9 +357,12 @@ export async function generateCopy(
     );
 
     const merged = mergeWithFallback(parsed, fallback(input));
-    if (focusedHeadline && focusedHeadline.length < 80) {
-      console.log("[headline] override result:", focusedHeadline, "merged headline was:", merged.hero.headline);
-      merged.hero.headline = focusedHeadline;
+    if (focusedLines.headline && focusedLines.headline.length < 80) {
+      console.log("[headline] override result:", focusedLines.headline, "merged headline was:", merged.hero.headline);
+      merged.hero.headline = focusedLines.headline;
+    }
+    if (focusedLines.subheadline && focusedLines.subheadline.length < 200) {
+      merged.hero.subheadline = focusedLines.subheadline;
     }
     console.log("[ai] merged services count:", merged.services.services.length);
     console.log("[ai] source: ai");

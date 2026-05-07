@@ -35,6 +35,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
           <Lead align="center">{content.subheading}</Lead>
         </div>
         <div
+          className="ft-card-grid"
           style={{
             display: "grid",
             gridTemplateColumns: cols,
@@ -100,6 +101,11 @@ export default function CardGridServices({ content }: { content: ServicesContent
           })}
         </div>
       </div>
+      <style>{`
+        @media (max-width: 880px) {
+          .ft-card-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </SectionShell>
   );
 }

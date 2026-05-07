@@ -15,7 +15,7 @@ export default function PremiumSplitHero({
         minHeight: "580px",
         display: "flex",
         alignItems: "stretch",
-        padding: "6rem 1.25rem",
+        padding: "6rem 1.25rem 0",
       }}
     >
       <div
@@ -118,7 +118,8 @@ export default function PremiumSplitHero({
               borderRadius: "var(--ft-radius-md)",
               textDecoration: "none",
               boxShadow: "0 10px 24px -8px rgba(0,0,0,0.4)",
-              whiteSpace: "nowrap",
+              whiteSpace: "normal",
+              textAlign: "center",
             }}
           >
             {content.ctaText}

@@ -1,0 +1,169 @@
+{
+  "project": {
+    "id": "dkoo5ozw99",
+    "createdAt": "2026-05-07T03:16:59.494Z",
+    "input": {
+      "businessName": "Kerr Plumbing",
+      "businessType": "plumber",
+      "location": "Dallas, TX",
+      "services": [
+        "Emergency Repair",
+        "Drain Cleaning",
+        "Water Heaters",
+        "Fixture Install"
+      ],
+      "tone": "friendly",
+      "differentiator": "Family-owned for 20 years. Same-day emergency service.",
+      "phone": "9492223344"
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "dkoo5ozw99",
+    "theme": {
+      "tokens": {
+        "tone": "friendly",
+        "density": "normal",
+        "radius": "soft"
+      },
+      "cssVars": {
+        "--ft-brand": "#2563EB",
+        "--ft-brand-hover": "#1D4ED8",
+        "--ft-brand-soft": "#DBEAFE",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F1F5F9",
+        "--ft-surface-inverse": "#1E3A8A",
+        "--ft-text": "#0F172A",
+        "--ft-text-muted": "#64748B",
+        "--ft-text-inverse": "#F8FAFC",
+        "--ft-border": "#E2E8F0",
+        "--ft-accent": "#F59E0B",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "700",
+        "--ft-letter-spacing-heading": "-0.025em",
+        "--ft-section-y": "6rem",
+        "--ft-section-y-sm": "4rem",
+        "--ft-block-gap": "2rem",
+        "--ft-item-gap": "1rem",
+        "--ft-card-pad": "1.75rem",
+        "--ft-radius-sm": "0.5rem",
+        "--ft-radius-md": "1rem",
+        "--ft-radius-lg": "1.5rem",
+        "--ft-radius-pill": "9999px",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.15",
+        "--ft-heading-scale": "1.1",
+        "--ft-body-scale": "1",
+        "--ft-cta-scale": "1.05",
+        "--ft-density": "low",
+        "--ft-section-spacing": "8rem",
+        "--ft-spacing-variance": "0.05",
+        "--ft-type-relax": "0.05",
+        "--ft-cta-asymmetry": "0.2",
+        "--ft-section-breathing": "0.2"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "centered-trust",
+        "content": {
+          "eyebrow": "Plumber · Dallas, TX",
+          "headline": "Plumbing problems fixed today guaranteed",
+          "subheadline": "Get your plumbing problems handled fast by local experts who care.",
+          "ctaText": "Get Plumbing Fixed",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Licensed & Insured",
+            "Dallas Plumbers",
+            "Family Owned",
+            "Same-Day Service"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "card-grid",
+        "content": {
+          "heading": "How We Help Dallas Homes",
+          "subheading": "Fast, reliable plumbing care for everything from drips to emergencies.",
+          "services": [
+            {
+              "title": "Emergency Repair",
+              "description": "Unexpected leaks, backups, or no water? We respond fast, often same-day, to stop plumbing emergencies in Dallas.",
+              "icon": "🚨"
+            },
+            {
+              "title": "Drain Cleaning",
+              "description": "Clearing stubborn clogs and slow drains quickly. We get things flowing again and help prevent future blockages.",
+              "icon": "🚽"
+            },
+            {
+              "title": "Water Heaters",
+              "description": "Getting hot water back is our priority. We repair, replace, and install new water heaters efficiently for your home.",
+              "icon": "♨️"
+            },
+            {
+              "title": "Fixture Install",
+              "description": "Upgrading your bathroom or kitchen? We install new faucets, toilets, and showers cleanly, ensuring no leaks or issues.",
+              "icon": "🚿"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What Our Neighbors Say",
+          "subheading": "Hear directly from Dallas homeowners about their experience with Kerr Plumbing.",
+          "reviews": [
+            {
+              "name": "Sarah M.",
+              "role": "Dallas Homeowner",
+              "body": "Had a burst pipe late at night. Kerr Plumbing answered immediately and had someone out within the hour. Lifesavers!",
+              "rating": 5
+            },
+            {
+              "name": "Robert L.",
+              "role": "Homeowner",
+              "body": "Called for a new water heater installation. They were prompt, clean, and everything works perfectly. Highly recommend their service.",
+              "rating": 5
+            },
+            {
+              "name": "Jessica P.",
+              "role": "Lake Highlands Resident",
+              "body": "Finally got that leaky faucet replaced. The plumber was friendly and finished the job without any fuss or mess. Great job.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "strong-offer",
+        "content": {
+          "eyebrow": "Ready for reliable plumbing?",
+          "heading": "Don't wait for plumbing problems to get worse.",
+          "subheading": "Call Kerr Plumbing now for fast, family-owned service you can trust. No hidden fees, just honest work.",
+          "buttonText": "Call for Service",
+          "buttonHref": "tel:9492223344",
+          "microcopy": "We stand by our work. If it's not right, we'll make it right."
+        }
+      }
+    ]
+  }
+}

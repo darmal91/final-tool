@@ -80,7 +80,7 @@ export function Heading({
         fontSize: `calc(var(--ft-heading-scale, 1) * (1 + var(--ft-type-relax, 0)) * var(--ft-fs-${size}))`,
         fontWeight: "var(--ft-font-heading-weight)" as unknown as number,
         letterSpacing: "var(--ft-letter-spacing-heading)",
-        lineHeight: 1.08,
+        lineHeight: 1.15,
         margin: 0,
         textAlign: align,
         color: inverse ? "var(--ft-text-inverse)" : "var(--ft-text)",
@@ -166,7 +166,7 @@ export function Button({
         borderRadius: "var(--ft-radius-md)",
         textDecoration: "none",
         transition: "transform 120ms ease, background 120ms ease",
-        whiteSpace: "nowrap",
+        whiteSpace: "normal",
         transform: variant === "primary" ? "translateX(calc(var(--ft-cta-asymmetry, 0) * 1%))" : undefined,
       }}
     >

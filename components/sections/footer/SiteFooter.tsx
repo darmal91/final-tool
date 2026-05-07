@@ -22,7 +22,7 @@ export default function SiteFooter({
         : { background: "var(--ft-surface-inverse)" };
 
   const labelStyle: React.CSSProperties = {
-    fontSize: "0.6875rem",
+    fontSize: "0.875rem",
     textTransform: "uppercase",
     letterSpacing: "0.12em",
     fontWeight: 600,
@@ -74,7 +74,7 @@ export default function SiteFooter({
                 {input.businessName}
               </span>
             </div>
-            <div style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.45)", lineHeight: 1.5 }}>
+            <div style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.45)", lineHeight: 1.5 }}>
               {input.businessType} · {input.location}
             </div>
             {formattedPhone && (
@@ -137,7 +137,7 @@ export default function SiteFooter({
             {input.differentiator && (
               <div
                 style={{
-                  fontSize: "0.8125rem",
+                  fontSize: "0.875rem",
                   color: "rgba(255,255,255,0.4)",
                   fontStyle: "italic",
                   lineHeight: 1.55,
@@ -169,10 +169,10 @@ export default function SiteFooter({
             gap: "0.5rem",
           }}
         >
-          <span style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.35)" }}>
+          <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.35)" }}>
             © 2025 {input.businessName}. All rights reserved.
           </span>
-          <span style={{ fontSize: "0.8125rem", color: "rgba(255,255,255,0.35)" }}>
+          <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.35)" }}>
             Built with Final Tool
           </span>
         </div>

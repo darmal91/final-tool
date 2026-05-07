@@ -74,7 +74,7 @@ export default function SiteNav({ input, assets }: SiteNavProps) {
           <div className="ft-nav-links" style={{ display: "flex", alignItems: "center", gap: "2rem", flex: 1, justifyContent: "center" }}>
             {navLinks.map((link) => (
               <a key={link.href} href={link.href}
-                style={{ fontSize: "0.9375rem", fontWeight: 500, color: "var(--ft-text-muted)", textDecoration: "none", letterSpacing: "-0.01em", transition: "color 0.15s ease" }}
+                style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", padding: "0 0.25rem", fontSize: "0.9375rem", fontWeight: 500, color: "var(--ft-text-muted)", textDecoration: "none", letterSpacing: "-0.01em", transition: "color 0.15s ease" }}
                 onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "var(--ft-text)")}
                 onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--ft-text-muted)")}
               >
@@ -97,7 +97,7 @@ export default function SiteNav({ input, assets }: SiteNavProps) {
               </a>
             )}
             <button className="ft-nav-burger" onClick={() => setMenuOpen((o) => !o)} aria-label="Toggle menu"
-              style={{ display: "none", background: "none", border: "none", cursor: "pointer", padding: "0.25rem", color: "var(--ft-text)" }}
+              style={{ display: "none", alignItems: "center", justifyContent: "center", minWidth: "44px", minHeight: "44px", background: "none", border: "none", cursor: "pointer", padding: "0.5rem", color: "var(--ft-text)" }}
             >
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                 {menuOpen ? (<><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></>) : (<><line x1="3" y1="7" x2="21" y2="7" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="17" x2="21" y2="17" /></>)}
@@ -107,10 +107,10 @@ export default function SiteNav({ input, assets }: SiteNavProps) {
         </div>
 
         {menuOpen && (
-          <div style={{ borderTop: "1px solid var(--ft-border)", background: "var(--ft-surface)", padding: "1rem 1.25rem 1.25rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+          <div style={{ borderTop: "1px solid var(--ft-border)", background: "var(--ft-surface)", padding: "1rem 1.25rem 1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
             {navLinks.map((link) => (
               <a key={link.href} href={link.href} onClick={() => setMenuOpen(false)}
-                style={{ fontSize: "1.0625rem", fontWeight: 500, color: "var(--ft-text)", textDecoration: "none", padding: "0.625rem 0", borderBottom: "1px solid var(--ft-border)" }}
+                style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "1.0625rem", fontWeight: 500, color: "var(--ft-text)", textDecoration: "none", padding: "0.75rem 0", borderBottom: "1px solid var(--ft-border)" }}
               >{link.label}</a>
             ))}
             {formattedPhone && (

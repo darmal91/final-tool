@@ -11,7 +11,7 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "6rem 1.25rem",
+        padding: "6rem 1.25rem 0",
       }}
     >
       <div
@@ -103,7 +103,8 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
             borderRadius: "var(--ft-radius-md)",
             textDecoration: "none",
             boxShadow: "0 4px 16px -4px rgba(15,23,42,0.18)",
-            whiteSpace: "nowrap",
+            whiteSpace: "normal",
+            textAlign: "center",
             marginTop: "0.25rem",
           }}
         >
