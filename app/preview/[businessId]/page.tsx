@@ -4,6 +4,39 @@ import RenderComposition from "@/components/render/RenderComposition";
 
 export const dynamic = "force-dynamic";
 
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ businessId: string }>;
+}): Promise<Metadata> {
+  const { businessId } = await params;
+  const file = await loadProject(businessId);
+  if (!file) return {};
+
+  const { businessName, businessType, location, differentiator } = file.project.input;
+  const title = `${businessName} | ${location}`;
+  const description = differentiator
+    ? `${businessName} — ${differentiator}. Serving ${location}.`
+    : `${businessName} is a local ${businessType} serving ${location}.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
+}
+
 export default async function PreviewPage({
   params,
 }: {
