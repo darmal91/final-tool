@@ -39,6 +39,7 @@ export default function StepBasedServices({ content }: { content: ServicesConten
               borderRadius: "var(--ft-radius-lg)",
               border: "1px solid var(--ft-border)",
               background: "var(--ft-surface)",
+              minHeight: "160px",
             }}
           >
             <div
@@ -75,6 +76,10 @@ export default function StepBasedServices({ content }: { content: ServicesConten
                 color: "var(--ft-text-muted)",
                 fontSize: "calc(var(--ft-body-scale, 1) * var(--ft-fs-body))",
                 lineHeight: 1.55,
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: "vertical",
               }}
             >
               {s.description}

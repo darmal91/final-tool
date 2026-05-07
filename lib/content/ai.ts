@@ -66,6 +66,10 @@ RULES:
 - Never describe what the business does — say what the customer gets
 - Must feel like it was written by a human who knows this trade, not a marketer
 - The differentiator input MUST influence the headline if provided
+SERVICES SECTION HEADING RULES:
+- Services section heading must never use: Done Right, Solutions, Professional, Quality, Trusted.
+- Use plain headings like "What we do", "Our services", "How we help", or a trade-specific phrase.
+
 SERVICE DESCRIPTIONS — CRITICAL RULES:
 - Every description MUST be unique. No shared sentence structure across services.
 - Never use the pattern "Reliable [X] for [location] customers, handled by experienced [trade] professionals." — this is forbidden.
@@ -207,7 +211,7 @@ async function generateHeroHeadline(
       : "Lead with a specific credibility fact about this business";
 
   const systemPrompt =
-    "You write headlines for local business websites. Return ONLY the headline text. No quotes, no punctuation at the end, no explanation. 5-9 words maximum.";
+    "You write headlines for local business websites. Return ONLY the headline text. No quotes, no punctuation at the end, no explanation. 5-9 words maximum. Never include the business name in the headline. Never use: Done Right, Solutions, Professional, Quality, Trusted, Welcome, Discover.";
 
   const prompt =
     `Business: ${input.businessName}, Type: ${input.businessType}, Location: ${input.location}, ` +
@@ -217,7 +221,7 @@ async function generateHeroHeadline(
     `PROBLEM='Burst pipe at midnight? We pick up.' ` +
     `CREDIBILITY='20 years fixing Dallas plumbing. Still family-owned.' ` +
     `Never use: Welcome, Discover, Professional, Solutions, Quality, Trusted. ` +
-    `Never describe what the business does.`;
+    `Never describe what the business does. Do not include the business name anywhere in the headline.`;
 
   try {
     console.log("[headline] calling Groq...");

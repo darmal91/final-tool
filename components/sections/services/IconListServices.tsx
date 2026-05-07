@@ -29,6 +29,7 @@ export default function IconListServices({ content }: { content: ServicesContent
                 alignItems: "flex-start",
                 padding: "1.25rem 0",
                 borderTop: i === 0 ? "none" : "1px solid var(--ft-border)",
+                minHeight: "160px",
               }}
             >
               <div
@@ -65,6 +66,10 @@ export default function IconListServices({ content }: { content: ServicesContent
                     fontSize: "calc(var(--ft-body-scale, 1) * var(--ft-fs-body))",
                     lineHeight: 1.55,
                     marginTop: "0.25rem",
+                    overflow: "hidden",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
                   }}
                 >
                   {s.description}

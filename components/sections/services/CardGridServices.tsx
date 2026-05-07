@@ -54,6 +54,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
                   borderRadius: "var(--ft-radius-lg)",
                   padding: "var(--ft-card-pad)",
                   minWidth: 0,
+                  minHeight: "160px",
                   boxShadow: hovered
                     ? "0 6px 20px rgba(15, 23, 42, 0.12)"
                     : "0 1px 2px rgba(15, 23, 42, 0.04)",
