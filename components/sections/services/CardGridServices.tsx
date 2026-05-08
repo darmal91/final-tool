@@ -55,7 +55,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
                   borderRadius: "var(--ft-radius-lg)",
                   padding: "var(--ft-card-pad)",
                   minWidth: 0,
-                  minHeight: "160px",
+                  minHeight: "200px",
                   boxShadow: hovered
                     ? "0 6px 20px rgba(15, 23, 42, 0.12)"
                     : "0 1px 2px rgba(15, 23, 42, 0.04)",
@@ -89,7 +89,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
                     lineHeight: 1.55,
                     marginTop: "0.5rem",
                     display: "-webkit-box",
-                    WebkitLineClamp: 3,
+                    WebkitLineClamp: 4,
                     WebkitBoxOrient: "vertical",
                     overflow: "hidden",
                   }}

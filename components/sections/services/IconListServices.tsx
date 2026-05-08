@@ -29,7 +29,7 @@ export default function IconListServices({ content }: { content: ServicesContent
                 alignItems: "flex-start",
                 padding: "1.25rem 0",
                 borderTop: i === 0 ? "none" : "1px solid var(--ft-border)",
-                minHeight: "160px",
+                minHeight: "200px",
               }}
             >
               <div
@@ -68,7 +68,7 @@ export default function IconListServices({ content }: { content: ServicesContent
                     marginTop: "0.25rem",
                     overflow: "hidden",
                     display: "-webkit-box",
-                    WebkitLineClamp: 3,
+                    WebkitLineClamp: 4,
                     WebkitBoxOrient: "vertical",
                   }}
                 >

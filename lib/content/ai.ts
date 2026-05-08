@@ -74,6 +74,10 @@ RULES:
 SERVICES SECTION HEADING RULES:
 - Services section heading must never use: Done Right, Solutions, Professional, Quality, Trusted.
 - Use plain headings like "What we do", "Our services", "How we help", or a trade-specific phrase.
+- Never use the word "reliably" or "reliable" in subheadings.
+- Subheadings should state a specific scope, speed, or location fact — not a quality claim.
+- Good examples: "From emergency repairs to full replacements, Austin TX." or "Drain to water heater — same-day across Dallas."
+- Bad examples: "Serving you reliably." or "Quality work you can trust."
 
 SERVICE DESCRIPTIONS — CRITICAL RULES:
 - Every description MUST be unique. No shared sentence structure across services.

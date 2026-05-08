@@ -1,0 +1,174 @@
+{
+  "project": {
+    "id": "ujs7xgu255",
+    "createdAt": "2026-05-08T04:23:53.737Z",
+    "input": {
+      "businessName": "Summit Roofing",
+      "businessType": "roofer",
+      "location": "Austin, TX",
+      "services": [
+        "Roof Replacement",
+        "Storm Damage Repair",
+        "Gutter Installation",
+        "Roof Inspection",
+        "Leak Repair"
+      ],
+      "tone": "aggressive",
+      "differentiator": "Licensed, bonded, and insured. Free same-day inspections.",
+      "phone": "5124449988"
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "ujs7xgu255",
+    "theme": {
+      "tokens": {
+        "tone": "aggressive",
+        "density": "tight",
+        "radius": "sharp"
+      },
+      "cssVars": {
+        "--ft-brand": "#DC2626",
+        "--ft-brand-hover": "#B91C1C",
+        "--ft-brand-soft": "#FEE2E2",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F8FAFC",
+        "--ft-surface-inverse": "#111111",
+        "--ft-text": "#111111",
+        "--ft-text-muted": "#525252",
+        "--ft-text-inverse": "#FAFAFA",
+        "--ft-border": "#E5E7EB",
+        "--ft-accent": "#FACC15",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "800",
+        "--ft-letter-spacing-heading": "-0.03em",
+        "--ft-section-y": "4rem",
+        "--ft-section-y-sm": "2.5rem",
+        "--ft-block-gap": "1.25rem",
+        "--ft-item-gap": "0.75rem",
+        "--ft-card-pad": "1.25rem",
+        "--ft-radius-sm": "0.125rem",
+        "--ft-radius-md": "0.25rem",
+        "--ft-radius-lg": "0.375rem",
+        "--ft-radius-pill": "0.5rem",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.25",
+        "--ft-heading-scale": "1.2",
+        "--ft-body-scale": "0.95",
+        "--ft-cta-scale": "1.2",
+        "--ft-density": "high",
+        "--ft-section-spacing": "4rem",
+        "--ft-spacing-variance": "0.15",
+        "--ft-type-relax": "0.1",
+        "--ft-cta-asymmetry": "0.8",
+        "--ft-section-breathing": "0.1"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "conversion",
+        "content": {
+          "eyebrow": "Roofer · Austin, TX",
+          "headline": "Leaking Roof?",
+          "subheadline": "Licensed, bonded, and insured repairs in Austin, today, no excuses.",
+          "ctaText": "Get Free Inspection",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Licensed & Insured",
+            "Bonded",
+            "Free Same-Day Inspections"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "step-based",
+        "content": {
+          "heading": "Our Roofing Services",
+          "subheading": "Protecting Austin homes, quickly and reliably.",
+          "services": [
+            {
+              "title": "Roof Replacement",
+              "description": "When repairs won't cut it, we install a new roof that lasts for decades.",
+              "icon": "🏠"
+            },
+            {
+              "title": "Storm Damage Repair",
+              "description": "Trees, hail, wind — we assess and fix damage fast, before it gets worse.",
+              "icon": "⛈️"
+            },
+            {
+              "title": "Gutter Installation",
+              "description": "New gutters protect your foundation and landscaping. We install them right, every time.",
+              "icon": "💧"
+            },
+            {
+              "title": "Roof Inspection",
+              "description": "Catch small issues before they become huge problems with our thorough, free same-day inspection.",
+              "icon": "🔍"
+            },
+            {
+              "title": "Leak Repair",
+              "description": "Water spots spreading? We find the leak source and seal it, stopping further interior damage.",
+              "icon": "🛠️"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What Austin Homeowners Say",
+          "subheading": "See why your neighbors trust Summit Roofing.",
+          "reviews": [
+            {
+              "name": "Sarah J.",
+              "role": "Homeowner",
+              "body": "Our roof was leaking after that last storm. Summit Roofing came out same day, got it fixed fast. Real lifesavers.",
+              "rating": 5
+            },
+            {
+              "name": "Mark T.",
+              "role": "Local Resident",
+              "body": "Dealing with insurance after hail damage was a headache. Summit made the repair process smooth and easy.",
+              "rating": 5
+            },
+            {
+              "name": "Emily R.",
+              "role": "Homeowner",
+              "body": "Thought I needed a whole new roof, but they were honest and just fixed the problem area. Appreciate the integrity.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "urgency",
+        "content": {
+          "eyebrow": "Don't Wait",
+          "heading": "Roof Trouble? Get Your Free Inspection.",
+          "subheading": "Protect your home before small issues become expensive emergencies. Licensed, bonded, and insured for your peace of mind.",
+          "buttonText": "Call Us Now",
+          "buttonHref": "tel:5124449988",
+          "microcopy": "Free, no-obligation inspection. We pick up the phone."
+        }
+      }
+    ]
+  }
+}
