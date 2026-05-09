@@ -113,6 +113,9 @@ export default function BusinessForm() {
     setError(null);
     setSubmitting(true);
 
+    const businessId =
+      Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
+
     const input: BusinessInput = {
       businessName: businessName.trim(),
       businessType,
@@ -123,22 +126,14 @@ export default function BusinessForm() {
       phone: phone.trim() || undefined,
     };
 
-    try {
-      const res = await fetch("/api/projects", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(input),
-      });
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data?.error || "Generation failed");
-      }
-      const data = (await res.json()) as { projectId: string };
-      router.push(`/editor/${data.projectId}`);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
-      setSubmitting(false);
-    }
+    // Fire the request before navigating — browser keeps it alive after unmount.
+    fetch("/api/projects", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ ...input, businessId }),
+    }).catch(() => {});
+
+    router.push(`/generating/${businessId}?name=${encodeURIComponent(businessName.trim())}`);
   }
 
   function applyPreset(p: Preset) {

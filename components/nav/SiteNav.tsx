@@ -61,7 +61,7 @@ export default function SiteNav({ input, assets }: SiteNavProps) {
               <img src={logoAsset.url} alt={input.businessName} style={{ height: "36px", width: "auto", objectFit: "contain" }} />
             ) : (
               <>
-                <div style={{ width: "32px", height: "32px", borderRadius: "var(--ft-radius-md)", background: "var(--ft-brand)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ft-on-brand)", fontWeight: 800, fontSize: "0.9375rem", flexShrink: 0 }}>
+                <div aria-hidden="true" style={{ width: "32px", height: "32px", borderRadius: "var(--ft-radius-md)", background: "var(--ft-brand)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--ft-on-brand)", fontWeight: 800, fontSize: "0.9375rem", flexShrink: 0 }}>
                   {input.businessName.charAt(0).toUpperCase()}
                 </div>
                 <span style={{ fontWeight: 700, fontSize: "1rem", color: "var(--ft-text)", letterSpacing: "-0.02em" }}>

@@ -19,11 +19,12 @@ function isValidInput(x: unknown): x is BusinessInput {
 }
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  const raw = await req.json();
+  const { businessId: clientId, ...body } = raw as Record<string, unknown>;
   if (!isValidInput(body)) {
     return NextResponse.json({ error: "invalid_input" }, { status: 400 });
   }
-  const id = newBusinessId();
+  const id = typeof clientId === "string" && clientId.length > 0 ? clientId : newBusinessId();
   const { composition, source, error } = await generateComposition(id, body);
   const project: BusinessProject = {
     id,

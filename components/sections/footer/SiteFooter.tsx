@@ -54,6 +54,7 @@ export default function SiteFooter({
           <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
               <div
+                aria-hidden="true"
                 style={{
                   width: "32px",
                   height: "32px",
@@ -170,7 +171,7 @@ export default function SiteFooter({
           }}
         >
           <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.35)" }}>
-            © 2025 {input.businessName}. All rights reserved.
+            © {new Date().getFullYear()} {input.businessName}. All rights reserved.
           </span>
           <span style={{ fontSize: "0.875rem", color: "rgba(255,255,255,0.35)" }}>
             Built with Final Tool
