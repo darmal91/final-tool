@@ -368,6 +368,12 @@ export async function generateCopy(
     if (focusedLines.subheadline && focusedLines.subheadline.length < 200) {
       merged.hero.subheadline = focusedLines.subheadline;
     }
+    for (const service of merged.services.services) {
+      const words = service.description.split(" ");
+      if (words.length > 18) {
+        service.description = words.slice(0, 18).join(" ").replace(/[,\-—]$/, "") + ".";
+      }
+    }
     console.log("[ai] merged services count:", merged.services.services.length);
     console.log("[ai] source: ai");
     return { copy: merged, source: "ai" };
