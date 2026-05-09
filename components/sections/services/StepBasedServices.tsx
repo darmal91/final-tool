@@ -25,12 +25,16 @@ export default function StepBasedServices({ content }: { content: ServicesConten
           margin: 0,
           padding: 0,
           display: "grid",
-          gridTemplateColumns: `repeat(${Math.min(content.services.length, 4)}, minmax(0, 1fr))`,
+          gridTemplateColumns: (() => {
+            const count = Math.min(content.services.length, 6);
+            const cols = count === 2 || count === 4 ? 2 : 3;
+            return `repeat(${cols}, minmax(0, 1fr))`;
+          })(),
           gap: "var(--ft-item-gap)",
         }}
         className="ft-steps"
       >
-        {content.services.map((s, i) => (
+        {content.services.slice(0, 6).map((s, i) => (
           <li
             key={s.title}
             style={{
