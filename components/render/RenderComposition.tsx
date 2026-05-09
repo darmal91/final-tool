@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { Section, SiteComposition, BusinessAsset, CTASection } from "@/lib/types";
+import type { Section, SiteComposition, BusinessAsset, CTASection, HeroContent } from "@/lib/types";
 import { getSectionComponent } from "@/components/sections/registry";
 import { ThemeProvider } from "@/components/design/ThemeProvider";
 import SiteNav from "@/components/nav/SiteNav";
@@ -31,8 +31,33 @@ export default function RenderComposition({
     .find((s): s is CTASection => s.type === "cta");
   const ctaVariant = lastCta?.variant;
 
+  const heroSection = composition.sections.find((s) => s.type === "hero");
+  const heroSubheadline = heroSection
+    ? (heroSection.content as HeroContent).subheadline
+    : "";
+
+  const jsonLd = input
+    ? JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: input.businessName,
+        ...(input.phone ? { telephone: input.phone } : {}),
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: input.location,
+        },
+        description: heroSubheadline || `${input.businessName} — ${input.businessType} in ${input.location}.`,
+      })
+    : null;
+
   return (
     <ThemeProvider tokens={composition.theme.tokens} asTag={asTag}>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
+      )}
       {input && <SiteNav input={input} assets={assets} />}
       {composition.sections.map((s) => (
         <RenderSection key={s.id} section={s} assets={assets} />

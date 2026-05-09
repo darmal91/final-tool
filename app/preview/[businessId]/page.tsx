@@ -15,25 +15,23 @@ export async function generateMetadata({
   const file = await loadProject(businessId);
   if (!file) return {};
 
-  const { businessName, businessType, location, differentiator } = file.project.input;
-  const title = `${businessName} | ${location}`;
-  const description = differentiator
-    ? `${businessName} — ${differentiator}. Serving ${location}.`
-    : `${businessName} is a local ${businessType} serving ${location}.`;
+  const { businessName, businessType, location, services } = file.project.input;
+  const heroSection = file.composition.sections.find((s) => s.type === "hero");
+  const heroSubheadline = (heroSection?.content as { subheadline?: string })?.subheadline ?? "";
+
+  const title = `${businessName} | ${businessType} in ${location}`;
+  const description = heroSubheadline || `${businessName} — ${businessType} in ${location}.`;
 
   return {
     title,
     description,
+    keywords: [businessType, location, ...services],
     openGraph: {
       title,
       description,
       type: "website",
     },
-    twitter: {
-      card: "summary",
-      title,
-      description,
-    },
+    robots: "index, follow",
   };
 }
 
