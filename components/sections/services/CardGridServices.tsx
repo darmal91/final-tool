@@ -6,7 +6,6 @@ import { SectionShell, Heading, Lead } from "@/components/sections/shared/primit
 
 function gridCols(count: number): string {
   if (count === 2) return "repeat(2, 1fr)";
-  if (count === 3) return "repeat(3, 1fr)";
   if (count === 4) return "repeat(2, 1fr)";
   return "repeat(3, 1fr)";
 }
