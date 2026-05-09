@@ -1,0 +1,174 @@
+{
+  "project": {
+    "id": "mem7n4vaav",
+    "createdAt": "2026-05-09T01:24:39.856Z",
+    "input": {
+      "businessName": "Summit Roofing",
+      "businessType": "roofer",
+      "location": "Austin, TX",
+      "services": [
+        "Roof Replacement",
+        "Storm Damage Repair",
+        "Gutter Installation",
+        "Roof Inspection",
+        "Leak Repair"
+      ],
+      "tone": "aggressive",
+      "differentiator": "Licensed, bonded, and insured. Free same-day inspections.",
+      "phone": "5124449988"
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "mem7n4vaav",
+    "theme": {
+      "tokens": {
+        "tone": "aggressive",
+        "density": "tight",
+        "radius": "sharp"
+      },
+      "cssVars": {
+        "--ft-brand": "#DC2626",
+        "--ft-brand-hover": "#B91C1C",
+        "--ft-brand-soft": "#FEE2E2",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F8FAFC",
+        "--ft-surface-inverse": "#111111",
+        "--ft-text": "#111111",
+        "--ft-text-muted": "#525252",
+        "--ft-text-inverse": "#FAFAFA",
+        "--ft-border": "#E5E7EB",
+        "--ft-accent": "#FACC15",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "800",
+        "--ft-letter-spacing-heading": "-0.03em",
+        "--ft-section-y": "4rem",
+        "--ft-section-y-sm": "2.5rem",
+        "--ft-block-gap": "1.25rem",
+        "--ft-item-gap": "0.75rem",
+        "--ft-card-pad": "1.25rem",
+        "--ft-radius-sm": "0.125rem",
+        "--ft-radius-md": "0.25rem",
+        "--ft-radius-lg": "0.375rem",
+        "--ft-radius-pill": "0.5rem",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.25",
+        "--ft-heading-scale": "1.2",
+        "--ft-body-scale": "0.95",
+        "--ft-cta-scale": "1.2",
+        "--ft-density": "high",
+        "--ft-section-spacing": "4rem",
+        "--ft-spacing-variance": "0.15",
+        "--ft-type-relax": "0.1",
+        "--ft-cta-asymmetry": "0.8",
+        "--ft-section-breathing": "0.1"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "centered-trust",
+        "content": {
+          "eyebrow": "Roofer · Austin, TX",
+          "headline": "Roof Leaking Now?",
+          "subheadline": "Get a same-day inspection in Austin, backed by our license, bond, and insurance.",
+          "ctaText": "Inspect My Roof",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Licensed & Insured",
+            "Bonded",
+            "Free Same-Day Inspections"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "icon-list",
+        "content": {
+          "heading": "Stop Roof Damage",
+          "subheading": "From emergency repairs to full replacements, same-day inspections across Austin.",
+          "services": [
+            {
+              "title": "Roof Replacement",
+              "description": "When repairs aren't enough, we tear off the old and install a new, secure roof built to last.",
+              "icon": "🏠"
+            },
+            {
+              "title": "Storm Damage Repair",
+              "description": "High winds, hail, or falling trees — we respond fast to secure your home and prevent further water.",
+              "icon": "⛈️"
+            },
+            {
+              "title": "Gutter Installation",
+              "description": "Proper gutters divert water away, protecting your foundation and siding from costly erosion and damage.",
+              "icon": "💧"
+            },
+            {
+              "title": "Roof Inspection",
+              "description": "Free same-day inspections identify hidden issues or potential weak points before they become major problems.",
+              "icon": "🔍"
+            },
+            {
+              "title": "Leak Repair",
+              "description": "Find and fix leaks fast to stop water damage in its tracks. We pinpoint the source and seal.",
+              "icon": "💦"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "single-highlight",
+        "content": {
+          "heading": "What Austin Homeowners Say",
+          "subheading": "See why we're Austin's choice for urgent roofing needs.",
+          "reviews": [
+            {
+              "name": "Marcus P.",
+              "role": "Austin Homeowner",
+              "body": "Had a tree branch puncture my roof during a storm. Summit was out within hours, tarped it, and gave a clear quote. Lifesavers.",
+              "rating": 5
+            },
+            {
+              "name": "Sarah J.",
+              "role": "Cedar Park Resident",
+              "body": "Needed a full roof replacement after hail. Their team was quick, professional, and kept the site clean. No issues since.",
+              "rating": 5
+            },
+            {
+              "name": "David L.",
+              "role": "South Austin Property Manager",
+              "body": "Called for an inspection after some heavy winds. They were honest, found a few loose shingles, and fixed them on the spot. Appreciate the transparency.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "urgency",
+        "content": {
+          "eyebrow": "Don't Wait.",
+          "heading": "Your roof is critical. Don't risk further damage.",
+          "subheading": "Get a free same-day inspection and protect your home today.",
+          "buttonText": "Call Now for Inspection",
+          "buttonHref": "tel:5124449988",
+          "microcopy": "Licensed, bonded, and insured for your peace of mind."
+        }
+      }
+    ]
+  }
+}

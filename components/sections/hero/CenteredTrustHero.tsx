@@ -11,7 +11,7 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "6rem 1.25rem 0",
+        padding: "3rem 1.25rem 0",
       }}
     >
       <div
