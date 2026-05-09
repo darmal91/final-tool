@@ -37,11 +37,25 @@ async function renderHtml(
     ? '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">'
     : '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">';
 
-  const title = escapeHtml(project.input.businessName);
-  const description = escapeHtml(
-    project.input.differentiator ||
-      `${project.input.businessName} — ${project.input.businessType} in ${project.input.location}.`
-  );
+  const { businessName, businessType, location, phone } = project.input;
+  const heroSection = composition.sections.find((s) => s.type === "hero");
+  const heroSubheadline = (heroSection?.content as { subheadline?: string })?.subheadline ?? "";
+
+  const title = escapeHtml(`${businessName} | ${businessType} in ${location}`);
+  const description = escapeHtml(heroSubheadline || `${businessName} — ${businessType} in ${location}.`);
+
+  const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: businessName,
+    ...(phone ? { telephone: phone } : {}),
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: location,
+    },
+    description: heroSubheadline || `${businessName} — ${businessType} in ${location}.`,
+  });
+
   const inlineGlobalCss = await getInlineGlobalCss();
 
   return `<!DOCTYPE html>
@@ -51,7 +65,9 @@ async function renderHtml(
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>${title}</title>
 <meta name="description" content="${description}" />
+<meta name="robots" content="index, follow" />
 ${fontLink}
+<script type="application/ld+json">${jsonLd}</script>
 <style>
 ${inlineGlobalCss}
   *, *::before, *::after { box-sizing: border-box; }

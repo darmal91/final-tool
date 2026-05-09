@@ -1,7 +1,9 @@
 import * as React from "react";
-import type { BusinessAsset, Section, SiteComposition } from "@/lib/types";
+import type { BusinessAsset, BusinessInput, CTASection, Section, SiteComposition } from "@/lib/types";
 import { getSectionComponent } from "@/components/sections/registry";
 import { cssVarsToInline } from "@/lib/design/tokens";
+import SiteNav from "@/components/nav/SiteNav";
+import SiteFooter from "@/components/sections/footer/SiteFooter";
 
 function pickHeroImage(assets: BusinessAsset[] | undefined): string | undefined {
   return assets?.find((a) => a.context === "hero")?.url;
@@ -22,10 +24,15 @@ function RenderSection({
 export default function RenderCompositionStatic({
   composition,
   assets,
+  input,
 }: {
   composition: SiteComposition;
   assets?: BusinessAsset[];
+  input?: BusinessInput;
 }) {
+  const lastCta = [...composition.sections].reverse().find((s): s is CTASection => s.type === "cta");
+  const ctaVariant = lastCta?.variant;
+
   return (
     <main
       style={{
@@ -35,9 +42,11 @@ export default function RenderCompositionStatic({
         background: "var(--ft-surface)",
       }}
     >
+      {input && <SiteNav input={input} assets={assets} />}
       {composition.sections.map((s) => (
         <RenderSection key={s.id} section={s} assets={assets} />
       ))}
+      {input && <SiteFooter input={input} assets={assets} ctaVariant={ctaVariant} />}
     </main>
   );
 }
