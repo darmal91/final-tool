@@ -283,7 +283,7 @@ async function generateHeroHeadline(
   }
 }
 
-async function generateHeroSubheadline(input: BusinessInput): Promise<string> {
+async function generateHeroSubheadline(input: BusinessInput, headline: string): Promise<string> {
   const formula =
     input.tone === "aggressive"
       ? `Urgency + outcome. E.g. "Same-day service in ${input.location}. Licensed, insured, no excuses."`
@@ -297,7 +297,9 @@ async function generateHeroSubheadline(input: BusinessInput): Promise<string> {
     `Their differentiator: ${input.differentiator || "none"}.\n` +
     `Formula: ${formula}\n` +
     `Rules: No quotes. No exclamation marks. No generic phrases like "we're here to help" or "your trusted partner". ` +
-    `Location and a concrete benefit must both appear. Return only the subheadline, nothing else.`;
+    `Location and a concrete benefit must both appear. ` +
+    `Do not repeat any key phrase or noun already used in this headline: "${headline}". Use different wording to express the same idea if needed. ` +
+    `Return only the subheadline, nothing else.`;
 
   try {
     console.log("[subheadline] calling Groq...");
@@ -347,16 +349,8 @@ export async function generateCopy(
     return { copy: fallback(input), source: "template" };
   }
 
-  const [heroHeadline, heroSubheadline] = await Promise.allSettled([
-    generateHeroHeadline(input, apiKey),
-    generateHeroSubheadline(input),
-  ]);
-  const focusedLines: HeroLines =
-    heroHeadline.status === "fulfilled"
-      ? heroHeadline.value
-      : { headline: "", subheadline: "" };
-  const focusedSubheadline =
-    heroSubheadline.status === "fulfilled" ? heroSubheadline.value : "";
+  const focusedLines: HeroLines = await generateHeroHeadline(input, apiKey).catch(() => ({ headline: "", subheadline: "" }));
+  const focusedSubheadline = await generateHeroSubheadline(input, focusedLines.headline).catch(() => "");
 
   let rawText: string | undefined;
 
