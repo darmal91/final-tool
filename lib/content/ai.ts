@@ -283,6 +283,55 @@ async function generateHeroHeadline(
   }
 }
 
+async function generateHeroSubheadline(input: BusinessInput): Promise<string> {
+  const formula =
+    input.tone === "aggressive"
+      ? `Urgency + outcome. E.g. "Same-day service in ${input.location}. Licensed, insured, no excuses."`
+      : input.tone === "premium"
+      ? `Elegant benefit statement. E.g. "Trusted by ${input.location} homeowners for ${input.differentiator || "unmatched results"}."`
+      : `"Serving ${input.location} with [differentiator short form]. Call us today."`;
+
+  const prompt =
+    `Write a single subheadline (max 18 words) for a ${input.businessType} business called ${input.businessName} in ${input.location}.\n` +
+    `Tone: ${input.tone}.\n` +
+    `Their differentiator: ${input.differentiator || "none"}.\n` +
+    `Formula: ${formula}\n` +
+    `Rules: No quotes. No exclamation marks. No generic phrases like "we're here to help" or "your trusted partner". ` +
+    `Location and a concrete benefit must both appear. Return only the subheadline, nothing else.`;
+
+  try {
+    console.log("[subheadline] calling Groq...");
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          {
+            role: "system",
+            content:
+              "You write subheadlines for local business websites. Return ONLY the subheadline text. No quotes, no exclamation marks, no explanation.",
+          },
+          { role: "user", content: prompt },
+        ],
+        max_tokens: 80,
+        temperature: 0.8,
+      }),
+    });
+    console.log("[subheadline] Groq status:", response.status);
+    const data = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
+    const result = data.choices?.[0]?.message?.content?.trim() ?? "";
+    console.log("[subheadline] Groq result:", result);
+    return result;
+  } catch (err) {
+    console.log("[subheadline] Groq error:", err);
+    return "";
+  }
+}
+
 export async function generateCopy(
   input: BusinessInput,
   strategy?: CompositionStrategy,
@@ -298,13 +347,16 @@ export async function generateCopy(
     return { copy: fallback(input), source: "template" };
   }
 
-  const [heroHeadline] = await Promise.allSettled([
+  const [heroHeadline, heroSubheadline] = await Promise.allSettled([
     generateHeroHeadline(input, apiKey),
+    generateHeroSubheadline(input),
   ]);
   const focusedLines: HeroLines =
     heroHeadline.status === "fulfilled"
       ? heroHeadline.value
       : { headline: "", subheadline: "" };
+  const focusedSubheadline =
+    heroSubheadline.status === "fulfilled" ? heroSubheadline.value : "";
 
   let rawText: string | undefined;
 
@@ -367,6 +419,10 @@ export async function generateCopy(
     }
     if (focusedLines.subheadline && focusedLines.subheadline.length < 200) {
       merged.hero.subheadline = focusedLines.subheadline;
+    }
+    if (focusedSubheadline && focusedSubheadline.length < 200) {
+      console.log("[subheadline] override result:", focusedSubheadline, "was:", merged.hero.subheadline);
+      merged.hero.subheadline = focusedSubheadline;
     }
     for (const service of merged.services.services) {
       const words = service.description.split(" ");
