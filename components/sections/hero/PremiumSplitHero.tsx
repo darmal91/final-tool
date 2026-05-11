@@ -1,13 +1,47 @@
+"use client";
+
+import { useRef, useState } from "react";
 import type { HeroContent } from "@/lib/types";
 import { EditableText } from "@/components/render/Editable";
+
+function readFileAsDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function PremiumSplitHero({
   content,
   heroImageUrl,
+  onImageUpload,
 }: {
   content: HeroContent;
   heroImageUrl?: string;
+  onImageUpload?: (dataUrl: string) => void;
 }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  const imageUrl = heroImageUrl;
+  const isEditor = !!onImageUpload;
+
+  async function handleFiles(files: FileList | null) {
+    const file = files?.[0];
+    if (!file || !file.type.startsWith("image/")) return;
+    const dataUrl = await readFileAsDataUrl(file);
+    onImageUpload?.(dataUrl);
+  }
+
+  function onDrop(e: React.DragEvent) {
+    e.preventDefault();
+    setDragging(false);
+    handleFiles(e.dataTransfer.files);
+  }
+
   return (
     <section
       style={{
@@ -127,34 +161,75 @@ export default function PremiumSplitHero({
           </a>
         </div>
 
+        {/* Right panel — image or drop zone */}
         <div
           style={{
             borderRadius: "var(--ft-radius-lg)",
             minHeight: "380px",
             alignSelf: "stretch",
             overflow: "hidden",
+            position: "relative",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: heroImageUrl ? "transparent" : "rgba(255,255,255,0.05)",
-            border: heroImageUrl ? "none" : "2px dashed rgba(255,255,255,0.15)",
+            background: imageUrl
+              ? "transparent"
+              : dragging
+              ? "rgba(255,255,255,0.1)"
+              : "rgba(255,255,255,0.05)",
+            border: imageUrl
+              ? "none"
+              : `2px dashed ${dragging ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.15)"}`,
+            cursor: isEditor ? "pointer" : "default",
+            transition: "background 0.15s, border-color 0.15s",
           }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onClick={isEditor ? () => inputRef.current?.click() : undefined}
+          onDragOver={isEditor ? (e) => { e.preventDefault(); setDragging(true); } : undefined}
+          onDragLeave={isEditor ? () => setDragging(false) : undefined}
+          onDrop={isEditor ? onDrop : undefined}
         >
-          {heroImageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={heroImageUrl}
-              alt=""
-              style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-            />
-          ) : (
+          {imageUrl ? (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={imageUrl}
+                alt=""
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+              {isEditor && hovered && (
+                <button
+                  type="button"
+                  onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}
+                  style={{
+                    position: "absolute",
+                    top: "0.625rem",
+                    right: "0.625rem",
+                    padding: "0.3rem 0.7rem",
+                    fontSize: "0.75rem",
+                    fontWeight: 600,
+                    background: "rgba(0,0,0,0.55)",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "0.375rem",
+                    cursor: "pointer",
+                    backdropFilter: "blur(4px)",
+                  }}
+                >
+                  Change photo
+                </button>
+              )}
+            </>
+          ) : isEditor ? (
             <div
               style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 gap: "0.625rem",
-                color: "rgba(255,255,255,0.3)",
+                color: dragging ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.3)",
+                pointerEvents: "none",
               }}
             >
               <svg
@@ -171,9 +246,19 @@ export default function PremiumSplitHero({
                 <circle cx="12" cy="13" r="4" />
               </svg>
               <span style={{ fontSize: "0.8125rem", fontWeight: 500, letterSpacing: "0.01em" }}>
-                Drop your photo here
+                {dragging ? "Drop to upload" : "Drop your photo here"}
               </span>
             </div>
+          ) : null}
+
+          {isEditor && (
+            <input
+              ref={inputRef}
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(e) => handleFiles(e.target.files)}
+            />
           )}
         </div>
       </div>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { BusinessAsset, BusinessInput, CTASection, Section, SiteComposition } from "@/lib/types";
+import type { BusinessAsset, BusinessInput, CTASection, HeroContent, Section, SiteComposition } from "@/lib/types";
 import { getSectionComponent } from "@/components/sections/registry";
 import { cssVarsToInline } from "@/lib/design/tokens";
 import SiteFooter from "@/components/sections/footer/SiteFooter";
@@ -14,7 +14,8 @@ function pickLogoImage(assets: BusinessAsset[] | undefined): string | undefined 
 
 function RenderSection({ section, assets }: { section: Section; assets?: BusinessAsset[] }) {
   const Comp = getSectionComponent(section);
-  const heroImageUrl = section.type === "hero" ? pickHeroImage(assets) : undefined;
+  const contentImageUrl = section.type === "hero" ? (section.content as HeroContent).imageUrl : undefined;
+  const heroImageUrl = contentImageUrl ?? (section.type === "hero" ? pickHeroImage(assets) : undefined);
   return <Comp content={section.content as unknown} heroImageUrl={heroImageUrl} />;
 }
 

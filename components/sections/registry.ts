@@ -23,7 +23,7 @@ import StrongOfferCTA from "./cta/StrongOfferCTA";
 import SoftContactCTA from "./cta/SoftContactCTA";
 import UrgencyCTA from "./cta/UrgencyCTA";
 
-type AnyComp = ComponentType<{ content: unknown; heroImageUrl?: string }>;
+type AnyComp = ComponentType<{ content: unknown; heroImageUrl?: string; onImageUpload?: (dataUrl: string) => void }>;
 
 export const SECTION_REGISTRY: {
   hero: Record<HeroVariant, AnyComp>;

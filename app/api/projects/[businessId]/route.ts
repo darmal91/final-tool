@@ -21,8 +21,10 @@ export async function GET(
   return NextResponse.json(file);
 }
 
+const MAX_IMAGE_B64_LEN = 7_000_000; // ~5 MB binary
+
 interface PatchBody {
-  action: "set-variant" | "reorder" | "remove" | "edit-content" | "update-colors";
+  action: "set-variant" | "reorder" | "remove" | "edit-content" | "update-colors" | "update-image";
   sectionId?: string;
   variant?: string;
   order?: string[];
@@ -30,6 +32,7 @@ interface PatchBody {
   value?: string;
   primaryColor?: string | null;
   accentColor?: string | null;
+  imageUrl?: string;
 }
 
 function isValidVariantFor(type: SectionType, variant: string): boolean {
@@ -43,6 +46,14 @@ export async function PATCH(
 ) {
   const { businessId } = await params;
   const body = (await req.json()) as PatchBody;
+
+  if (
+    body.action === "update-image" &&
+    typeof body.imageUrl === "string" &&
+    body.imageUrl.length > MAX_IMAGE_B64_LEN
+  ) {
+    return NextResponse.json({ error: "image_too_large" }, { status: 400 });
+  }
 
   const updated = await updateComposition(businessId, (comp) => {
     if (body.action === "set-variant" && body.sectionId && body.variant) {
@@ -95,6 +106,18 @@ export async function PATCH(
       }
       newCssVars["--ft-accent"] = accent ?? defaults.accent;
       return { ...comp, theme: { ...comp.theme, tokens: newTokens, cssVars: newCssVars } };
+    }
+    if (body.action === "update-image" && body.sectionId && typeof body.imageUrl === "string") {
+      if (!body.imageUrl.startsWith("data:image/")) return comp;
+      if (body.imageUrl.length > MAX_IMAGE_B64_LEN) return comp;
+      return {
+        ...comp,
+        sections: comp.sections.map((s) =>
+          s.id === body.sectionId && s.type === "hero"
+            ? { ...s, content: { ...s.content, imageUrl: body.imageUrl } }
+            : s
+        ),
+      };
     }
     return comp;
   });

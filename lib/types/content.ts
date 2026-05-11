@@ -6,6 +6,7 @@ export interface HeroContent {
   ctaHref: string;
   trustBadges: string[];
   heroImageId?: string;
+  imageUrl?: string;
 }
 
 export interface ServiceItem {

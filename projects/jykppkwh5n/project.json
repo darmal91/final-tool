@@ -1,0 +1,178 @@
+{
+  "project": {
+    "id": "jykppkwh5n",
+    "createdAt": "2026-05-11T09:52:52.613Z",
+    "input": {
+      "businessName": "Lumière Aesthetics",
+      "businessType": "medspa",
+      "location": "Beverly Hills, CA",
+      "services": [
+        "Botox & Fillers",
+        "Laser Skin Resurfacing",
+        "Body Contouring",
+        "Hydrafacial"
+      ],
+      "tone": "premium",
+      "differentiator": "Board-certified physicians only. Results-focused, not sales-focused.",
+      "phone": "3109876543"
+    },
+    "assets": [
+      {
+        "id": "logo-mp10xnf7-fvjw",
+        "context": "logo",
+        "filename": "logo-mp10xnf7-fvjw.webp",
+        "url": "/api/assets/jykppkwh5n/logo-mp10xnf7-fvjw.webp",
+        "width": 512,
+        "height": 384
+      }
+    ]
+  },
+  "composition": {
+    "businessId": "jykppkwh5n",
+    "theme": {
+      "tokens": {
+        "tone": "premium",
+        "density": "airy",
+        "radius": "soft"
+      },
+      "cssVars": {
+        "--ft-brand": "#0F172A",
+        "--ft-brand-hover": "#020617",
+        "--ft-brand-soft": "#E2E8F0",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F8FAFC",
+        "--ft-surface-inverse": "#0F172A",
+        "--ft-text": "#0F172A",
+        "--ft-text-muted": "#475569",
+        "--ft-text-inverse": "#F8FAFC",
+        "--ft-border": "#E2E8F0",
+        "--ft-accent": "#C8A24B",
+        "--ft-font": "\"Playfair Display\", \"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "600",
+        "--ft-letter-spacing-heading": "-0.02em",
+        "--ft-section-y": "8rem",
+        "--ft-section-y-sm": "5rem",
+        "--ft-block-gap": "2.75rem",
+        "--ft-item-gap": "1.5rem",
+        "--ft-card-pad": "2.25rem",
+        "--ft-radius-sm": "0.5rem",
+        "--ft-radius-md": "1rem",
+        "--ft-radius-lg": "1.5rem",
+        "--ft-radius-pill": "9999px",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1",
+        "--ft-heading-scale": "1",
+        "--ft-body-scale": "1",
+        "--ft-cta-scale": "1",
+        "--ft-density": "medium",
+        "--ft-section-spacing": "6rem",
+        "--ft-spacing-variance": "0.08",
+        "--ft-type-relax": "0.03",
+        "--ft-cta-asymmetry": "0.15",
+        "--ft-section-breathing": "0.25"
+      },
+      "fontFamily": "\"Playfair Display\", \"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "premium-split",
+        "content": {
+          "eyebrow": "Medspa · Beverly Hills, CA",
+          "headline": "Only Board-Certified Physicians",
+          "subheadline": "Expert medical care in Beverly Hills delivered by licensed doctors with a results driven approach",
+          "ctaText": "Book Consultation",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Board-Certified MDs",
+            "Personalized Treatment Plans",
+            "Advanced Aesthetic Technology"
+          ],
+          "imageUrl": "data:image/jpeg;base64,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"
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "step-based",
+        "content": {
+          "heading": "Our Signature Services",
+          "subheading": "From subtle enhancements to transformative results across Beverly Hills.",
+          "services": [
+            {
+              "title": "Botox & Fillers",
+              "description": "Smooth lines and restore volume with precision injections by experienced medical doctors.",
+              "icon": "💉"
+            },
+            {
+              "title": "Laser Skin Resurfacing",
+              "description": "Reveal clearer, smoother skin by targeting imperfections and stimulating natural renewal.",
+              "icon": "✨"
+            },
+            {
+              "title": "Body Contouring",
+              "description": "Sculpt and refine your physique, addressing stubborn areas resistant to diet and exercise.",
+              "icon": "👙"
+            },
+            {
+              "title": "Hydrafacial",
+              "description": "Deeply cleanse, extract, and hydrate for an instant glow and lasting skin health.",
+              "icon": "💧"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "Hear from Our Clients",
+          "subheading": "Over 95% of our clients report outstanding satisfaction with their experience.",
+          "reviews": [
+            {
+              "name": "Sarah L.",
+              "role": "Client",
+              "body": "Always leave feeling refreshed and confident. The team here is truly exceptional and caring.",
+              "rating": 5
+            },
+            {
+              "name": "Michael K.",
+              "role": "Client",
+              "body": "My skin has never looked better. The laser treatment made a huge difference in texture and tone.",
+              "rating": 5
+            },
+            {
+              "name": "Jessica T.",
+              "role": "Client",
+              "body": "Appreciated the thorough consultation and clear explanation before my treatment. Felt very informed.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "soft-contact",
+        "content": {
+          "eyebrow": "Begin Your Journey",
+          "heading": "Discover Your Best Self",
+          "subheading": "Schedule a personalized consultation with our board-certified physicians to discuss your aesthetic goals.",
+          "buttonText": "Schedule Consultation",
+          "buttonHref": "tel:3109876543",
+          "microcopy": "Or call us directly at 310-987-6543."
+        }
+      }
+    ]
+  }
+}

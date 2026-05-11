@@ -107,6 +107,25 @@ export default function EditorClient({
     setProject({ ...project, assets });
   }
 
+  const imageUpload = useCallback(
+    (sectionId: string, dataUrl: string) => {
+      setComposition((prev) => ({
+        ...prev,
+        sections: prev.sections.map((s) =>
+          s.id === sectionId && s.type === "hero"
+            ? { ...s, content: { ...s.content, imageUrl: dataUrl } }
+            : s
+        ),
+      }));
+      fetch(`/api/projects/${project.id}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ action: "update-image", sectionId, imageUrl: dataUrl }),
+      }).catch(() => {});
+    },
+    [project.id]
+  );
+
   function updateColors(primary: string, accent: string) {
     const p = primary || undefined;
     const a = accent || undefined;
@@ -365,6 +384,7 @@ export default function EditorClient({
             assets={project.assets}
             input={project.input}
             onEdit={editContent}
+            onImageUpload={imageUpload}
           />
         </main>
       </div>
