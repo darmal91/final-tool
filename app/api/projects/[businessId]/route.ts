@@ -50,6 +50,7 @@ export async function PATCH(
   if (
     body.action === "update-image" &&
     typeof body.imageUrl === "string" &&
+    body.imageUrl.startsWith("data:") &&
     body.imageUrl.length > MAX_IMAGE_B64_LEN
   ) {
     return NextResponse.json({ error: "image_too_large" }, { status: 400 });
@@ -108,7 +109,7 @@ export async function PATCH(
       return { ...comp, theme: { ...comp.theme, tokens: newTokens, cssVars: newCssVars } };
     }
     if (body.action === "update-image" && body.sectionId && typeof body.imageUrl === "string") {
-      if (!body.imageUrl.startsWith("data:image/")) return comp;
+      if (!body.imageUrl.startsWith("data:image/") && !body.imageUrl.startsWith("https://")) return comp;
       if (body.imageUrl.length > MAX_IMAGE_B64_LEN) return comp;
       return {
         ...comp,

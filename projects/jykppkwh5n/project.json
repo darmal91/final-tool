@@ -85,7 +85,7 @@
       {
         "id": "hero",
         "type": "hero",
-        "variant": "premium-split",
+        "variant": "centered-trust",
         "content": {
           "eyebrow": "Medspa · Beverly Hills, CA",
           "headline": "Only Board-Certified Physicians",

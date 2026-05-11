@@ -270,7 +270,7 @@ export async function refineCopy(
           { role: "user", parts: [{ text: refineUserPrompt(input, current, strategy) }] },
         ],
         generationConfig: {
-          maxOutputTokens: 1500,
+          maxOutputTokens: 2048,
           temperature: 0.9,
           responseMimeType: "application/json",
         },
