@@ -1,4 +1,5 @@
 import type { HeroContent } from "@/lib/types";
+import { EditableText } from "@/components/render/Editable";
 
 export default function PremiumSplitHero({
   content,
@@ -86,7 +87,7 @@ export default function PremiumSplitHero({
               color: "var(--ft-text-inverse)",
             }}
           >
-            {content.headline}
+            <EditableText fieldPath="headline">{content.headline}</EditableText>
           </h1>
 
           <p
@@ -99,7 +100,7 @@ export default function PremiumSplitHero({
               maxWidth: "540px",
             }}
           >
-            {content.subheadline}
+            <EditableText fieldPath="subheadline" multiline>{content.subheadline}</EditableText>
           </p>
 
           <a
@@ -122,7 +123,7 @@ export default function PremiumSplitHero({
               textAlign: "center",
             }}
           >
-            {content.ctaText}
+            <EditableText fieldPath="ctaText">{content.ctaText}</EditableText>
           </a>
         </div>
 

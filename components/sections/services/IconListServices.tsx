@@ -1,5 +1,6 @@
 import type { ServicesContent } from "@/lib/types";
 import { SectionShell, Heading, Lead } from "@/components/sections/shared/primitives";
+import { EditableText } from "@/components/render/Editable";
 
 export default function IconListServices({ content }: { content: ServicesContent }) {
   return (
@@ -14,14 +15,16 @@ export default function IconListServices({ content }: { content: ServicesContent
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           <Heading level={2} size="h2">
-            {content.heading}
+            <EditableText fieldPath="heading">{content.heading}</EditableText>
           </Heading>
-          <Lead>{content.subheading}</Lead>
+          <Lead>
+            <EditableText fieldPath="subheading" multiline>{content.subheading}</EditableText>
+          </Lead>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           {content.services.map((s, i) => (
             <div
-              key={s.title}
+              key={i}
               style={{
                 display: "grid",
                 gridTemplateColumns: "auto 1fr",
@@ -56,7 +59,7 @@ export default function IconListServices({ content }: { content: ServicesContent
                     letterSpacing: "-0.01em",
                   }}
                 >
-                  {s.title}
+                  <EditableText fieldPath={`services.${i}.title`}>{s.title}</EditableText>
                 </h3>
                 <p
                   style={{
@@ -67,7 +70,7 @@ export default function IconListServices({ content }: { content: ServicesContent
                     marginTop: "0.25rem",
                   }}
                 >
-                  {s.description}
+                  <EditableText fieldPath={`services.${i}.description`} multiline>{s.description}</EditableText>
                 </p>
               </div>
             </div>

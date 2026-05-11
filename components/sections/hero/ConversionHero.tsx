@@ -1,4 +1,5 @@
 import type { HeroContent } from "@/lib/types";
+import { EditableText } from "@/components/render/Editable";
 
 export default function ConversionHero({ content }: { content: HeroContent }) {
   return (
@@ -73,7 +74,7 @@ export default function ConversionHero({ content }: { content: HeroContent }) {
             color: "var(--ft-text-inverse)",
           }}
         >
-          {content.headline}
+          <EditableText fieldPath="headline">{content.headline}</EditableText>
         </h1>
 
         <p
@@ -86,7 +87,7 @@ export default function ConversionHero({ content }: { content: HeroContent }) {
             margin: 0,
           }}
         >
-          {content.subheadline}
+          <EditableText fieldPath="subheadline" multiline>{content.subheadline}</EditableText>
         </p>
 
         <a
@@ -110,7 +111,7 @@ export default function ConversionHero({ content }: { content: HeroContent }) {
             marginTop: "0.25rem",
           }}
         >
-          {content.ctaText}
+          <EditableText fieldPath="ctaText">{content.ctaText}</EditableText>
         </a>
       </div>
     </section>

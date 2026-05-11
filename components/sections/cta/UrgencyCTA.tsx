@@ -1,5 +1,6 @@
 import type { CTAContent } from "@/lib/types";
 import { Heading, Lead, Button } from "@/components/sections/shared/primitives";
+import { EditableText } from "@/components/render/Editable";
 
 export default function UrgencyCTA({ content }: { content: CTAContent }) {
   return (
@@ -52,12 +53,14 @@ export default function UrgencyCTA({ content }: { content: CTAContent }) {
           {content.eyebrow || "Limited time"}
         </span>
         <Heading level={2} size="h1" inverse>
-          {content.heading}
+          <EditableText fieldPath="heading">{content.heading}</EditableText>
         </Heading>
-        <Lead inverse>{content.subheading}</Lead>
+        <Lead inverse>
+          <EditableText fieldPath="subheading" multiline>{content.subheading}</EditableText>
+        </Lead>
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
           <Button href={content.buttonHref} size="lg">
-            {content.buttonText}
+            <EditableText fieldPath="buttonText">{content.buttonText}</EditableText>
           </Button>
           {content.microcopy && (
             <span style={{ fontSize: "var(--ft-fs-small)", opacity: 0.8 }}>{content.microcopy.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')}</span>

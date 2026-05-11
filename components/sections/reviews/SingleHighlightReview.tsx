@@ -1,5 +1,6 @@
 import type { ReviewsContent } from "@/lib/types";
 import { SectionShell, Stars } from "@/components/sections/shared/primitives";
+import { EditableText } from "@/components/render/Editable";
 
 export default function SingleHighlightReview({ content }: { content: ReviewsContent }) {
   const first = content.reviews[0];
@@ -28,12 +29,14 @@ export default function SingleHighlightReview({ content }: { content: ReviewsCon
             color: "var(--ft-text)",
           }}
         >
-          &ldquo;{first.body}&rdquo;
+          &ldquo;<EditableText fieldPath="reviews.0.body" multiline>{first.body}</EditableText>&rdquo;
         </blockquote>
         <div>
-          <div style={{ fontWeight: 600 }}>{first.name}</div>
+          <div style={{ fontWeight: 600 }}>
+            <EditableText fieldPath="reviews.0.name">{first.name}</EditableText>
+          </div>
           <div style={{ fontSize: "var(--ft-fs-small)", color: "var(--ft-text-muted)" }}>
-            {first.role}
+            <EditableText fieldPath="reviews.0.role">{first.role}</EditableText>
           </div>
         </div>
       </div>

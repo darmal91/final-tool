@@ -1,5 +1,6 @@
 import type { ServicesContent } from "@/lib/types";
 import { SectionShell, Heading, Lead } from "@/components/sections/shared/primitives";
+import { EditableText } from "@/components/render/Editable";
 
 export default function StepBasedServices({ content }: { content: ServicesContent }) {
   return (
@@ -15,9 +16,11 @@ export default function StepBasedServices({ content }: { content: ServicesConten
         }}
       >
         <Heading level={2} size="h2" align="center">
-          {content.heading}
+          <EditableText fieldPath="heading">{content.heading}</EditableText>
         </Heading>
-        <Lead align="center">{content.subheading}</Lead>
+        <Lead align="center">
+          <EditableText fieldPath="subheading" multiline>{content.subheading}</EditableText>
+        </Lead>
       </div>
       <ol
         style={{
@@ -36,7 +39,7 @@ export default function StepBasedServices({ content }: { content: ServicesConten
       >
         {content.services.slice(0, 6).map((s, i) => (
           <li
-            key={s.title}
+            key={i}
             style={{
               position: "relative",
               padding: "var(--ft-card-pad)",
@@ -70,7 +73,7 @@ export default function StepBasedServices({ content }: { content: ServicesConten
                 letterSpacing: "-0.015em",
               }}
             >
-              {s.title}
+              <EditableText fieldPath={`services.${i}.title`}>{s.title}</EditableText>
             </h3>
             <p
               style={{
@@ -81,7 +84,7 @@ export default function StepBasedServices({ content }: { content: ServicesConten
                 lineHeight: 1.55,
               }}
             >
-              {s.description}
+              <EditableText fieldPath={`services.${i}.description`} multiline>{s.description}</EditableText>
             </p>
           </li>
         ))}

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useCallback, useRef, useState, useTransition } from "react";
 import Link from "next/link";
 import type { BusinessAsset, BusinessProject, SiteComposition, Section } from "@/lib/types";
 import RenderComposition from "@/components/render/RenderComposition";
+import { applyContentEdit } from "@/lib/composition/edit";
 import VariantPicker from "./VariantPicker";
 import AssetDropzone from "./AssetDropzone";
 
@@ -26,6 +27,25 @@ export default function EditorClient({
   const [pending, startTransition] = useTransition();
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
+  const editQueue = useRef<Promise<unknown>>(Promise.resolve());
+
+  const editContent = useCallback(
+    (sectionId: string, fieldPath: string, value: string) => {
+      setComposition((prev) => applyContentEdit(prev, sectionId, fieldPath, value));
+      editQueue.current = editQueue.current
+        .then(() =>
+          fetch(`/api/projects/${project.id}`, {
+            method: "PATCH",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ action: "edit-content", sectionId, fieldPath, value }),
+          })
+        )
+        .catch(() => {
+          // Optimistic UI per spec — swallow so the queue stays alive for subsequent edits.
+        });
+    },
+    [project.id]
+  );
 
   async function setVariant(sectionId: string, variant: string) {
     const optimistic = {
@@ -237,7 +257,12 @@ export default function EditorClient({
             minHeight: "70vh",
           }}
         >
-          <RenderComposition composition={composition} assets={project.assets} input={project.input} />
+          <RenderComposition
+            composition={composition}
+            assets={project.assets}
+            input={project.input}
+            onEdit={editContent}
+          />
         </main>
       </div>
     </div>

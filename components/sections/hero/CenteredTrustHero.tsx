@@ -1,4 +1,5 @@
 import type { HeroContent } from "@/lib/types";
+import { EditableText } from "@/components/render/Editable";
 
 export default function CenteredTrustHero({ content }: { content: HeroContent }) {
   return (
@@ -72,7 +73,7 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
             color: "var(--ft-text)",
           }}
         >
-          {content.headline}
+          <EditableText fieldPath="headline">{content.headline}</EditableText>
         </h1>
 
         <p
@@ -84,7 +85,7 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
             margin: 0,
           }}
         >
-          {content.subheadline}
+          <EditableText fieldPath="subheadline" multiline>{content.subheadline}</EditableText>
         </p>
 
         <a
@@ -108,7 +109,7 @@ export default function CenteredTrustHero({ content }: { content: HeroContent })
             marginTop: "0.25rem",
           }}
         >
-          {content.ctaText}
+          <EditableText fieldPath="ctaText">{content.ctaText}</EditableText>
         </a>
       </div>
     </section>

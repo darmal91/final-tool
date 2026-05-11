@@ -1,5 +1,6 @@
 import type { ReviewsContent } from "@/lib/types";
 import { SectionShell, Heading, Lead, Card, Stars } from "@/components/sections/shared/primitives";
+import { EditableText } from "@/components/render/Editable";
 
 export default function GridReviews({ content }: { content: ReviewsContent }) {
   return (
@@ -15,7 +16,7 @@ export default function GridReviews({ content }: { content: ReviewsContent }) {
         }}
       >
         <Heading level={2} size="h2" align="center">
-          {content.heading}
+          <EditableText fieldPath="heading">{content.heading}</EditableText>
         </Heading>
         <Lead align="center">{content.subheading}</Lead>
       </div>
@@ -37,12 +38,14 @@ export default function GridReviews({ content }: { content: ReviewsContent }) {
                 color: "var(--ft-text)",
               }}
             >
-              &ldquo;{r.body}&rdquo;
+              &ldquo;<EditableText fieldPath={`reviews.${i}.body`} multiline>{r.body}</EditableText>&rdquo;
             </p>
             <div style={{ marginTop: "1rem" }}>
-              <div style={{ fontWeight: 600, fontSize: "0.9375rem" }}>{r.name}</div>
+              <div style={{ fontWeight: 600, fontSize: "0.9375rem" }}>
+                <EditableText fieldPath={`reviews.${i}.name`}>{r.name}</EditableText>
+              </div>
               <div style={{ fontSize: "var(--ft-fs-small)", color: "var(--ft-text-muted)" }}>
-                {r.role}
+                <EditableText fieldPath={`reviews.${i}.role`}>{r.role}</EditableText>
               </div>
             </div>
           </Card>

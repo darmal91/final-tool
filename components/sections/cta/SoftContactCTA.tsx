@@ -1,5 +1,6 @@
 import type { CTAContent } from "@/lib/types";
 import { SectionShell, Heading, Lead, Button } from "@/components/sections/shared/primitives";
+import { EditableText } from "@/components/render/Editable";
 
 export default function SoftContactCTA({ content }: { content: CTAContent }) {
   return (
@@ -19,9 +20,11 @@ export default function SoftContactCTA({ content }: { content: CTAContent }) {
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <Heading level={2} size="h2">
-            {content.heading}
+            <EditableText fieldPath="heading">{content.heading}</EditableText>
           </Heading>
-          <Lead>{content.subheading}</Lead>
+          <Lead>
+            <EditableText fieldPath="subheading" multiline>{content.subheading}</EditableText>
+          </Lead>
           {content.microcopy && (
             <div style={{ fontSize: "var(--ft-fs-small)", color: "var(--ft-text-muted)" }}>
               {content.microcopy.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')}
@@ -30,7 +33,7 @@ export default function SoftContactCTA({ content }: { content: CTAContent }) {
         </div>
         <div style={{ display: "flex", gap: "0.5rem", flexShrink: 0 }}>
           <Button href={content.buttonHref} size="lg">
-            {content.buttonText}
+            <EditableText fieldPath="buttonText">{content.buttonText}</EditableText>
           </Button>
         </div>
       </div>

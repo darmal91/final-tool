@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { loadProject, updateComposition } from "@/lib/projects/store";
+import { applyContentEdit } from "@/lib/composition/edit";
 import type { Section, SectionType } from "@/lib/types";
 import { VARIANTS_BY_TYPE } from "@/lib/types";
 
 export const runtime = "nodejs";
+
+const FIELD_PATH_RE = /^[a-zA-Z][a-zA-Z0-9]*(\.(?:\d+|[a-zA-Z][a-zA-Z0-9]*))*$/;
+const MAX_VALUE_LEN = 2000;
 
 export async function GET(
   _req: NextRequest,
@@ -16,10 +20,12 @@ export async function GET(
 }
 
 interface PatchBody {
-  action: "set-variant" | "reorder" | "remove";
+  action: "set-variant" | "reorder" | "remove" | "edit-content";
   sectionId?: string;
   variant?: string;
   order?: string[];
+  fieldPath?: string;
+  value?: string;
 }
 
 function isValidVariantFor(type: SectionType, variant: string): boolean {
@@ -55,6 +61,16 @@ export async function PATCH(
     }
     if (body.action === "remove" && body.sectionId) {
       return { ...comp, sections: comp.sections.filter((s) => s.id !== body.sectionId) };
+    }
+    if (
+      body.action === "edit-content" &&
+      body.sectionId &&
+      typeof body.fieldPath === "string" &&
+      typeof body.value === "string" &&
+      FIELD_PATH_RE.test(body.fieldPath) &&
+      body.value.length <= MAX_VALUE_LEN
+    ) {
+      return applyContentEdit(comp, body.sectionId, body.fieldPath, body.value);
     }
     return comp;
   });

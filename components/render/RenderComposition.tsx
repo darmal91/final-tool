@@ -4,6 +4,7 @@ import { getSectionComponent } from "@/components/sections/registry";
 import { ThemeProvider } from "@/components/design/ThemeProvider";
 import SiteNav from "@/components/nav/SiteNav";
 import SiteFooter from "@/components/sections/footer/SiteFooter";
+import { EditableSectionProvider } from "@/components/render/Editable";
 
 function pickHeroImage(assets: BusinessAsset[] | undefined): string | undefined {
   return assets?.find((a) => a.context === "hero")?.url;
@@ -15,16 +16,24 @@ function RenderSection({ section, assets }: { section: Section; assets?: Busines
   return <Comp content={section.content as unknown} heroImageUrl={heroImageUrl} />;
 }
 
+export type CompositionEditHandler = (
+  sectionId: string,
+  fieldPath: string,
+  value: string
+) => void;
+
 export default function RenderComposition({
   composition,
   assets,
   asTag = "main",
   input,
+  onEdit,
 }: {
   composition: SiteComposition;
   assets?: BusinessAsset[];
   asTag?: "div" | "main" | "section";
   input?: import("@/lib/types").BusinessInput;
+  onEdit?: CompositionEditHandler;
 }) {
   const lastCta = [...composition.sections]
     .reverse()
@@ -60,7 +69,9 @@ export default function RenderComposition({
       )}
       {input && <SiteNav input={input} assets={assets} />}
       {composition.sections.map((s) => (
-        <RenderSection key={s.id} section={s} assets={assets} />
+        <EditableSectionProvider key={s.id} sectionId={s.id} onEdit={onEdit}>
+          <RenderSection section={s} assets={assets} />
+        </EditableSectionProvider>
       ))}
 {input && <SiteFooter input={input} assets={assets} ctaVariant={ctaVariant} />}
     </ThemeProvider>

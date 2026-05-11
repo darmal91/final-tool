@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { ServicesContent } from "@/lib/types";
 import { SectionShell, Heading, Lead } from "@/components/sections/shared/primitives";
+import { EditableText } from "@/components/render/Editable";
 
 function gridCols(count: number): string {
   if (count === 2) return "repeat(2, 1fr)";
@@ -29,9 +30,11 @@ export default function CardGridServices({ content }: { content: ServicesContent
           }}
         >
           <Heading level={2} size="h2" align="center">
-            {content.heading}
+            <EditableText fieldPath="heading">{content.heading}</EditableText>
           </Heading>
-          <Lead align="center">{content.subheading}</Lead>
+          <Lead align="center">
+            <EditableText fieldPath="subheading" multiline>{content.subheading}</EditableText>
+          </Lead>
         </div>
         <div
           className="ft-card-grid"
@@ -45,7 +48,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
             const hovered = hoveredIdx === idx;
             return (
               <div
-                key={s.title}
+                key={idx}
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 style={{
@@ -78,7 +81,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
                     letterSpacing: "-0.015em",
                   }}
                 >
-                  {s.title}
+                  <EditableText fieldPath={`services.${idx}.title`}>{s.title}</EditableText>
                 </h3>
                 <p
                   style={{
@@ -88,7 +91,7 @@ export default function CardGridServices({ content }: { content: ServicesContent
                     marginTop: "0.5rem",
                   }}
                 >
-                  {s.description}
+                  <EditableText fieldPath={`services.${idx}.description`} multiline>{s.description}</EditableText>
                 </p>
               </div>
             );

@@ -1,5 +1,6 @@
 import type { CTAContent } from "@/lib/types";
 import { Heading, Lead } from "@/components/sections/shared/primitives";
+import { EditableText } from "@/components/render/Editable";
 
 export default function StrongOfferCTA({ content }: { content: CTAContent }) {
   return (
@@ -41,10 +42,10 @@ export default function StrongOfferCTA({ content }: { content: CTAContent }) {
           </div>
         )}
         <Heading level={2} size="h1" align="center" inverse>
-          {content.heading}
+          <EditableText fieldPath="heading">{content.heading}</EditableText>
         </Heading>
         <Lead align="center" inverse>
-          {content.subheading}
+          <EditableText fieldPath="subheading" multiline>{content.subheading}</EditableText>
         </Lead>
         <a
           href={content.buttonHref}
@@ -63,7 +64,7 @@ export default function StrongOfferCTA({ content }: { content: CTAContent }) {
             boxShadow: "0 12px 28px -10px rgba(0,0,0,0.35)",
           }}
         >
-          {content.buttonText}
+          <EditableText fieldPath="buttonText">{content.buttonText}</EditableText>
         </a>
         {content.microcopy && (
           <div style={{ fontSize: "var(--ft-fs-small)", opacity: 0.85 }}>{content.microcopy.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')}</div>
