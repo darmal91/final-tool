@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { BusinessInput, BusinessType, Tone } from "@/lib/types";
 
@@ -100,6 +100,145 @@ const labelBase: React.CSSProperties = {
   color: "#334155",
   marginBottom: "0.375rem",
 };
+
+function extractDominantColors(canvas: HTMLCanvasElement): string[] {
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return [];
+  const { width, height } = canvas;
+  const data = ctx.getImageData(0, 0, width, height).data;
+
+  // key = (r>>3)<<10 | (g>>3)<<5 | (b>>3)  — 32 levels per channel
+  const buckets = new Map<number, { count: number; r: number; g: number; b: number }>();
+
+  for (let i = 0; i < data.length; i += 4 * 10) {
+    const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
+    if (a < 128) continue;
+    const max = Math.max(r, g, b);
+    const sat = max === 0 ? 0 : (max - Math.min(r, g, b)) / max;
+    if (sat < 0.15) continue; // skip near-white, near-black, near-gray
+    const key = ((r >> 3) << 10) | ((g >> 3) << 5) | (b >> 3);
+    const b_ = buckets.get(key);
+    if (b_) { b_.count++; b_.r += r; b_.g += g; b_.b += b; }
+    else buckets.set(key, { count: 1, r, g, b });
+  }
+
+  return [...buckets.values()]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5)
+    .map(({ count, r, g, b }) => {
+      const h = (v: number) => Math.round(v / count).toString(16).padStart(2, "0");
+      return `#${h(r)}${h(g)}${h(b)}`;
+    });
+}
+
+function ColorDropZone({
+  onPrimary,
+  onAccent,
+}: {
+  onPrimary: (hex: string) => void;
+  onAccent: (hex: string) => void;
+}) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const [colors, setColors] = useState<string[]>([]);
+
+  function processFile(file: File) {
+    if (!file.type.startsWith("image/")) return;
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const MAX = 200;
+      const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+      const w = Math.max(1, Math.round(img.width * scale));
+      const h = Math.max(1, Math.round(img.height * scale));
+      const canvas = document.createElement("canvas");
+      canvas.width = w;
+      canvas.height = h;
+      canvas.getContext("2d")!.drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      const extracted = extractDominantColors(canvas);
+      setColors(extracted);
+    };
+    img.src = url;
+  }
+
+  function onDrop(e: React.DragEvent) {
+    e.preventDefault();
+    setDragging(false);
+    const file = e.dataTransfer.files[0];
+    if (file) processFile(file);
+  }
+
+  function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) processFile(file);
+    e.target.value = "";
+  }
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => inputRef.current?.click()}
+        onKeyDown={(e) => e.key === "Enter" && inputRef.current?.click()}
+        onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
+        onDragLeave={() => setDragging(false)}
+        onDrop={onDrop}
+        style={{
+          border: `2px dashed ${dragging ? "#6366f1" : "#cbd5e1"}`,
+          borderRadius: "0.5rem",
+          padding: "0.875rem 1rem",
+          textAlign: "center",
+          cursor: "pointer",
+          background: dragging ? "#eef2ff" : "#fafafa",
+          transition: "border-color 0.15s, background 0.15s",
+        }}
+      >
+        <div style={{ fontSize: "0.8125rem", color: "#64748b" }}>
+          Drop a screenshot or logo to extract colors
+        </div>
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={onFileChange}
+        />
+      </div>
+
+      {colors.length > 0 && (
+        <div>
+          <div style={{ display: "flex", gap: "0.375rem" }}>
+            {colors.map((hex) => (
+              <button
+                key={hex}
+                type="button"
+                title={`${hex} — click to set primary, shift+click for accent`}
+                onClick={(e) => {
+                  if (e.shiftKey) onAccent(hex);
+                  else onPrimary(hex);
+                }}
+                style={{
+                  width: "32px",
+                  height: "32px",
+                  borderRadius: "0.375rem",
+                  background: hex,
+                  border: "1px solid rgba(0,0,0,0.12)",
+                  cursor: "pointer",
+                  flexShrink: 0,
+                }}
+              />
+            ))}
+          </div>
+          <div style={{ fontSize: "0.6875rem", color: "#94a3b8", marginTop: "0.3rem" }}>
+            Click to set primary · Shift+click for accent
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function ColorInput({
   label,
@@ -418,19 +557,25 @@ export default function BusinessForm() {
                 Reset to defaults
               </button>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
-              <ColorInput
-                label="Primary"
-                value={primaryColor}
-                placeholder={TONE_DEFAULT_COLORS[tone].primary}
-                onChange={setPrimaryColor}
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <ColorDropZone
+                onPrimary={setPrimaryColor}
+                onAccent={setAccentColor}
               />
-              <ColorInput
-                label="Accent"
-                value={accentColor}
-                placeholder={TONE_DEFAULT_COLORS[tone].accent}
-                onChange={setAccentColor}
-              />
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                <ColorInput
+                  label="Primary"
+                  value={primaryColor}
+                  placeholder={TONE_DEFAULT_COLORS[tone].primary}
+                  onChange={setPrimaryColor}
+                />
+                <ColorInput
+                  label="Accent"
+                  value={accentColor}
+                  placeholder={TONE_DEFAULT_COLORS[tone].accent}
+                  onChange={setAccentColor}
+                />
+              </div>
             </div>
           </div>
         )}
