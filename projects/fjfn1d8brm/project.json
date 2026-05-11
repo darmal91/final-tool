@@ -1,0 +1,168 @@
+{
+  "project": {
+    "id": "fjfn1d8brm",
+    "createdAt": "2026-05-11T01:38:08.885Z",
+    "input": {
+      "businessName": "Bright Side Electric",
+      "businessType": "electrician",
+      "location": "Sacramento, CA",
+      "services": [
+        "Panel Upgrades",
+        "EV Charger Install",
+        "Outdoor Lighting",
+        "Emergency Repairs"
+      ],
+      "tone": "aggressive",
+      "differentiator": "Master electricians on every job. No subcontractors."
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "fjfn1d8brm",
+    "theme": {
+      "tokens": {
+        "tone": "aggressive",
+        "density": "tight",
+        "radius": "sharp"
+      },
+      "cssVars": {
+        "--ft-brand": "#DC2626",
+        "--ft-brand-hover": "#B91C1C",
+        "--ft-brand-soft": "#FEE2E2",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F8FAFC",
+        "--ft-surface-inverse": "#111111",
+        "--ft-text": "#111111",
+        "--ft-text-muted": "#525252",
+        "--ft-text-inverse": "#FAFAFA",
+        "--ft-border": "#E5E7EB",
+        "--ft-accent": "#FACC15",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "800",
+        "--ft-letter-spacing-heading": "-0.03em",
+        "--ft-section-y": "4rem",
+        "--ft-section-y-sm": "2.5rem",
+        "--ft-block-gap": "1.25rem",
+        "--ft-item-gap": "0.75rem",
+        "--ft-card-pad": "1.25rem",
+        "--ft-radius-sm": "0.125rem",
+        "--ft-radius-md": "0.25rem",
+        "--ft-radius-lg": "0.375rem",
+        "--ft-radius-pill": "0.5rem",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.25",
+        "--ft-heading-scale": "1.2",
+        "--ft-body-scale": "0.95",
+        "--ft-cta-scale": "1.2",
+        "--ft-density": "high",
+        "--ft-section-spacing": "4rem",
+        "--ft-spacing-variance": "0.15",
+        "--ft-type-relax": "0.1",
+        "--ft-cta-asymmetry": "0.8",
+        "--ft-section-breathing": "0.1"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "conversion",
+        "content": {
+          "eyebrow": "Electrician · Sacramento, CA",
+          "headline": "Electrical emergency got you in dark?",
+          "subheadline": "Fast electrical repairs in Sacramento, CA, by master electricians, no middlemen, guaranteed results",
+          "ctaText": "Call Now",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Licensed & Insured",
+            "Master Electricians",
+            "No Subcontractors",
+            "Sacramento Local"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "icon-list",
+        "content": {
+          "heading": "How We Help",
+          "subheading": "Critical repairs to essential upgrades, across Sacramento.",
+          "services": [
+            {
+              "title": "Panel Upgrades",
+              "description": "Upgrade your electrical panel for modern demand. Boost capacity, prevent overloads, ensure safety.",
+              "icon": "⚡️"
+            },
+            {
+              "title": "EV Charger Install",
+              "description": "Electric vehicle charging at home, installed correctly and safely for your specific model.",
+              "icon": "🚗"
+            },
+            {
+              "title": "Outdoor Lighting",
+              "description": "Illuminate your property for security and curb appeal. Custom designs, expertly installed, built to last.",
+              "icon": "💡"
+            },
+            {
+              "title": "Emergency Repairs",
+              "description": "Power out? Sparks flying? We respond fast to critical electrical failures when you need us.",
+              "icon": "🚨"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "Real Customers, Real Results",
+          "subheading": "What Sacramento Homeowners Say About Our Work",
+          "reviews": [
+            {
+              "name": "Sarah M.",
+              "role": "Homeowner",
+              "body": "Bright Side fixed a major panel issue for us last week. The electrician knew exactly what to do and got it done fast. Highly recommend.",
+              "rating": 5
+            },
+            {
+              "name": "David P.",
+              "role": "Local Resident",
+              "body": "Needed an EV charger installed quickly. They showed up on time, did clean work, and walked me through how to use it. Great service.",
+              "rating": 5
+            },
+            {
+              "name": "Emily R.",
+              "role": "Business Owner",
+              "body": "Our outdoor lighting system was a mess. Bright Side totally revamped it. Looks fantastic and feels safer now. Solid job.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "urgency",
+        "content": {
+          "eyebrow": "Don't Wait",
+          "heading": "Electrical Problems Demand Immediate Action.",
+          "subheading": "Secure your home's power. Contact Bright Side Electric today for expert service, no delays.",
+          "buttonText": "Get Urgent Electrical Help",
+          "buttonHref": "#contact",
+          "microcopy": "Licensed master electricians. Every job, guaranteed."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "project": {
+    "id": "98cty4vkuz",
+    "createdAt": "2026-05-11T01:28:12.428Z",
+    "input": {
+      "businessName": "Rivera Plumbing",
+      "businessType": "Plumbing",
+      "location": "Austin TX",
+      "services": [
+        "Emergency repairs",
+        "Drain cleaning",
+        "Water heater installation",
+        "Repiping"
+      ],
+      "tone": "aggressive",
+      "differentiator": "Same-day service with upfront flat-rate pricing"
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "98cty4vkuz",
+    "theme": {
+      "tokens": {
+        "tone": "aggressive",
+        "density": "tight",
+        "radius": "sharp"
+      },
+      "cssVars": {
+        "--ft-brand": "#DC2626",
+        "--ft-brand-hover": "#B91C1C",
+        "--ft-brand-soft": "#FEE2E2",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F8FAFC",
+        "--ft-surface-inverse": "#111111",
+        "--ft-text": "#111111",
+        "--ft-text-muted": "#525252",
+        "--ft-text-inverse": "#FAFAFA",
+        "--ft-border": "#E5E7EB",
+        "--ft-accent": "#FACC15",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "800",
+        "--ft-letter-spacing-heading": "-0.03em",
+        "--ft-section-y": "4rem",
+        "--ft-section-y-sm": "2.5rem",
+        "--ft-block-gap": "1.25rem",
+        "--ft-item-gap": "0.75rem",
+        "--ft-card-pad": "1.25rem",
+        "--ft-radius-sm": "0.125rem",
+        "--ft-radius-md": "0.25rem",
+        "--ft-radius-lg": "0.375rem",
+        "--ft-radius-pill": "0.5rem",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.25",
+        "--ft-heading-scale": "1.2",
+        "--ft-body-scale": "0.95",
+        "--ft-cta-scale": "1.2",
+        "--ft-density": "high",
+        "--ft-section-spacing": "4rem",
+        "--ft-spacing-variance": "0.15",
+        "--ft-type-relax": "0.1",
+        "--ft-cta-asymmetry": "0.8",
+        "--ft-section-breathing": "0.1"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "conversion",
+        "content": {
+          "eyebrow": "Plumbing · Austin TX",
+          "headline": "No hot water?",
+          "subheadline": "Fast relief from leaks and clogs in Austin TX with upfront flat-rate pricing today",
+          "ctaText": "Get It Fixed Now",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Licensed & Insured",
+            "Upfront Pricing",
+            "Same-Day Service",
+            "Austin TX Plumbers"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "icon-list",
+        "content": {
+          "heading": "What We Fix",
+          "subheading": "From emergency repairs to full repipes, same-day across Austin.",
+          "services": [
+            {
+              "title": "Emergency repairs",
+              "description": "Burst pipe, no water, sewage back-up — we pick up and stop the damage fast. Same-day across Austin.",
+              "icon": "🚨"
+            },
+            {
+              "title": "Drain cleaning",
+              "description": "Slow drains cleared fast before they become a total block. We identify the cause and fix it.",
+              "icon": "🚿"
+            },
+            {
+              "title": "Water heater installation",
+              "description": "New water heater installed today, not next week. We handle all types, quickly and cleanly.",
+              "icon": "♨️"
+            },
+            {
+              "title": "Repiping",
+              "description": "Upgrade old, leaky pipes for better pressure and peace of mind. A lasting fix for your home.",
+              "icon": "🛠️"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What Our Customers Say",
+          "subheading": "Real Feedback from Austin Homeowners",
+          "reviews": [
+            {
+              "name": "Sarah J.",
+              "role": "Homeowner in Austin",
+              "body": "Called Rivera Plumbing late evening. They were here fast, fixed the leak, and the price was exactly what they quoted. Lifesavers.",
+              "rating": 5
+            },
+            {
+              "name": "Mike R.",
+              "role": "Resident of Travis Heights",
+              "body": "Had a constant slow drain. They came, cleared it, and it's been perfect ever since. Highly recommend their service.",
+              "rating": 5
+            },
+            {
+              "name": "David L.",
+              "role": "Property Manager",
+              "body": "Had them repipe our old house. Very professional, minimal disruption, and the new water pressure is amazing. Great work.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "urgency",
+        "content": {
+          "eyebrow": "Don't Wait",
+          "heading": "Plumbing Problem? Get It Fixed Today.",
+          "subheading": "Upfront pricing, same-day service. Your plumbing issues resolved fast, with no surprises.",
+          "buttonText": "Call Us Now",
+          "buttonHref": "#contact",
+          "microcopy": "Licensed, Insured & Ready to Help Austin TX."
+        }
+      }
+    ]
+  }
+}

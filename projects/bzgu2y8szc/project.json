@@ -1,0 +1,168 @@
+{
+  "project": {
+    "id": "bzgu2y8szc",
+    "createdAt": "2026-05-11T01:38:29.995Z",
+    "input": {
+      "businessName": "Rivera Plumbing",
+      "businessType": "plumber",
+      "location": "Sacramento, CA",
+      "services": [
+        "Emergency Repair",
+        "Drain Cleaning",
+        "Water Heaters",
+        "Fixture Install"
+      ],
+      "tone": "friendly",
+      "differentiator": "Family owned 20 years. Same-day guaranteed."
+    },
+    "assets": []
+  },
+  "composition": {
+    "businessId": "bzgu2y8szc",
+    "theme": {
+      "tokens": {
+        "tone": "friendly",
+        "density": "normal",
+        "radius": "soft"
+      },
+      "cssVars": {
+        "--ft-brand": "#2563EB",
+        "--ft-brand-hover": "#1D4ED8",
+        "--ft-brand-soft": "#DBEAFE",
+        "--ft-on-brand": "#FFFFFF",
+        "--ft-surface": "#FFFFFF",
+        "--ft-surface-muted": "#F1F5F9",
+        "--ft-surface-inverse": "#1E3A8A",
+        "--ft-text": "#0F172A",
+        "--ft-text-muted": "#64748B",
+        "--ft-text-inverse": "#F8FAFC",
+        "--ft-border": "#E2E8F0",
+        "--ft-accent": "#F59E0B",
+        "--ft-font": "\"Inter\", system-ui, sans-serif",
+        "--ft-font-heading-weight": "700",
+        "--ft-letter-spacing-heading": "-0.025em",
+        "--ft-section-y": "6rem",
+        "--ft-section-y-sm": "4rem",
+        "--ft-block-gap": "2rem",
+        "--ft-item-gap": "1rem",
+        "--ft-card-pad": "1.75rem",
+        "--ft-radius-sm": "0.5rem",
+        "--ft-radius-md": "1rem",
+        "--ft-radius-lg": "1.5rem",
+        "--ft-radius-pill": "9999px",
+        "--ft-fs-display": "clamp(2.75rem, 5.5vw, 4.25rem)",
+        "--ft-fs-h1": "clamp(2.25rem, 4vw, 3.25rem)",
+        "--ft-fs-h2": "clamp(1.75rem, 3vw, 2.5rem)",
+        "--ft-fs-h3": "1.5rem",
+        "--ft-fs-body": "1.0625rem",
+        "--ft-fs-small": "0.875rem",
+        "--ft-fs-micro": "0.75rem",
+        "--ft-fs-eyebrow": "0.8125rem",
+        "--ft-hero-scale": "1.15",
+        "--ft-heading-scale": "1.1",
+        "--ft-body-scale": "1",
+        "--ft-cta-scale": "1.05",
+        "--ft-density": "low",
+        "--ft-section-spacing": "8rem",
+        "--ft-spacing-variance": "0.05",
+        "--ft-type-relax": "0.05",
+        "--ft-cta-asymmetry": "0.2",
+        "--ft-section-breathing": "0.2"
+      },
+      "fontFamily": "\"Inter\", system-ui, sans-serif"
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "type": "hero",
+        "variant": "centered-trust",
+        "content": {
+          "eyebrow": "Plumber · Sacramento, CA",
+          "headline": "Fixed Today, No Follow-Ups",
+          "subheadline": "Serving Sacramento, CA with 20 years of family owned same day guaranteed service",
+          "ctaText": "Get Plumbing Fixed",
+          "ctaHref": "#contact",
+          "trustBadges": [
+            "Licensed & Insured",
+            "Family-Owned",
+            "20 Years Local",
+            "Same-Day Service"
+          ]
+        }
+      },
+      {
+        "id": "services",
+        "type": "services",
+        "variant": "card-grid",
+        "content": {
+          "heading": "How We Help Sacramento Homes",
+          "subheading": "From burst pipes to new water heaters, same-day across Sacramento.",
+          "services": [
+            {
+              "title": "Emergency Repair",
+              "description": "Burst pipe, leaking water, or sewage backup? We pick up fast, arrive quickly, and stop the damage.",
+              "icon": "🚨"
+            },
+            {
+              "title": "Drain Cleaning",
+              "description": "Slow sinks, clogged toilets, or backed-up sewers. We clear blockages and restore flow.",
+              "icon": "🚿"
+            },
+            {
+              "title": "Water Heaters",
+              "description": "New installation, reliable repair, or quick replacement. Get hot water back, often today.",
+              "icon": "♨️"
+            },
+            {
+              "title": "Fixture Install",
+              "description": "Faucets, toilets, showerheads. Installed correctly, no drips, no call-backs later.",
+              "icon": "🚽"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "variant": "grid",
+        "content": {
+          "heading": "What Our Neighbors Say",
+          "subheading": "See why Sacramento homeowners trust us with their plumbing.",
+          "reviews": [
+            {
+              "name": "Sarah L.",
+              "role": "Homeowner, East Sacramento",
+              "body": "Called Rivera Plumbing late Sunday night for a burst pipe. They were at my house within an hour and fixed it. Lifesavers!",
+              "rating": 5
+            },
+            {
+              "name": "Mark T.",
+              "role": "Property Manager, Land Park",
+              "body": "Had a new water heater installed in one of my units. The team was clean, efficient, and explained everything clearly. Very happy.",
+              "rating": 5
+            },
+            {
+              "name": "David P.",
+              "role": "Local Business Owner, Midtown",
+              "body": "Known this family for years. Always fair pricing and solid work, whether it's a small leak or a big job at my restaurant.",
+              "rating": 5
+            }
+          ]
+        }
+      },
+      {
+        "id": "cta",
+        "type": "cta",
+        "variant": "strong-offer",
+        "content": {
+          "eyebrow": "Need Plumbing Help?",
+          "heading": "Don't Wait for Plumbing Problems to Get Worse.",
+          "subheading": "Contact Rivera Plumbing today for honest advice and guaranteed same-day service in Sacramento.",
+          "buttonText": "Schedule Service Now",
+          "buttonHref": "#contact",
+          "microcopy": "Same-day service guaranteed."
+        }
+      }
+    ]
+  }
+}

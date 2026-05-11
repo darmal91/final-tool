@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prebuild:leads": "npx ts-node --project tsconfig.scripts.json --transpile-only scripts/prebuild.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
@@ -21,6 +22,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.5.0",
+    "csv-parse": "^6.2.1",
     "eslint": "^9",
     "eslint-config-next": "15.5.15",
     "postcss": "^8",
