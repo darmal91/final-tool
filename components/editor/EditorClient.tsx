@@ -5,6 +5,8 @@ import Link from "next/link";
 import type { BusinessAsset, BusinessProject, SiteComposition, Section } from "@/lib/types";
 import RenderComposition from "@/components/render/RenderComposition";
 import { applyContentEdit } from "@/lib/composition/edit";
+import { toneDefaultColors } from "@/lib/design/tokens";
+import { hexDarken, hexSoft, isValidHex } from "@/lib/design/colorUtils";
 import VariantPicker from "./VariantPicker";
 import AssetDropzone from "./AssetDropzone";
 
@@ -28,6 +30,17 @@ export default function EditorClient({
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
   const editQueue = useRef<Promise<unknown>>(Promise.resolve());
+
+  const [primaryColor, setPrimaryColor] = useState(
+    initialComposition.theme.tokens.primaryColor ?? ""
+  );
+  const [accentColor, setAccentColor] = useState(
+    initialComposition.theme.tokens.accentColor ?? ""
+  );
+  const [colorsOpen, setColorsOpen] = useState(
+    !!(initialComposition.theme.tokens.primaryColor || initialComposition.theme.tokens.accentColor)
+  );
+  const colorPatchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const editContent = useCallback(
     (sectionId: string, fieldPath: string, value: string) => {
@@ -92,6 +105,39 @@ export default function EditorClient({
 
   function setAssets(assets: BusinessAsset[]) {
     setProject({ ...project, assets });
+  }
+
+  function updateColors(primary: string, accent: string) {
+    const p = primary || undefined;
+    const a = accent || undefined;
+    const defaults = toneDefaultColors(composition.theme.tokens.tone);
+    const newCssVars = { ...composition.theme.cssVars };
+    if (p && isValidHex(p)) {
+      newCssVars["--ft-brand"] = p;
+      newCssVars["--ft-brand-hover"] = hexDarken(p, 0.15);
+      newCssVars["--ft-brand-soft"] = hexSoft(p, 0.12);
+    } else {
+      newCssVars["--ft-brand"] = defaults.brand;
+      newCssVars["--ft-brand-hover"] = defaults.brandHover;
+      newCssVars["--ft-brand-soft"] = defaults.brandSoft;
+    }
+    newCssVars["--ft-accent"] = (a && isValidHex(a)) ? a : defaults.accent;
+    setComposition((prev) => ({
+      ...prev,
+      theme: { ...prev.theme, tokens: { ...prev.theme.tokens, primaryColor: p, accentColor: a }, cssVars: newCssVars },
+    }));
+    if (colorPatchTimer.current) clearTimeout(colorPatchTimer.current);
+    colorPatchTimer.current = setTimeout(() => {
+      fetch(`/api/projects/${project.id}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          action: "update-colors",
+          primaryColor: primary || null,
+          accentColor: accent || null,
+        }),
+      }).catch(() => {});
+    }, 400);
   }
 
   const logoAsset = project.assets.find((a) => a.context === "logo");
@@ -246,6 +292,63 @@ export default function EditorClient({
               Theme is derived from your business input. Re-generate from the form to change it.
             </p>
           </Panel>
+
+          <Panel title="Brand Colors">
+            {!colorsOpen ? (
+              <button
+                type="button"
+                onClick={() => setColorsOpen(true)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  fontSize: "0.8125rem",
+                  color: "#64748b",
+                  cursor: "pointer",
+                  textDecoration: "underline",
+                  textDecorationStyle: "dotted",
+                  textUnderlineOffset: "2px",
+                }}
+              >
+                Customize brand colors
+              </button>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <EditorColorInput
+                  label="Primary"
+                  value={primaryColor}
+                  placeholder={toneDefaultColors(composition.theme.tokens.tone).brand}
+                  onChange={(v) => { setPrimaryColor(v); updateColors(v, accentColor); }}
+                />
+                <EditorColorInput
+                  label="Accent"
+                  value={accentColor}
+                  placeholder={toneDefaultColors(composition.theme.tokens.tone).accent}
+                  onChange={(v) => { setAccentColor(v); updateColors(primaryColor, v); }}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPrimaryColor("");
+                    setAccentColor("");
+                    updateColors("", "");
+                    setColorsOpen(false);
+                  }}
+                  style={{
+                    alignSelf: "flex-start",
+                    background: "none",
+                    border: "none",
+                    padding: 0,
+                    fontSize: "0.75rem",
+                    color: "#94a3b8",
+                    cursor: "pointer",
+                  }}
+                >
+                  Reset to defaults
+                </button>
+              </div>
+            )}
+          </Panel>
         </aside>
 
         <main
@@ -264,6 +367,69 @@ export default function EditorClient({
             onEdit={editContent}
           />
         </main>
+      </div>
+    </div>
+  );
+}
+
+function EditorColorInput({
+  label,
+  value,
+  placeholder,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  placeholder: string;
+  onChange: (v: string) => void;
+}) {
+  const display = value || placeholder;
+  return (
+    <div>
+      <div style={{ fontSize: "0.75rem", color: "#64748b", marginBottom: "0.3rem" }}>{label}</div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.5rem",
+          border: "1px solid #e2e8f0",
+          borderRadius: "0.5rem",
+          padding: "0.3rem 0.5rem",
+          background: "white",
+        }}
+      >
+        <label style={{ position: "relative", cursor: "pointer", flexShrink: 0 }}>
+          <div
+            style={{
+              width: "24px",
+              height: "24px",
+              borderRadius: "0.375rem",
+              background: display,
+              border: "1px solid #e2e8f0",
+            }}
+          />
+          <input
+            type="color"
+            value={value || placeholder}
+            onChange={(e) => onChange(e.target.value)}
+            style={{ position: "absolute", opacity: 0, width: 0, height: 0 }}
+          />
+        </label>
+        <input
+          type="text"
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+          style={{
+            border: "none",
+            outline: "none",
+            fontSize: "0.8125rem",
+            fontFamily: "monospace",
+            color: "#334155",
+            background: "transparent",
+            width: "100%",
+          }}
+        />
       </div>
     </div>
   );

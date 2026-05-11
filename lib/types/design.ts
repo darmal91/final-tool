@@ -7,6 +7,8 @@ export interface ThemeTokens {
   tone: Tone;
   density: Density;
   radius: RadiusStyle;
+  primaryColor?: string;
+  accentColor?: string;
 }
 
 export interface ResolvedTheme {

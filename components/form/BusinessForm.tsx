@@ -22,6 +22,12 @@ const TONES: { value: Tone; label: string; hint: string }[] = [
   { value: "aggressive", label: "Aggressive", hint: "Direct, urgent, conversion-first" },
 ];
 
+const TONE_DEFAULT_COLORS: Record<Tone, { primary: string; accent: string }> = {
+  premium: { primary: "#0F172A", accent: "#C8A24B" },
+  friendly: { primary: "#2563EB", accent: "#F59E0B" },
+  aggressive: { primary: "#DC2626", accent: "#FACC15" },
+};
+
 interface Preset {
   label: string;
   businessName: string;
@@ -95,6 +101,72 @@ const labelBase: React.CSSProperties = {
   marginBottom: "0.375rem",
 };
 
+function ColorInput({
+  label,
+  value,
+  placeholder,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  placeholder: string;
+  onChange: (v: string) => void;
+}) {
+  const display = value || placeholder;
+  return (
+    <div>
+      <div style={{ fontSize: "0.75rem", color: "#64748b", marginBottom: "0.375rem" }}>{label}</div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.5rem",
+          border: "1px solid #cbd5e1",
+          borderRadius: "0.5rem",
+          padding: "0.375rem 0.5rem",
+          background: "white",
+        }}
+      >
+        <label style={{ position: "relative", cursor: "pointer", flexShrink: 0 }}>
+          <div
+            style={{
+              width: "28px",
+              height: "28px",
+              borderRadius: "0.375rem",
+              background: display,
+              border: "1px solid #e2e8f0",
+            }}
+          />
+          <input
+            type="color"
+            value={value || placeholder}
+            onChange={(e) => onChange(e.target.value)}
+            style={{ position: "absolute", opacity: 0, width: 0, height: 0 }}
+          />
+        </label>
+        <input
+          type="text"
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => {
+            const v = e.target.value;
+            onChange(v);
+          }}
+          style={{
+            border: "none",
+            outline: "none",
+            fontSize: "0.8125rem",
+            fontFamily: "monospace",
+            color: "#334155",
+            background: "transparent",
+            width: "100%",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
 export default function BusinessForm() {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
@@ -107,6 +179,9 @@ export default function BusinessForm() {
   const [tone, setTone] = useState<Tone>("friendly");
   const [differentiator, setDifferentiator] = useState("");
   const [phone, setPhone] = useState("");
+  const [primaryColor, setPrimaryColor] = useState("");
+  const [accentColor, setAccentColor] = useState("");
+  const [colorsOpen, setColorsOpen] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -130,7 +205,12 @@ export default function BusinessForm() {
     fetch("/api/projects", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ ...input, businessId }),
+      body: JSON.stringify({
+        ...input,
+        businessId,
+        ...(primaryColor ? { primaryColor } : {}),
+        ...(accentColor ? { accentColor } : {}),
+      }),
     }).catch(() => {});
 
     router.push(`/generating/${businessId}?name=${encodeURIComponent(businessName.trim())}`);
@@ -144,6 +224,9 @@ export default function BusinessForm() {
     setServices(p.services);
     setDifferentiator(p.differentiator);
     setPhone(p.phone);
+    setPrimaryColor("");
+    setAccentColor("");
+    setColorsOpen(false);
   }
 
   return (
@@ -288,6 +371,69 @@ export default function BusinessForm() {
             </button>
           ))}
         </div>
+      </div>
+
+      <div>
+        {!colorsOpen ? (
+          <button
+            type="button"
+            onClick={() => setColorsOpen(true)}
+            style={{
+              background: "none",
+              border: "none",
+              padding: 0,
+              fontSize: "0.8125rem",
+              color: "#64748b",
+              cursor: "pointer",
+              textDecoration: "underline",
+              textDecorationStyle: "dotted",
+              textUnderlineOffset: "2px",
+            }}
+          >
+            Customize brand colors
+          </button>
+        ) : (
+          <div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: "0.625rem",
+              }}
+            >
+              <label style={labelBase}>Brand Colors (optional)</label>
+              <button
+                type="button"
+                onClick={() => { setPrimaryColor(""); setAccentColor(""); setColorsOpen(false); }}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  fontSize: "0.75rem",
+                  color: "#94a3b8",
+                  cursor: "pointer",
+                }}
+              >
+                Reset to defaults
+              </button>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+              <ColorInput
+                label="Primary"
+                value={primaryColor}
+                placeholder={TONE_DEFAULT_COLORS[tone].primary}
+                onChange={setPrimaryColor}
+              />
+              <ColorInput
+                label="Accent"
+                value={accentColor}
+                placeholder={TONE_DEFAULT_COLORS[tone].accent}
+                onChange={setAccentColor}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {error && (

@@ -29,6 +29,8 @@ export interface BusinessInput {
   differentiator: string;
   phone?: string;
   email?: string;
+  primaryColor?: string;
+  accentColor?: string;
 }
 
 export interface BusinessProject {

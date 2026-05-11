@@ -31,5 +31,5 @@ export function themeFromInput(input: BusinessInput): ThemeTokens {
     radius = "soft";
   }
 
-  return { tone, density, radius };
+  return { tone, density, radius, primaryColor: input.primaryColor, accentColor: input.accentColor };
 }

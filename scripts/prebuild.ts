@@ -14,6 +14,8 @@ interface LeadRow {
   services: string;
   tone: string;
   differentiator: string;
+  primaryColor?: string;
+  accentColor?: string;
 }
 
 interface ResultRow {
@@ -69,6 +71,8 @@ async function processBusiness(lead: LeadRow, index: number, total: number): Pro
         services,
         tone: lead.tone,
         differentiator: lead.differentiator ?? "",
+        ...(lead.primaryColor ? { primaryColor: lead.primaryColor } : {}),
+        ...(lead.accentColor ? { accentColor: lead.accentColor } : {}),
       }),
     });
 

@@ -3,6 +3,8 @@ import { loadProject, updateComposition } from "@/lib/projects/store";
 import { applyContentEdit } from "@/lib/composition/edit";
 import type { Section, SectionType } from "@/lib/types";
 import { VARIANTS_BY_TYPE } from "@/lib/types";
+import { isValidHex, hexDarken, hexSoft } from "@/lib/design/colorUtils";
+import { toneDefaultColors } from "@/lib/design/tokens";
 
 export const runtime = "nodejs";
 
@@ -20,12 +22,14 @@ export async function GET(
 }
 
 interface PatchBody {
-  action: "set-variant" | "reorder" | "remove" | "edit-content";
+  action: "set-variant" | "reorder" | "remove" | "edit-content" | "update-colors";
   sectionId?: string;
   variant?: string;
   order?: string[];
   fieldPath?: string;
   value?: string;
+  primaryColor?: string | null;
+  accentColor?: string | null;
 }
 
 function isValidVariantFor(type: SectionType, variant: string): boolean {
@@ -71,6 +75,26 @@ export async function PATCH(
       body.value.length <= MAX_VALUE_LEN
     ) {
       return applyContentEdit(comp, body.sectionId, body.fieldPath, body.value);
+    }
+    if (body.action === "update-colors") {
+      const primary = body.primaryColor || undefined;
+      const accent = body.accentColor || undefined;
+      if (primary && !isValidHex(primary)) return comp;
+      if (accent && !isValidHex(accent)) return comp;
+      const newTokens = { ...comp.theme.tokens, primaryColor: primary, accentColor: accent };
+      const newCssVars = { ...comp.theme.cssVars };
+      const defaults = toneDefaultColors(comp.theme.tokens.tone);
+      if (primary) {
+        newCssVars["--ft-brand"] = primary;
+        newCssVars["--ft-brand-hover"] = hexDarken(primary, 0.15);
+        newCssVars["--ft-brand-soft"] = hexSoft(primary, 0.12);
+      } else {
+        newCssVars["--ft-brand"] = defaults.brand;
+        newCssVars["--ft-brand-hover"] = defaults.brandHover;
+        newCssVars["--ft-brand-soft"] = defaults.brandSoft;
+      }
+      newCssVars["--ft-accent"] = accent ?? defaults.accent;
+      return { ...comp, theme: { ...comp.theme, tokens: newTokens, cssVars: newCssVars } };
     }
     return comp;
   });

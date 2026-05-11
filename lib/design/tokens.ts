@@ -2,6 +2,7 @@ import type { Density, RadiusStyle, ResolvedTheme, ThemeTokens } from "@/lib/typ
 import type { Tone } from "@/lib/types";
 import type { HierarchyTokens } from "./hierarchyTokens";
 import type { RealismConfig } from "./realism";
+import { hexDarken, hexSoft } from "./colorUtils";
 
 interface TonePalette {
   brand: string;
@@ -170,6 +171,15 @@ export function resolveTheme(tokens: ThemeTokens, hierarchy?: HierarchyTokens, r
     "--ft-fs-eyebrow": TYPOGRAPHY_SCALE.eyebrow,
   };
 
+  if (tokens.primaryColor) {
+    cssVars["--ft-brand"] = tokens.primaryColor;
+    cssVars["--ft-brand-hover"] = hexDarken(tokens.primaryColor, 0.15);
+    cssVars["--ft-brand-soft"] = hexSoft(tokens.primaryColor, 0.12);
+  }
+  if (tokens.accentColor) {
+    cssVars["--ft-accent"] = tokens.accentColor;
+  }
+
   if (hierarchy) {
     cssVars["--ft-hero-scale"] = String(hierarchy.heroScale);
     cssVars["--ft-heading-scale"] = String(hierarchy.headingScale);
@@ -187,6 +197,11 @@ export function resolveTheme(tokens: ThemeTokens, hierarchy?: HierarchyTokens, r
   }
 
   return { tokens, cssVars, fontFamily: palette.fontFamily };
+}
+
+export function toneDefaultColors(tone: Tone): { brand: string; brandHover: string; brandSoft: string; accent: string } {
+  const p = TONE_PALETTES[tone];
+  return { brand: p.brand, brandHover: p.brandHover, brandSoft: p.brandSoft, accent: p.accent };
 }
 
 export function cssVarsToInline(theme: ResolvedTheme): React.CSSProperties {
