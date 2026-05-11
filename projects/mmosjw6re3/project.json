@@ -1,7 +1,7 @@
 {
   "project": {
-    "id": "mem7n4vaav",
-    "createdAt": "2026-05-09T01:24:39.856Z",
+    "id": "mmosjw6re3",
+    "createdAt": "2026-05-11T22:36:39.449Z",
     "input": {
       "businessName": "Summit Roofing",
       "businessType": "roofer",
@@ -20,7 +20,7 @@
     "assets": []
   },
   "composition": {
-    "businessId": "mem7n4vaav",
+    "businessId": "mmosjw6re3",
     "theme": {
       "tokens": {
         "tone": "aggressive",
@@ -81,49 +81,48 @@
         "content": {
           "eyebrow": "Roofer · Austin, TX",
           "headline": "Roof Leaking Now?",
-          "subheadline": "Get a same-day inspection in Austin, backed by our license, bond, and insurance.",
-          "ctaText": "Inspect My Roof",
+          "subheadline": "Fast repairs in Austin, Texas, guaranteed by licensed and insured professionals today",
+          "ctaText": "Get Your Free Inspection",
           "ctaHref": "#contact",
           "trustBadges": [
             "Licensed & Insured",
             "Bonded",
             "Free Same-Day Inspections"
-          ],
-          "imageUrl": "https://images.unsplash.com/photo-1709713856138-748aafb89419?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w5NDg2OTR8MHwxfHNlYXJjaHwxfHxyb29maW5nJTIwaG91c2V8ZW58MHwxfHx8MTc3ODUzOTc4OHww&ixlib=rb-4.1.0&q=80&w=1080"
+          ]
         }
       },
       {
         "id": "services",
         "type": "services",
-        "variant": "icon-list",
+        "variant": "step-based",
         "content": {
-          "heading": "Stop Roof Damage",
-          "subheading": "From emergency repairs to full replacements, same-day inspections across Austin.",
+          "heading": "How We Help Austin Homes",
+          "subheading": "From emergency repairs to full replacements, fast service across Austin.",
           "services": [
             {
               "title": "Roof Replacement",
-              "description": "When repairs aren't enough, we tear off the old and install a new, secure roof built to last.",
+              "description": "Installing new, durable roofs efficiently, ensuring your home is protected for decades without delay.",
               "icon": "🏠"
             },
             {
               "title": "Storm Damage Repair",
-              "description": "High winds, hail, or falling trees — we respond fast to secure your home and prevent further water.",
+              "description": "When storms hit, we act fast to secure your roof and stop further damage before it worsens.",
               "icon": "⛈️"
             },
             {
               "title": "Gutter Installation",
-              "description": "Proper gutters divert water away, protecting your foundation and siding from costly erosion and damage.",
+              "description": "New gutters properly divert water away, protecting your foundation and landscaping from costly erosion.",
               "icon": "💧"
             },
             {
               "title": "Roof Inspection",
-              "description": "Free same-day inspections identify hidden issues or potential weak points before they become major problems.",
+              "description": "Our free, same-day inspections catch small issues before they become major, saving you money.",
               "icon": "🔍"
             },
             {
               "title": "Leak Repair",
-              "description": "Find and fix leaks fast to stop water damage in its tracks. We pinpoint the source and seal.",
-              "icon": "💦"
+              "description": "Locating and sealing leaks quickly prevents rot and structural harm, restoring your roof's integrity fast.",
+              "icon": "🩹"
             }
           ]
         }
@@ -131,27 +130,27 @@
       {
         "id": "reviews",
         "type": "reviews",
-        "variant": "single-highlight",
+        "variant": "grid",
         "content": {
           "heading": "What Austin Homeowners Say",
-          "subheading": "See why we're Austin's choice for urgent roofing needs.",
+          "subheading": "See why we're trusted when roofs fail.",
           "reviews": [
             {
-              "name": "Marcus P.",
-              "role": "Austin Homeowner",
-              "body": "Had a tree branch puncture my roof during a storm. Summit was out within hours, tarped it, and gave a clear quote. Lifesavers.",
+              "name": "Sarah M.",
+              "role": "Homeowner, Austin",
+              "body": "Summit Roofing responded instantly after the hail storm. Inspection was quick, repair was even faster. Highly recommend for Austin homes.",
               "rating": 5
             },
             {
-              "name": "Sarah J.",
-              "role": "Cedar Park Resident",
-              "body": "Needed a full roof replacement after hail. Their team was quick, professional, and kept the site clean. No issues since.",
+              "name": "Mark D.",
+              "role": "Homeowner, Austin",
+              "body": "Had a persistent leak nobody else could find. Summit's team found it and fixed it right away. Huge relief.",
               "rating": 5
             },
             {
-              "name": "David L.",
-              "role": "South Austin Property Manager",
-              "body": "Called for an inspection after some heavy winds. They were honest, found a few loose shingles, and fixed them on the spot. Appreciate the transparency.",
+              "name": "Jessica L.",
+              "role": "Homeowner, Austin",
+              "body": "New roof looks great and was installed exactly as promised. Cleanup was perfect. Very professional crew.",
               "rating": 5
             }
           ]
@@ -162,10 +161,10 @@
         "type": "cta",
         "variant": "urgency",
         "content": {
-          "eyebrow": "Don't Wait.",
-          "heading": "Your roof is critical. Don't risk further damage.",
-          "subheading": "Get a free same-day inspection and protect your home today.",
-          "buttonText": "Call Now for Inspection",
+          "eyebrow": "Don't wait for the damage to spread.",
+          "heading": "Your Roof Needs Attention Now.",
+          "subheading": "Free, same-day inspection. No obligation, just honest answers and fast action.",
+          "buttonText": "Call for Immediate Help",
           "buttonHref": "tel:5124449988",
           "microcopy": "Licensed, bonded, and insured for your peace of mind."
         }

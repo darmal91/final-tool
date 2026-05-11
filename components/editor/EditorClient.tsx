@@ -2,7 +2,7 @@
 
 import { useCallback, useRef, useState, useTransition } from "react";
 import Link from "next/link";
-import type { BusinessAsset, BusinessProject, SiteComposition, Section } from "@/lib/types";
+import type { BusinessAsset, BusinessProject, HeroContent, SiteComposition, Section } from "@/lib/types";
 import RenderComposition from "@/components/render/RenderComposition";
 import { applyContentEdit } from "@/lib/composition/edit";
 import { toneDefaultColors } from "@/lib/design/tokens";
@@ -77,6 +77,32 @@ export default function EditorClient({
       if (res.ok) {
         const j = (await res.json()) as { composition: SiteComposition };
         setComposition(j.composition);
+
+        if (variant === "premium-split") {
+          const hero = j.composition.sections.find((s) => s.id === sectionId);
+          const hasImage = hero && (hero.content as HeroContent).imageUrl;
+          if (!hasImage) {
+            const imgRes = await fetch(
+              `/api/images/hero?type=${encodeURIComponent(project.input.businessType)}`
+            );
+            if (imgRes.ok) {
+              const { imageUrl } = (await imgRes.json()) as { imageUrl: string };
+              setComposition((prev) => ({
+                ...prev,
+                sections: prev.sections.map((s) =>
+                  s.id === sectionId && s.type === "hero"
+                    ? { ...s, content: { ...s.content, imageUrl } }
+                    : s
+                ),
+              }));
+              fetch(`/api/projects/${project.id}`, {
+                method: "PATCH",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({ action: "update-image", sectionId, imageUrl }),
+              }).catch(() => {});
+            }
+          }
+        }
       }
     });
   }
